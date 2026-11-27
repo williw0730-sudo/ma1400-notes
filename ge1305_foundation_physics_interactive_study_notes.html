@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GE1305 Foundation Physics — Interactive Bilingual Study Notes</title>
+
+  <!-- Inter Font for Clean Academic Readability -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- KaTeX CDN for Crisp LaTeX Formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    /* Custom bilingual toggle behavior */
+    body.hide-cn .cn {
+      display: none !important;
+    }
+
+    /* Smooth touch-friendly range sliders for iPad & Desktop */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      border-radius: 9999px;
+      background: #cbd5e1;
+      outline: none;
+    }
+    .dark input[type="range"] {
+      background: #334155;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4f46e5;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      transition: transform 0.12s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4f46e5;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Collapsible card chevron rotation */
+    .topic-card[data-open="false"] .topic-body {
+      display: none;
+    }
+    .topic-card[data-open="false"] .chevron-icon {
+      transform: rotate(-90deg);
+    }
+    .chevron-icon {
+      transition: transform 0.2s ease;
+    }
+
+    /* Canvas responsive wrapper */
+    .sim-canvas {
+      width: 100%;
+      display: block;
+      border-radius: 0.75rem;
+      touch-action: pan-y;
+    }
+
+    /* KaTeX overflow safety on narrow screens */
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.25rem 0;
+    }
+
+    /* Highlighted search match */
+    .search-match {
+      box-shadow: 0 0 0 2px #6366f1;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-200">
+
+  <!-- ================= TOP STICKY HEADER ================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <!-- Left: Mobile Sidebar Toggle + Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="sidebarToggleBtn" aria-label="Toggle Menu"
+          class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white font-extrabold text-sm shadow-sm shrink-0">
+            Φ
+          </div>
+          <div class="truncate">
+            <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white truncate">
+              GE1305 Foundation Physics
+            </h1>
+            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate">
+              CityU Interactive Bilingual Study Notes <span class="cn">· 香港城市大學互動雙語物理筆記</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Real-Time Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-md relative">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+        <input id="globalSearchInput" type="text" placeholder="Search concepts, formulas, examples (e.g. Snell, Carnot, K-40, Quark)..."
+          class="w-full pl-10 pr-20 py-2 text-sm rounded-xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition" />
+        <span id="searchCountBadge" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300"></span>
+      </div>
+
+      <!-- Right: CN Toggle + Theme Toggle -->
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="toggleCnBtn"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition flex items-center gap-1.5">
+          <span id="toggleCnLabel">隱藏中文翻譯</span>
+          <span class="hidden sm:inline opacity-75">(CN)</span>
+        </button>
+
+        <button id="themeToggleBtn" aria-label="Toggle Dark Mode"
+          class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300 transition">
+          <svg id="sunIcon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+          <svg id="moonIcon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="md:hidden px-3 pb-2.5">
+      <div class="relative">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+        </svg>
+        <input id="mobileSearchInput" type="text" placeholder="Search all 6 chapters..."
+          class="w-full pl-9 pr-16 py-2 text-sm rounded-xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:outline-none" />
+        <span id="mobileSearchCountBadge" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <div class="max-w-[1600px] mx-auto flex relative">
+
+    <!-- Mobile Backdrop -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-slate-950/50 z-40 hidden lg:hidden backdrop-blur-xs"></div>
+
+    <!-- ================= SIDEBAR NAVIGATION ================= -->
+    <aside id="sidebar"
+      class="fixed lg:sticky top-16 left-0 z-50 lg:z-20 h-[calc(100vh-4rem)] w-72 shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 overflow-y-auto p-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-200">
+      <div class="mb-4">
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 mb-2">
+          Course Chapters <span class="cn">課程章節</span>
+        </p>
+        <nav id="chapterNav" class="space-y-1.5">
+          <button data-target="all" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold transition flex items-center justify-between bg-indigo-600 text-white shadow-sm">
+            <span>All Chapters Overview <span class="cn block text-xs font-normal opacity-90">全部章節總覽</span></span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-white/20">6</span>
+          </button>
+          <button data-target="ch1" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 1</span> Wave & Optics
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">波動與光學 · 2 Interactive Labs</span>
+          </button>
+          <button data-target="ch2" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 2</span> Force & Motion
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">力與運動 · 1 Interactive Lab</span>
+          </button>
+          <button data-target="ch3" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 3</span> Thermal Physics
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">熱物理學 · 1 Interactive Lab</span>
+          </button>
+          <button data-target="ch4" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 4</span> Electricity & Magnetism
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">電磁學 · 1 Interactive Lab</span>
+          </button>
+          <button data-target="ch5" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 5</span> Quantum Physics
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">量子物理 · 1 Interactive Lab</span>
+          </button>
+          <button data-target="ch6" class="nav-btn w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <span class="font-bold text-indigo-600 dark:text-indigo-400 mr-1">Ch 6</span> Atoms, Nuclear & Particles
+            <span class="cn block text-xs text-slate-500 dark:text-slate-400 mt-0.5">原子、核物理與粒子 · 1 Lab</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Quick Lab Shortcuts -->
+      <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 mb-2">
+          Interactive Labs <span class="cn">互動實驗室</span>
+        </p>
+        <div class="space-y-1 text-xs">
+          <button onclick="jumpToLab('ch1', 'lab-lens')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            🔬 1. Thin Lens & Curvature
+          </button>
+          <button onclick="jumpToLab('ch1', 'lab-wave')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            🌊 2. Superposition & Beats
+          </button>
+          <button onclick="jumpToLab('ch2', 'lab-friction')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            📦 3. Friction & Newton's 2nd Law
+          </button>
+          <button onclick="jumpToLab('ch3', 'lab-carnot')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            🔥 4. Carnot Engine & p-V Loop
+          </button>
+          <button onclick="jumpToLab('ch4', 'lab-lorentz')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            🧲 5. Lorentz Force Cyclotron
+          </button>
+          <button onclick="jumpToLab('ch5', 'lab-photoelectric')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            ⚡ 6. Photoelectric Effect
+          </button>
+          <button onclick="jumpToLab('ch6', 'lab-halflife')" class="w-full text-left px-2.5 py-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 font-medium transition">
+            ☢️ 7. Radioactive Half-Life
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT AREA ================= -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 space-y-10">
+
+      <!-- Global Controls Banner -->
+      <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-semibold bg-white/15 px-3 py-1 rounded-full mb-2">
+            <span>CityU HK · GE1305 Foundation Physics</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">
+            Complete Course Study Guide & Interactive Simulations
+          </h2>
+          <p class="text-indigo-100 text-sm mt-1">
+            All 6 chapters with every lecture concept, formula, and real-world example.
+            <span class="cn block text-indigo-200 mt-0.5">涵蓋全部六個章節的完整知識點、公式、生活例子及 7 個即時互動動畫實驗室。</span>
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 shrink-0">
+          <button onclick="toggleAllCards(true)" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white text-indigo-700 hover:bg-indigo-50 transition shadow-sm">
+            Expand All <span class="cn">全部展開</span>
+          </button>
+          <button onclick="toggleAllCards(false)" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white/15 text-white hover:bg-white/25 transition">
+            Collapse All <span class="cn">全部摺疊</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Empty State -->
+      <div id="noSearchResults" class="hidden text-center py-12 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <p class="text-lg font-bold text-slate-700 dark:text-slate-200">No matching notes found.</p>
+        <p class="text-sm text-slate-500 mt-1">Try another keyword like "Snell", "Carnot", "Lorentz", "Bohr", or "Quark". <span class="cn">找不到相符筆記，請嘗試其他關鍵字。</span></p>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 1: WAVE & OPTICS                                              -->
+      <!-- ===================================================================== -->
+      <section id="ch1" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 1 · Lectures L1 & L2</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Wave & Optics <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">波動與光學</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch1', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 1</button>
+            <button onclick="toggleChapterCards('ch1', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 1</button>
+          </div>
+        </div>
+
+        <!-- Topic 1.1: Oscillations, Waves & Wave Types -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <div>
+              <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+                1.1 Oscillations, Waves & Wave Types <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">振盪、波動與波的類型</span>
+              </h3>
+            </div>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Harmonic Oscillation & Vibrations <span class="cn text-xs text-slate-500">簡諧振盪與振動</span></h4>
+                <p>An <strong>oscillation</strong> is a regular periodic motion in time (e.g., mass-spring on a frictionless surface, simple pendulum). A <strong>vibration</strong> is movement about a mean position (linear, circular, periodic, or non-periodic) — some are useful (loudspeaker membrane), while most are unwanted (machine shaking).</p>
+                <p class="cn text-slate-600 dark:text-slate-300 text-xs">振盪是隨時間規律重複的週期運動（如無摩擦彈簧振子、單擺）。振動是物體繞平衡位置的運動，有些是有用的（喇叭振膜），但多數是有害的（機器震動）。</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 font-medium text-xs sm:text-sm">
+                  $$y = A\sin(\omega t), \quad \omega = \frac{2\pi}{T}, \quad f = \frac{1}{T}, \quad v = \frac{\lambda}{T} = f\lambda$$
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400">
+                  <strong>Amplitude ($A$)</strong>: max displacement from equilibrium (vertical distance, NOT peak-to-peak). <strong>Wavelength ($\lambda$)</strong>: crest-to-crest distance. For a given medium (fixed $v$), $f$ is <strong>inversely proportional</strong> to $\lambda$.
+                  <span class="cn block mt-0.5">振幅 $A$ 是由平衡位置到波峰的垂直距離（非波峰到波谷）。在同一介質中波速 $v$ 固定，頻率 $f$ 與波長 $\lambda$ 成反比。</span>
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">What is a Wave? & Wave Types <span class="cn text-xs text-slate-500">波的本質與類型</span></h4>
+                <p>A <strong>wave</strong> is a periodic motion in both space and time that <strong>transports energy and information</strong> over long distances <em>without transporting matter</em> (particles only oscillate locally around equilibrium).</p>
+                <p class="cn text-slate-600 dark:text-slate-300 text-xs">波是在空間和時間上皆具週期性的運動，能長距離傳遞能量與資訊，但<strong>不傳遞物質</strong>（介質粒子只在原位附近來回振動）。</p>
+                <ul class="list-disc pl-5 space-y-1.5">
+                  <li><strong>Transverse Wave (橫波):</strong> Particles vibrate <strong>perpendicular</strong> ($\perp$) to propagation; consists of <em>crests & troughs</em>. Examples: light waves, water waves, waves on a string. <span class="cn text-xs text-slate-500">質點振動方向垂直於傳播方向，由波峰與波谷組成（如光波、水波）。</span></li>
+                  <li><strong>Longitudinal Wave (縱波):</strong> Particles vibrate <strong>parallel</strong> ($\parallel$) to propagation; consists of <em>compressions</em> (high density/pressure) and <em>rarefactions</em> (low density/pressure). Example: sound waves in air. Often converted to a transverse sine graph for clearer visualization. <span class="cn text-xs text-slate-500">質點振動方向平行於傳播方向，由密部與疏部組成（如聲波）；常轉畫成橫波圖以便觀察。</span></li>
+                  <li><strong>Phase Difference (相位差):</strong> Points $180^\circ$ out of phase are separated by $\lambda/2$ (opposite displacement and velocity). <span class="cn text-xs text-slate-500">相位差 $180^\circ$ 的兩點相距半個波長 $\lambda/2$。</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 1.2: Sound Waves, Hearing Range & Intensity -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              1.2 Sound Waves, Hearing Range, Timbre & Intensity <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">聲波、聽覺範圍、音色與聲強</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2.5">
+                <p><strong>Mechanical Nature:</strong> Sound is a longitudinal mechanical wave requiring a material medium (solid, liquid, or gas). It <strong>cannot travel in vacuum</strong> (unlike light). Sound travels faster in denser/stiffer media (faster in water/solids than in air; $v_{\text{air}} \approx 340\text{ m/s}$).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">聲波是縱向機械波，必須依靠物質介質傳播，不能在真空中傳播；水中聲速快於空氣（空氣中約 $340\text{ m/s}$）。</p>
+                <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 text-xs space-y-1">
+                  <span class="font-bold text-amber-800 dark:text-amber-300">⚡ Key Real-World Example: Lightning & Thunder</span>
+                  <p>Light arrives almost instantly. If thunder is heard 3 s later, distance $d = 340\text{ m/s} \times 3\text{ s} = 1020\text{ m} \approx 1\text{ km}$. <span class="cn">閃電後 3 秒聽到雷聲，代表雷電距離約 1000 米。</span></p>
+                </div>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Pitch (音調)</strong> $\to$ Frequency ($f$). Higher $f$ = higher pitch.</li>
+                  <li><strong>Loudness (響度)</strong> $\to$ Amplitude ($A$). Intensity $I \propto A^2$ (units: $\text{W/m}^2$).</li>
+                  <li><strong>Timbre / Quality (音色)</strong> $\to$ Waveform. <strong>Fourier Analysis</strong> shows any periodic musical sound is a sum of simple sine waves of different frequencies and amplitudes. <span class="cn text-xs text-slate-500">傅立葉分析：任何週期性樂音皆可分解為多個不同頻率與振幅的正弦波疊加。</span></li>
+                  <li><strong>Noise vs Music:</strong> Noise = irregular vibration; White noise = mixture of many frequencies; Music = periodic tones. <span class="cn text-xs text-slate-500">噪音為不規則振動；白噪音包含各種頻率混合；音樂為週期性音調。</span></li>
+                </ul>
+              </div>
+              <div class="space-y-2.5">
+                <p><strong>Hearing Range:</strong> Young humans hear <strong>20 Hz – 20,000 Hz</strong>. Below 20 Hz = <strong>Infrasound</strong> (elephants: 14–12,000 Hz). Above 20,000 Hz = <strong>Ultrasound</strong> (cats 48–75k, dogs 64–45k, bats 7,000–200,000 Hz; dolphins use echolocation; humans use ultrasound for prenatal medical imaging & submarine sonar).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">人耳聽覺範圍為 20–20,000 Hz。低於 20 Hz 為次聲波（大象可聽）；高於 20,000 Hz 為超聲波（蝙蝠、海豚回聲定位、醫學超聲波掃描、聲納）。</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\text{Sound Level (dB)} = 10 \log_{10}\!\left(\frac{I}{I_0}\right), \quad I_0 = 10^{-12}\text{ W/m}^2 \text{ (0 dB)}$$
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400">
+                  Threshold of hearing: $10^{-12}\text{ W/m}^2$ (0 dB); Whisper: 20 dB; Home conversation: 60 dB; Busy street: 70 dB; Threshold of pain / siren: $1\text{ W/m}^2$ (120 dB); Jet 30 m away: 140 dB.
+                  <br /><strong>Reflection & Absorption:</strong> Concert halls suspend reflectors above stage to direct sound; anechoic quiet rooms use spongy walls to absorb sound (converted to heat).
+                  <span class="cn block mt-0.5">音樂廳天花設反射板導引聲音；消音室用海綿狀吸音牆把聲能轉為熱能。</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 1.3: Superposition, Standing Waves, Beats & Doppler -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              1.3 Superposition, Standing Waves, Beats & Doppler Effect <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">波的疊加、駐波、拍頻與都卜勒效應</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Interference & Noise Cancellation <span class="cn text-xs text-slate-500">干涉與主動降噪</span></h4>
+                <p><strong>Constructive interference</strong> (in-phase) reinforces amplitude; <strong>destructive interference</strong> ($180^\circ$ out-of-phase) cancels waves. <strong>Noise-canceling earphones</strong> record ambient noise with a mic and emit an equal-amplitude wave phase-shifted by $180^\circ$ (anti-noise) to cancel it.</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">相長干涉使振幅增強，相消干涉（相位差 $180^\circ$）使波抵銷。主動降噪耳機透過麥克風收集噪音並發出反相 $180^\circ$ 聲波來抵銷環境噪音。</p>
+
+                <h4 class="font-bold text-slate-900 dark:text-white pt-1">Standing Waves <span class="cn text-xs text-slate-500">駐波</span></h4>
+                <p>Formed by two identical waves traveling in opposite directions. <strong>Nodes (N)</strong> have zero amplitude; <strong>Antinodes (A)</strong> have maximum amplitude. For a string or open-open pipe of length $L$: $\lambda_n = \frac{2L}{n}$ ($n=1,2,3\dots$). String wave speed: $v = \sqrt{\tau/\rho}$ (higher tension $\tau \Rightarrow$ faster wave & higher pitch; higher linear density $\rho \Rightarrow$ slower wave & lower pitch). Applications: guitar frets shorten $L$ for higher pitch; organ pipes; <strong>acoustic levitation</strong> traps tiny particles in pressure standing waves.</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">兩列相同但反向傳播的波疊加形成駐波。波節振幅為零，波腹振幅最大。弦線張力越大波速越快、密度越大波速越慢。應用包括吉他按品縮短弦長提高音調、管風琴及超聲波聲懸浮。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Beats <span class="cn text-xs text-slate-500">拍頻</span></h4>
+                <p>Two waves with <strong>slightly different frequencies</strong> superpose to produce periodic amplitude modulation: $f_{\text{beat}} = |f_1 - f_2|$. Used in <strong>piano tuning</strong> (adjust string until beats with a 256 Hz tuning fork disappear; 2 beats/s means string is 254 or 258 Hz).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">兩列頻率相近的波疊加會產生振幅週期性強弱變化（拍頻 $f_{\text{beat}} = |f_1 - f_2|$），鋼琴調音師藉此調準琴弦。</p>
+
+                <h4 class="font-bold text-slate-900 dark:text-white pt-1">Doppler Effect, Bow Waves & Shock Waves <span class="cn text-xs text-slate-500">都卜勒效應、船首波與衝擊波</span></h4>
+                <p>Relative motion between source and observer shifts the observed frequency (approaching $\Rightarrow$ higher $f'$; receding $\Rightarrow$ lower $f'$):</p>
+                <div class="p-2.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\text{Approaching: } f' = \frac{v + v_{\text{obs}}}{v - v_{\text{src}}} f \qquad \text{Receding: } f' = \frac{v - v_{\text{obs}}}{v + v_{\text{src}}} f$$
+                </div>
+                <p><strong>Bow waves</strong> occur when $v_{\text{src}} > v_{\text{wave}}$ (V-shaped constructive interference cone on water). A supersonic aircraft creates a 3D <strong>shock wave</strong> (high-pressure cone at bow + low-pressure cone at tail $\Rightarrow$ N-shaped pressure wave / sonic boom).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">當波源速率超過波速時，波前重疊形成 V 形船首波；超音速飛機則產生三維衝擊波（機頭高壓錐、機尾低壓錐，地面氣壓呈 N 字形，即音爆）。</p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 2: WAVE SUPERPOSITION & BEATS -->
+            <div id="lab-wave" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Interactive Lab 2 · Wave Superposition & Beats</span>
+                  <h4 class="text-base font-bold text-white">Interference, Noise-Cancellation & Beats Simulator <span class="cn text-xs font-normal text-slate-400">干涉、降噪與拍頻模擬器</span></h4>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <button onclick="setWavePreset('constructive')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition">Constructive (0°)</button>
+                  <button onclick="setWavePreset('cancel')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 hover:bg-rose-500 text-white transition">Noise-Cancel (180°)</button>
+                  <button onclick="setWavePreset('beats')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-violet-600 hover:bg-violet-500 text-white transition">Beats Demo</button>
+                </div>
+              </div>
+              <canvas id="waveCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 270px;"></canvas>
+              <div class="grid sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="waveF1" class="text-rose-400 font-semibold">Wave 1 Freq $f_1$</label><span id="waveF1Val" class="font-mono">4.0 Hz</span></div>
+                  <input id="waveF1" type="range" min="1" max="12" step="0.2" value="5.0" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="waveF2" class="text-sky-400 font-semibold">Wave 2 Freq $f_2$</label><span id="waveF2Val" class="font-mono">4.4 Hz</span></div>
+                  <input id="waveF2" type="range" min="1" max="12" step="0.2" value="5.6" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="wavePhase" class="text-amber-400 font-semibold">Phase Shift $\Delta\phi$</label><span id="wavePhaseVal" class="font-mono">0°</span></div>
+                  <input id="wavePhase" type="range" min="0" max="360" step="5" value="0" class="w-full" />
+                </div>
+              </div>
+              <div id="waveReadout" class="text-xs font-mono bg-slate-800/80 px-3 py-2 rounded-xl text-slate-200 flex flex-wrap gap-x-6 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 1.4: Light, Colour, Photography, Reflection & Refraction -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              1.4 Light, Colour, Reflection, Refraction, Mirages, TIR & Scattering <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">光、色彩、反射、折射、海市蜃樓、全內反射與散射</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Light, Vision & Colour <span class="cn text-xs text-slate-500">光的本質、視覺與色彩</span></h4>
+                <p>Light is a transverse <strong>electromagnetic (EM) wave</strong> generated by accelerating/vibrating electric charges (electrons). Needs <strong>no medium</strong>; $c = 3\times 10^8\text{ m/s}$ in vacuum. Visible spectrum: <strong>380–750 nm</strong> (~400–790 THz).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">光是由加速振動的電子產生的橫向電磁波，無需介質即可在真空中以 $3\times 10^8\text{ m/s}$ 傳播。可見光波長約 380–750 nm。</p>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Retina Sensors:</strong> <em>Rods</em> handle low-light vision; <em>Cones</em> (L-red, M-green, S-blue) handle colour & detail. Eye is most sensitive to <strong>yellowish-green</strong> (stimulates M & L equally). <span class="cn text-xs text-slate-500">視桿細胞負責暗視覺；視錐細胞（紅綠藍）負責彩色，人眼對黃綠光最敏感。</span></li>
+                  <li><strong>RGB Additive vs CMYK Subtractive:</strong> Screens & Bayer camera filters emit/detect RGB ("false white" = R+G+B; Pointillism uses eye-mixing). Printing uses CMYK inks that absorb light: Cyan absorbs Red, Magenta absorbs Green, Yellow absorbs Blue, Black (K) absorbs all. <span class="cn text-xs text-slate-500">螢幕用 RGB 加色法（點彩畫派原理）；印刷用 CMYK 減色法（青吸紅、品紅吸綠、黃吸藍、黑全吸）。</span></li>
+                  <li><strong>Photography History:</strong> Pinhole camera (smaller hole = sharper but dimmer) $\to$ lens camera (sharp & bright). Louis Daguerre (1837 daguerreotype using silver compounds), George Eastman (1884 flexible film, Kodak 1889).</li>
+                </ul>
+
+                <h4 class="font-bold text-slate-900 dark:text-white pt-1">Ray vs Wave Optics & Reflection <span class="cn text-xs text-slate-500">幾何光學、波動光學與反射</span></h4>
+                <p><strong>Ray Optics</strong> ($\lambda \ll d$): reflection, refraction, imaging. <strong>Wave Optics</strong> ($\lambda \approx d$): diffraction, interference, polarization. <strong>Law of Reflection</strong>: $\theta_I = \theta_R$ (holds for specular mirrors AND rough diffuse surfaces). Parabolic mirrors focus parallel rays cleanly; large spherical mirrors suffer from <em>spherical aberration</em>. <strong>Stealth aircraft</strong> angle flat surfaces to deflect radar away from the receiver.</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">幾何光學（$\lambda \ll d$）處理反射、折射、成像；波動光學（$\lambda \approx d$）處理繞射、干涉、偏振。反射定律 $\theta_I=\theta_R$ 適用於所有表面；隱形戰機利用特定傾角反射雷達波以降低雷達截面積。</p>
+              </div>
+
+              <div class="space-y-2.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Refraction, Mirages & Total Internal Reflection <span class="cn text-xs text-slate-500">折射、海市蜃樓與全內反射</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$n = \frac{c}{v}, \qquad n_1 \sin\theta_1 = n_2 \sin\theta_2, \qquad \sin\theta_c = \frac{n_2}{n_1} \; (n_1 > n_2)$$
+                </div>
+                <p>Refractive indices: Air $\approx 1.0003$, Water $\approx 1.33$, Glass $\approx 1.5$, Diamond $\approx 2.417$ ($v = 1.24\times 10^8\text{ m/s}$). When light enters a denser medium (air $\to$ water), <strong>speed $v$ decreases, wavelength $\lambda$ decreases, frequency $f$ stays constant</strong>. Submerged objects appear shallower (apparent depth; bent pencil).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">光從空氣進入水中，波速與波長變小，但頻率不變。折射使水中物體看起來更淺。</p>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Mirages (海市蜃樓):</strong> $n_{\text{cool air}} > n_{\text{hot air}}$. <em>Inferior mirage</em> (hot road / desert / sunset) bends sky light upward. <em>Superior mirage</em> (warm air over cold sea) bends light downward creating a "flying ship".</li>
+                  <li><strong>Total Internal Reflection (TIR):</strong> Occurs when light travels from $n_1 > n_2$ at $\theta_1 > \theta_c$. Basis of <strong>optical fibres</strong> (invented in 1966 by Sir Charles Kuen Kao 高錕教授).</li>
+                  <li><strong>Dispersion & Rainbow:</strong> $n$ depends on frequency (violet bends more than red). Raindrops refract, internally reflect, and disperse sunlight at $\sim 42^\circ$.</li>
+                  <li><strong>Rayleigh Scattering:</strong> Atmospheric molecules scatter shorter wavelengths (violet/blue) much more strongly $\Rightarrow$ <strong>blue sky</strong>. At sunset, light passes through a thicker slice of air, leaving less-scattered <strong>red/orange</strong> light to reach our eyes.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 1.5: Lenses, Vision, Compound Systems & Polarization -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              1.5 Lenses, Imaging, Human Eye, Optical Instruments & 3D Polarization <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">透鏡成像、人眼、光學儀器與 3D 偏振</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <p><strong>Thin Lens Equation & Magnification:</strong> Convex (converging, $f>0$) vs Concave (diverging, $f<0$). Any 2 of the 3 principal rays locate the image: (1) Parallel $\to$ through $F_2$; (2) Through $F_1 \to$ parallel; (3) Through lens center $\to$ undeflected.</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\frac{1}{f} = \frac{1}{i} + \frac{1}{p}, \qquad M = \frac{\text{Image size}}{\text{Object size}} = -\frac{i}{p}$$
+                </div>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-xs border-collapse border border-slate-200 dark:border-slate-700 rounded-lg">
+                    <thead class="bg-slate-100 dark:bg-slate-800">
+                      <tr><th class="p-2 border border-slate-200 dark:border-slate-700 text-left">Object ($p$)</th><th class="p-2 border border-slate-200 dark:border-slate-700 text-left">Image ($i$)</th><th class="p-2 border border-slate-200 dark:border-slate-700 text-left">Nature <span class="cn">成像性質</span></th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700">$p > 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$f < i < 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Real, inverted, diminished <span class="cn">實像、倒立、縮小</span></td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700">$p = 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$i = 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Real, inverted, same size <span class="cn">實像、倒立、等大</span></td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700">$f < p < 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$i > 2f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Real, inverted, magnified <span class="cn">實像、倒立、放大</span></td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700">$p = f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$\infty$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Parallel rays (no image) <span class="cn">平行光、不成像</span></td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700">$p < f$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Same side ($i<0$)</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Virtual, upright, magnified <span class="cn">虛像、正立、放大</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="space-y-2 text-xs sm:text-sm">
+                <ul class="list-disc pl-5 space-y-1.5">
+                  <li><strong>Rochester Cloak:</strong> Uses a 4-lens optical system to bend light around an object, creating cloaking windows of invisibility. <span class="cn text-xs text-slate-500">羅徹斯特隱形斗篷利用四片透鏡組使光線繞過物體實現隱形。</span></li>
+                  <li><strong>Antireflective (AR) Coating:</strong> Thin film of thickness $\lambda/4$ causes reflected rays from top and bottom interfaces to interfere destructively and cancel out. <span class="cn text-xs text-slate-500">減反射鍍膜厚度為 $\lambda/4$，使上下表面反射光相消干涉。</span></li>
+                  <li><strong>Human Eye:</strong> Cornea does most focusing; crystalline <strong>lens</strong> is variable (controlled by ciliary muscle) to focus on objects at different distances; <strong>iris</strong> = aperture; <strong>retina</strong> = image sensor.</li>
+                  <li><strong>Single Lens Limitations:</strong> Very short $f$ (~2.5 mm for 100x) is hard to manufacture; suffers from <em>spherical aberration</em> (edge rays focus closer) and <em>chromatic aberration</em> (blue & red focus at different points) $\Rightarrow$ solved by <strong>compound lenses</strong>.</li>
+                  <li><strong>Telescope vs Microscope:</strong> Telescope prioritizes <em>light-collecting power</em> (large objective diameter) & diffraction-limited resolution (affected by air turbulence $\to$ Hubble in space). Microscope targets high magnification with image at 25 cm near point.</li>
+                  <li><strong>3D Movies & Polarization:</strong> Early 3D used red/cyan colour filters. Modern 3D (RealD) uses <strong>linear or circular polarizers</strong> to separate left-eye and right-eye images. Polarized sunglasses block horizontal road glare.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 1: THIN LENS & CURVATURE SIMULATOR -->
+            <div id="lab-lens" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Interactive Lab 1 · Geometric Optics</span>
+                  <h4 class="text-base font-bold text-white">Thin Lens, Thickness/Curvature & Ray Tracing Simulator <span class="cn text-xs font-normal text-slate-400">透鏡寬度/曲率、焦距 $f$ 與光路互動模擬</span></h4>
+                </div>
+                <div class="flex gap-2">
+                  <button id="lensConvexBtn" onclick="setLensType('convex')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition">Convex 凸透鏡</button>
+                  <button id="lensConcaveBtn" onclick="setLensType('concave')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition">Concave 凹透鏡</button>
+                </div>
+              </div>
+              <canvas id="lensCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 310px;"></canvas>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lensCurvature" class="text-cyan-300 font-semibold">Lens Thickness / Curvature <span class="cn">透鏡厚度/曲率</span></label><span id="lensCurvatureVal" class="font-mono">50%</span></div>
+                  <input id="lensCurvature" type="range" min="15" max="100" step="1" value="50" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lensN" class="text-emerald-300 font-semibold">Refractive Index $n$ <span class="cn">折射率</span></label><span id="lensNVal" class="font-mono">1.50</span></div>
+                  <input id="lensN" type="range" min="1.25" max="2.20" step="0.05" value="1.50" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lensP" class="text-amber-300 font-semibold">Object Distance $p$ <span class="cn">物距</span></label><span id="lensPVal" class="font-mono">180 cm</span></div>
+                  <input id="lensP" type="range" min="30" max="260" step="2" value="175" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lensH" class="text-pink-300 font-semibold">Object Height $h_o$ <span class="cn">物高</span></label><span id="lensHVal" class="font-mono">55 cm</span></div>
+                  <input id="lensH" type="range" min="20" max="85" step="1" value="55" class="w-full" />
+                </div>
+              </div>
+              <div id="lensReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1.5"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 1.6: Invisible Light (EM Spectrum) -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              1.6 Invisible Light & Electromagnetic Spectrum <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">不可見光與電磁波譜</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-3 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <p class="font-semibold text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm">
+              Longest $\lambda$ (Lowest $f, E$) $\longrightarrow$ Shortest $\lambda$ (Highest $f, E$):
+              <span class="font-bold">Radio $\to$ Microwave $\to$ Infrared $\to$ Visible $\to$ Ultraviolet $\to$ X-ray $\to$ Gamma Ray</span>
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1">
+                <h4 class="font-bold text-orange-600 dark:text-orange-400">Blackbody & Infrared (IR) <span class="cn">黑體輻射與紅外線</span></h4>
+                <p>All objects $>0\text{ K}$ emit EM radiation (Planck's Law). Body ($37^\circ\text{C}$) $\to$ IR; Red hot ($3000\text{ K}$, tungsten bulb <5% visible efficiency); White hot ($6000\text{ K}$, Sun $\sim 5800\text{ K}$). <strong>LED</strong> is $7.5\times$ more efficient than incandescent (6 W LED = 15 W CFL = 45 W bulb). Colour temp: 2700K warm to 6000K daylight. <strong>IR uses:</strong> fever thermometer, thermography, night vision, pit vipers, mosquitoes, Stinger missiles.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">溫度越高峰值波長越短。鎢絲燈效率低於 5%，LED 比白熾燈節能 7.5 倍。紅外線應用於熱成像、夜視鏡、蝮蛇感熱及導彈追蹤。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1">
+                <h4 class="font-bold text-violet-600 dark:text-violet-400">Ultraviolet (UV) <span class="cn">紫外線</span></h4>
+                <p>Photon energy $E = hf = hc/\lambda$. Sunlight UV is <strong>95% UVA</strong> (315–400 nm, tanning/aging) & <strong>5% UVB</strong> (280–315 nm, sunburn, skin cancer, cataracts, but produces Vitamin D). <strong>UVC</strong> (100–280 nm, short wave) destroys germs & purifies water. Other uses: black light fluorescence, forensics, banknotes, photolithography (chips), $\text{TiO}_2$ self-cleaning glass.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">UVA 致黑老化；UVB 致曬傷、白內障但助合成維他命 D；UVC 波長最短能量最高，用於殺菌淨水。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1">
+                <h4 class="font-bold text-sky-600 dark:text-sky-400">Radio, Microwave, X-ray & Gamma <span class="cn">無線電波、微波、X射線與伽馬射線</span></h4>
+                <p><strong>Radio</strong> (3 kHz–300 GHz): AM (~100 kHz–30 MHz, long $\lambda$ reaches <300 km, lower sound quality/bitrate) vs FM (88–106 MHz, ~60 km). <strong>Microwaves</strong> (300 MHz–300 GHz): 2.45 GHz oven, 2.6 GHz 4G LTE, CW/pulse radar, radio astronomy (CMB, China's 500 m FAST). <strong>X-rays</strong>: fast electrons hit metal target (dental 0.005 mSv, chest 0.1 mSv, CT 6 mSv vs natural background 2.4 mSv/yr; airport backscatter). <strong>Gamma rays</strong>: emitted by radioactive nuclear decay.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">AM 波長較長傳播更遠但音質較差；微波用於微波爐、雷達及 FAST 射電望遠鏡；X 光用於醫學造影（CT 約 6 mSv，自然背景約 2.4 mSv/年）；伽馬射線來自原子核衰變。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 2: FORCE & MOTION                                             -->
+      <!-- ===================================================================== -->
+      <section id="ch2" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 2 · Force and Motion</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Force & Motion <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">力與運動</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch2', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 2</button>
+            <button onclick="toggleChapterCards('ch2', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 2</button>
+          </div>
+        </div>
+
+        <!-- Topic 2.1: Nature of Physics, Kinematics & Newton's 3 Laws -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              2.1 Nature of Physics, Kinematics & Newton's Three Laws <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">物理本質、運動學與牛頓三大定律</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 text-xs sm:text-sm space-y-1">
+              <p><strong>What is Physics?</strong> Physics is an <em>experimental science</em> that explains <strong>how</strong> nature works (not philosophical <em>why</em>). If reliable, repeatable experimental results disagree with a proposed physical law, scientists must <strong>revise or replace the law</strong> (votes or mathematical elegance never override evidence). <strong>Brief History:</strong> Ancient Greeks (Aristotle, Archimedes) $\to$ 17th c. Mechanics (Galileo, Kepler, Newton) $\to$ 1800s EM & Thermodynamics (Faraday, Maxwell, Kelvin, Boltzmann) $\to$ Modern Physics (Röntgen X-rays 1895, Becquerel radioactivity 1896, Planck quantum 1900, Einstein relativity 1905, Bohr atom 1913).</p>
+              <p class="cn text-xs text-slate-500 dark:text-slate-400">物理是實驗科學，研究自然「如何」運作而非哲學上的「為何」。當可重複的實驗結果與定律矛盾時，必須修正或取代該定律。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Kinematics <span class="cn text-xs text-slate-500">運動學</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$v_{x,\text{avg}} = \frac{\Delta x}{\Delta t} = \frac{x_f - x_i}{\Delta t}, \qquad a_{x,\text{avg}} = \frac{\Delta v_x}{\Delta t}$$
+                </div>
+                <p>On an $x$-$t$ graph, average velocity is the <strong>slope</strong> of the line connecting two endpoints. On a $v$-$t$ graph, average acceleration is the <strong>slope</strong>. A change in state of motion occurs <strong>only when acceleration $a \ne 0$</strong> (constant velocity = no change in state of motion).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">$x$-$t$ 圖的斜率為平均速度，$v$-$t$ 圖的斜率為平均加速度。只有當加速度不為零時，運動狀態才算改變。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Newton's Three Laws <span class="cn text-xs text-slate-500">牛頓三大定律</span></h4>
+                <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm">
+                  <li><strong>1st Law (Inertia 慣性):</strong> If $\Sigma\vec{F} = 0$, an object stays at rest or moves at constant velocity (Galileo overturned Aristotle's view). In sudden braking, an unrestrained passenger moves forward relative to the car due to <strong>inertia</strong> (no forward force acts on them). <span class="cn text-xs text-slate-500">煞車時乘客前傾是因為慣性保持原本速度，並非受到向前的力。</span></li>
+                  <li><strong>2nd Law ($\Sigma\vec{F} = m\vec{a}$):</strong> Always sum forces as vectors first to get <strong>net force</strong>. Airbags increase stopping time $\Delta t$, reducing deceleration $a$ and impact force $F$ on the head. <span class="cn text-xs text-slate-500">必須先求合外力；安全氣囊延長減速時間以減少衝擊力。</span></li>
+                  <li><strong>3rd Law (Action-Reaction 作用力與反作用力):</strong> $\vec{F}_{A\text{ on }B} = -\vec{F}_{B\text{ on }A}$ — equal magnitude, opposite direction, acting on <strong>different bodies</strong> (never cancel each other on one body!). In a truck-car collision, both exert <strong>equal forces</strong> on each other (the lighter car has larger $a = F/m$). Applications: swimming, walking, skateboarding, jet engines, gun recoil, and <strong>rockets in vacuum</strong> ($F_{\text{thrust}} \approx \dot{m}v_e$; exhaust gas pushes rocket forward, no air needed). <span class="cn text-xs text-slate-500">作用力與反作用力大小相等、方向相反、作用於不同物體。貨車撞小車時受力相同；火箭在真空中靠向後噴氣獲得向前的反作用推力。</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 2.2: Work, Energy & Friction -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              2.2 Work, Energy & Friction <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">功、能量與摩擦力</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Mechanical Work & Energy <span class="cn text-xs text-slate-500">機械功與能量轉換</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$W = F d \cos\theta$$
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li>$\theta < 90^\circ \Rightarrow$ <strong>Positive work</strong> (energy transferred TO object).</li>
+                  <li>$\theta > 90^\circ \Rightarrow$ <strong>Negative work</strong> (energy removed FROM object).</li>
+                  <li>$\theta = 90^\circ$ or $d = 0 \Rightarrow$ <strong>Zero work</strong> (e.g., upward force on horizontally moving box).</li>
+                  <li><strong>Holding a heavy box stationary:</strong> Zero mechanical work on the box ($d=0$), yet muscles consume <strong>chemical energy</strong> converted into <strong>heat</strong>, causing fatigue. <span class="cn text-xs text-slate-500">靜止捧著重箱子對箱子作功為零，但身體消耗化學能並轉化為熱能，所以會感到疲累。</span></li>
+                  <li><strong>Energy Conversion Pathways:</strong> Gasoline car (Chemical $\to$ Kinetic). EV from coal: Coal (Chemical) $\to$ Steam (Thermal/Kinetic) $\to$ Grid (Electrical, ~6–8% loss) $\to$ Li-ion Battery (Chemical) $\to$ Inverter/Motor (Mechanical Kinetic; regenerative braking recovers energy).</li>
+                </ul>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Normal Force & Friction <span class="cn text-xs text-slate-500">正向力與摩擦力</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$|f_s| \le f_{s,\max} = \mu_s N, \qquad f_k = \mu_k N \quad (\mu_k < \mu_s)$$
+                </div>
+                <p><strong>Normal force ($N$)</strong> is always perpendicular to the surface. <strong>Static friction ($f_s$)</strong> adjusts to match the applied force up to $f_{s,\max}$ (do NOT blindly set $f_s = \mu_s N$ when stationary!). Once sliding begins, friction drops to constant <strong>kinetic friction ($f_k$)</strong>.</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">靜摩擦力會自動平衡外力直至最大值 $\mu_s N$；一旦滑動即降為較小的動摩擦力 $\mu_k N$。</p>
+                <p class="text-xs text-slate-600 dark:text-slate-400">
+                  <strong>Static friction drives motion:</strong> When walking or rolling a tire without slipping, your foot/wheel pushes ground backward, and ground exerts <strong>forward static friction</strong> on you.
+                  <br /><strong>Typical $(\mu_s, \mu_k)$:</strong> Rubber on dry concrete (1.0, 0.7), wet concrete (0.7, 0.5), shoes on wood (0.9, 0.7), shoes on ice (0.1, 0.05), Teflon on steel (0.04, 0.04), bone/synovial fluid (0.016, 0.015).
+                  <span class="cn block mt-0.5">走路和汽車行駛時，地面給予的是「向前的靜摩擦力」（因為接觸面沒有打滑）。</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 3: FRICTION & NEWTON'S 2ND LAW -->
+            <div id="lab-friction" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Interactive Lab 3 · Dynamics</span>
+                  <h4 class="text-base font-bold text-white">Static vs. Kinetic Friction & Newton's 2nd Law Simulator <span class="cn text-xs font-normal text-slate-400">靜摩擦、動摩擦與牛頓第二定律模擬器</span></h4>
+                </div>
+                <button onclick="resetFrictionBlock()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-white transition self-start sm:self-auto">Reset Block Position</button>
+              </div>
+              <canvas id="frictionCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 260px;"></canvas>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="fricF" class="text-indigo-300 font-semibold">Applied Force $F$ <span class="cn">外力</span></label><span id="fricFVal" class="font-mono">20 N</span></div>
+                  <input id="fricF" type="range" min="0" max="100" step="1" value="20" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="fricM" class="text-emerald-300 font-semibold">Mass $m$ <span class="cn">質量</span></label><span id="fricMVal" class="font-mono">10 kg</span></div>
+                  <input id="fricM" type="range" min="1" max="20" step="1" value="10" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="fricUs" class="text-amber-300 font-semibold">Static $\mu_s$ <span class="cn">靜摩擦係數</span></label><span id="fricUsVal" class="font-mono">0.50</span></div>
+                  <input id="fricUs" type="range" min="0.10" max="1.00" step="0.05" value="0.50" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="fricUk" class="text-rose-300 font-semibold">Kinetic $\mu_k$ <span class="cn">動摩擦係數</span></label><span id="fricUkVal" class="font-mono">0.30</span></div>
+                  <input id="fricUk" type="range" min="0.05" max="0.80" step="0.05" value="0.30" class="w-full" />
+                </div>
+              </div>
+              <div id="frictionReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 2.3: Rotational Motion, Gravity, Relativity & Mechanical Waves -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              2.3 Rotational Motion, Gravity, General Relativity & Modulation <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">轉動運動、重力、廣義相對論與調變</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Rotational & Circular Motion <span class="cn text-xs text-slate-500">圓周與轉動</span></h4>
+                <p><strong>Angular velocity:</strong> $\omega = \Delta\theta/\Delta t$ (independent of radius; minute hand $= 360^\circ/60\text{ min} = 6^\circ/\text{min}$). Linear speed $v = r\omega$. <strong>Tidal locking:</strong> Moon's rotation syncs with its orbit so the same side always faces Earth.</p>
+                <p><strong>Centripetal force:</strong> $a_c = v^2/r$ inward. <strong>"Centrifugal force" is fictitious</strong> (it's inertia!). If a string breaks, the stone flies off along a <strong>straight tangent line</strong>. Cars skid on oil/ice when required $mv^2/r > f_{s,\max}$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">離心力是假想力（實為慣性）。繩子斷裂時石塊沿切線直線飛出；車速過快或路面結冰使靜摩擦力不足提供向心力時便會打滑。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Gravity & General Relativity <span class="cn text-xs text-slate-500">萬有引力與廣義相對論</span></h4>
+                <p><strong>Newton's Gravity:</strong> $F = \frac{Gm_1m_2}{r^2}$ (inverse square: doubling $r \Rightarrow F/4$). $G = 6.67430\times 10^{-11}\text{ m}^3\text{kg}^{-1}\text{s}^{-2}$ (measured by Cavendish torsion balance; least precisely known fundamental constant, relative uncertainty $2.2\times 10^{-5}$).</p>
+                <p><strong>General Relativity:</strong> Mass curves spacetime; objects and massless <strong>light follow shortest paths (null geodesics)</strong>, explaining gravitational lensing. Reduces to Newton when $v \ll c$, $r \gg r_s = 2GM/c^2$ (Schwarzschild radius), and fields are static. <strong>Black holes</strong> (Luminet 1979 sim; M87 EHT 2017) & <strong>Gravitational waves</strong> (LIGO GW150914 black hole merger).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">距離加倍引力變為四分之一。廣義相對論指出質量彎曲時空，無靜止質量的光線也會沿彎曲時空偏折。LIGO 觀測到雙黑洞合併產生的引力波。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Seismic Waves & AM/FM <span class="cn text-xs text-slate-500">地震波與調幅/調頻</span></h4>
+                <p><strong>Fixed-end wave reflection</strong> inverts the pulse. <strong>Earthquake waves:</strong> P-waves (longitudinal, back-and-forth), S-waves (transverse, up-down/sideways), surface waves: Love waves (side-to-side) & Rayleigh waves (elliptical rolling).</p>
+                <p><strong>Information Transmission:</strong> Encoding a message signal onto a carrier wave via <strong>AM</strong> (Amplitude Modulation) or <strong>FM</strong> (Frequency Modulation).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">地震包含縱波 P 波、橫波 S 波，以及表面波（洛夫波與瑞利波）。無線電透過調幅（AM）或調頻（FM）將訊號編碼在載波上傳輸。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 3: THERMAL PHYSICS                                            -->
+      <!-- ===================================================================== -->
+      <section id="ch3" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 3 · Thermal Physics #1 & #2</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Thermal Physics <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">熱物理學</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch3', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 3</button>
+            <button onclick="toggleChapterCards('ch3', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 3</button>
+          </div>
+        </div>
+
+        <!-- Topic 3.1: 0th Law, Temperature Scales & Thermal Expansion -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              3.1 Zeroth Law, Temperature Scales & Thermal Expansion <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">熱力學第零定律、溫標與熱膨脹</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <p><strong>Temperature & 0th Law:</strong> Temperature $T$ is proportional to average molecular kinetic energy: $\frac{1}{2}k_B T$ per degree of freedom ($k_B = 1.38\times 10^{-23}\text{ J/K}$). <strong>Zeroth Law:</strong> If $A$ and $B$ are each in thermal equilibrium (no net energy transfer) with $C$, then $A$ and $B$ are in thermal equilibrium with each other ($T_A = T_B$).</p>
+                <p class="cn text-xs text-slate-600 dark:text-slate-300">溫度正比於分子平均動能（每個自由度 $\frac{1}{2}k_B T$）。第零定律：若 A、B 皆與 C 達熱平衡，則 A 與 B 亦熱平衡（同溫）。</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$C = K - 273.15, \quad C = \frac{F - 32}{1.8}, \quad F = 1.8K - 459.67, \quad C \approx 37 - \frac{100 - F}{2}$$
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400">Absolute zero: $0\text{ K} = -273.15^\circ\text{C} \approx -460^\circ\text{F}$ (no thermal motion). Water freezes at $0^\circ\text{C} / 32^\circ\text{F} / 273\text{ K}$ and boils at $100^\circ\text{C} / 212^\circ\text{F} / 373\text{ K}$.</p>
+              </div>
+              <div class="space-y-2">
+                <p><strong>Thermal Expansion:</strong> Interatomic potential $V(r)$ is asymmetric (easier to move apart than closer), so heating increases average atomic spacing:</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\frac{\delta L}{L} = \alpha\,\delta T, \qquad \frac{\delta A}{A} = 2\alpha\,\delta T, \qquad \frac{\delta V}{V} = 3\alpha\,\delta T = \beta\,\delta T$$
+                </div>
+                <p class="text-xs sm:text-sm"><strong>Significance:</strong> Rail buckling, thermometers, weathering, <strong>sea-level rise</strong> (1/3 to 1/2 from ocean thermal expansion), diesel tanker shrinkage in cold weather. <strong>Exceptions:</strong> (1) <strong>Negative thermal expansion</strong> in $\text{ZrW}_2\text{O}_8$ (0.3–1050 K); (2) <strong>Water anomaly ($0^\circ\text{C}$–$4^\circ\text{C}$)</strong>: contracts when heated from 0 to 4°C, reaching <strong>max density at $4^\circ\text{C}$</strong> so ice floats on top! <strong>Water Phase Diagram:</strong> Triple point at $0.01^\circ\text{C}, 0.006\text{ atm}$; Critical point at $374^\circ\text{C}, 217.7\text{ atm}$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">原子間位能曲線不對稱導致熱脹冷縮。例外：$\text{ZrW}_2\text{O}_8$ 呈負熱膨脹；水在 0–4°C 反常收縮，4°C 密度最大，因此冰浮於水面。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 3.2: Heat, Specific/Latent Heat, Transfer & 1st Law -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              3.2 Heat, Specific & Latent Heat, Heat Transfer & 1st Law <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">熱量、比熱、潛熱、傳熱方式與第一定律</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <p><strong>Heat ($Q$)</strong> is energy transferred due to $\Delta T$ ($Q>0$ absorbed by system; $Q<0$ lost). <strong>Units:</strong> $1\text{ cal} = 4.1868\text{ J}$, $1\text{ kcal} = 4186.8\text{ J}$ (average human needs ~2000 kcal/day; human mechanical efficiency ~25%), BTU (7000 BTU AC cools a bedroom). <strong>Heat Generation:</strong> Chemical (combustion), Nuclear (fission/fusion), Electrical (Joule heating), Frictional, Solar.</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$Q = c m \Delta T \quad (\text{No phase change}), \qquad Q = L m \quad (\text{Phase change})$$
+                </div>
+                <p class="text-xs sm:text-sm"><strong>Specific Heat ($c$):</strong> Water $4.186$, Air $1.005$, Iron $0.449$, Copper $0.38\text{ kJ/(kg}\cdot\text{K)}$. <strong>Latent Heat ($L$)</strong> breaks intermolecular bonds at constant $T$ (flat plateau on $T$-$Q$ curve): Water $L_F = 79.7\text{ kcal/kg}$, $L_V = 539\text{ kcal/kg}$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">無相變時用比熱 $Q=cm\Delta T$；相變時溫度不變（曲線平坦），熱量用於破壞分子鍵，用潛熱 $Q=Lm$。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">3 Heat Transfer Modes & 1st Law <span class="cn text-xs text-slate-500">三種傳熱與熱力學第一定律</span></h4>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Conduction (傳導):</strong> Random molecular/electron motion; $P_{\text{cond}} = kA\frac{T_H - T_C}{L}$. High $k$: Silver (428), Copper (401), Al (235); Insulators: Air (0.026), Foam (0.024 $\text{W/m}\cdot\text{K}$).</li>
+                  <li><strong>Convection (對流):</strong> Bulk fluid motion driven by buoyancy (hot fluid expands, lower density, rises).</li>
+                  <li><strong>Radiation (輻射):</strong> Thermal EM waves; $P_{\text{rad}} = \sigma\epsilon A T^4$ (no medium required; Sun surface $5500^\circ\text{C}$, core $15\text{M }^\circ\text{C}$).</li>
+                </ul>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\text{1st Law: } dE = dQ - dW, \qquad W = \int_i^f p\,dV \text{ (Area under } p\text{-}V \text{ curve)}$$
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400">Work is <strong>path-dependent</strong> (expansion $W>0$, compression $W<0$). Clockwise closed cycle on $p$-$V$ diagram yields positive net work $W_{\text{net}} > 0$. <span class="cn">氣體作功等於 $p$-$V$ 圖下的面積，順時針封閉循環輸出正淨功。</span></p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 3.3: 2nd Law, Carnot Engine, Entropy & Refrigerators -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              3.3 Second Law, Carnot Cycle, Entropy & Refrigerators <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">熱力學第二定律、卡諾循環、熵與製冷機</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <p><strong>Carnot Cycle:</strong> Uses <strong>two reservoirs</strong> ($T_H, T_C$) with 2 <em>isotherms</em> ($\Delta U=0 \Rightarrow Q=W$) and 2 <em>adiabats</em> ($\Delta Q=0 \Rightarrow -W=\Delta U$). Expands at high $T_H$ (high $p$) and compresses at low $T_C$ (low $p$) to extract net work $W = Q_H - |Q_C|$.</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\eta_{\text{Carnot}} = \frac{W}{Q_H} = 1 - \frac{|Q_C|}{Q_H} = 1 - \frac{T_C}{T_H} \quad (T \text{ in Kelvin!})$$
+                </div>
+                <p><strong>Entropy ($S$):</strong> Measure of disorder, randomness, or uncertainty about microscopic states. For reversible isothermal heat transfer, $\delta S = Q/T$. In a reversible Carnot cycle, $\Delta S_{\text{gas}} = \frac{Q_H}{T_H} + \frac{Q_C}{T_C} = 0$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">卡諾循環由兩條等溫線與兩條絕熱線組成，效率上限為 $1 - T_C/T_H$（必須用絕對溫度 K）。熵 $S$ 量度系統無序度與微觀不確定性。</p>
+              </div>
+              <div class="space-y-2">
+                <p><strong>Carnot Refrigerator (Reverse Cycle):</strong> Inputs work $W$ to pump heat $|Q_C|$ from cold to hot (components: Evaporator $\to$ Compressor $\to$ Condenser $\to$ Expansion Valve). Coefficient of Performance (COP):</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$K = \frac{|Q_C|}{|W|} = \frac{|Q_C|}{|Q_H| - |Q_C|} = \frac{T_C}{T_H - T_C}$$
+                </div>
+                <p class="text-xs sm:text-sm"><strong>Equivalent Statements of the 2nd Law:</strong> (1) No heat engine can beat Carnot efficiency between $T_H$ and $T_C$ (e.g., 75% engine between 0°C & 100°C is impossible since $\eta_C \approx 27\%$); (2) Cannot extract net work in a closed cycle from a <strong>single heat bath</strong>; (3) Heat does not spontaneously flow from cold to hot; (4) Total entropy of interacting systems cannot decrease ($\Delta S_{\text{total}} \ge 0$).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">第二定律等價表述：沒有熱機效率能超過卡諾效率；無法從單一熱源在封閉循環中吸熱作功；總熵不會減少。</p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 4: CARNOT ENGINE & p-V DIAGRAM -->
+            <div id="lab-carnot" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-rose-400">Interactive Lab 4 · Thermodynamics</span>
+                  <h4 class="text-base font-bold text-white">Carnot Heat Engine & p-V Cycle Simulator <span class="cn text-xs font-normal text-slate-400">卡諾熱機與 p-V 循環模擬器</span></h4>
+                </div>
+              </div>
+              <canvas id="carnotCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 270px;"></canvas>
+              <div class="grid sm:grid-cols-3 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="carnotTh" class="text-rose-400 font-semibold">Hot Reservoir $T_H$ <span class="cn">高溫熱源</span></label><span id="carnotThVal" class="font-mono">850 K</span></div>
+                  <input id="carnotTh" type="range" min="400" max="1200" step="10" value="850" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="carnotTc" class="text-sky-400 font-semibold">Cold Reservoir $T_C$ <span class="cn">低溫熱源</span></label><span id="carnotTcVal" class="font-mono">300 K</span></div>
+                  <input id="carnotTc" type="range" min="200" max="390" step="5" value="300" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="carnotQh" class="text-amber-400 font-semibold">Heat Absorbed $Q_H$ <span class="cn">吸收熱量</span></label><span id="carnotQhVal" class="font-mono">1850 J</span></div>
+                  <input id="carnotQh" type="range" min="500" max="5000" step="50" value="1850" class="w-full" />
+                </div>
+              </div>
+              <div id="carnotReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 4: ELECTRICITY & MAGNETISM                                    -->
+      <!-- ===================================================================== -->
+      <section id="ch4" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 4 · Electricity & Magnetism I & II</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Electricity & Magnetism <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">電磁學</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch4', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 4</button>
+            <button onclick="toggleChapterCards('ch4', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 4</button>
+          </div>
+        </div>
+
+        <!-- Topic 4.1: Electrostatics, Fields, Potential, Capacitors & Circuits -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              4.1 Electrostatics, Fields, Conductors, Capacitors & Circuits <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">靜電學、電場、導體、電容與電路</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Coulomb's Law, Electric Field & Potential <span class="cn text-xs text-slate-500">庫侖定律、電場與電勢</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$F = \frac{1}{4\pi\epsilon_0}\frac{q_1 q_2}{r^2}, \quad \vec{E} = \frac{\vec{F}}{q_0}, \quad U(r) = \frac{1}{4\pi\epsilon_0}\frac{q_1 q_2}{r}, \quad V = \frac{U}{q}$$
+                </div>
+                <p class="text-xs sm:text-sm">Electron charge $e = -1.6\times 10^{-19}\text{ C}$; $\epsilon_0 = 8.85\times 10^{-12}\text{ C}^2/(\text{N}\cdot\text{m}^2)$. Electric force between two electrons is $4.17\times 10^{42}$ times stronger than gravity! <strong>Polarization & Induction:</strong> Comb attracts paper; neutral metal electroscope leaves spread either by contact transfer OR by induced charge polarization (no contact); storm cloud induces positive charge on hair.</p>
+                <p class="text-xs sm:text-sm"><strong>Field Lines & Equipotentials:</strong> Field lines start at $+$, end at $-$. $V = 0$ does <em>not</em> necessarily imply $E = 0$. <strong>Equipotential surfaces</strong> are always $\perp \vec{E}$. <strong>Ink-jet printer</strong> deflects charged ink drops with uniform $\vec{E}$. <strong>Conductors in static equilibrium:</strong> $\vec{E} = 0$ inside, equipotential body $\Rightarrow$ <strong>Faraday Cage</strong> (car/airplane shields occupants from lightning). <strong>Lightning rod:</strong> sharp tip creates huge $\vec{E}$ (tip discharge) to safely conduct lightning to ground.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">靜電平衡時導體內部電場為零（法拉第籠保護車內和機艙人員）；避雷針利用尖端放電將雷電導入大地。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Capacitors, Current & Ohm's Law <span class="cn text-xs text-slate-500">電容、電流與歐姆定律</span></h4>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$q = C V, \qquad i = \frac{dq}{dt}, \qquad R = \frac{V}{i}, \qquad P = V I$$
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Capacitors:</strong> Store electric energy on two opposite-charge plates ($+q, -q$); uniform $\vec{E}$ inside parallel plates. Used in photoflash, computer memory, and <strong>CCD (Charge-Coupled Device)</strong> light sensors (photodiode + capacitor "bucket-brigade" readout; cryo-cooled to cut noise).</li>
+                  <li><strong>Current & Cables:</strong> $1\text{ A} = 1\text{ C/s}$, flows in closed loops (same $i$ across varying wire cross-sections). Coaxial cables use an outer copper mesh tube as the electron return path.</li>
+                  <li><strong>Power & Safety:</strong> $220\text{ V} \times 1\text{ A} = 220\text{ W}$ (1 hr = $0.22\text{ kWh}$). Finger spark to doorknob is $40,000\text{–}100,000\text{ V}$ but harmless because current is tiny. <strong>HK 13A Plug:</strong> Live (brown, with melting <strong>Fuse</strong> for fire protection), Neutral (blue), Earth (green/yellow).</li>
+                  <li><strong>Materials:</strong> Conductors (Ag, Au, Cu, steel, seawater), Insulators (rubber, glass, oil, diamond, dry wood), <strong>Semiconductors</strong> (Silicon — microelectronics & solar photovoltaics).</li>
+                </ul>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">CCD 結合光電二極管與電容逐行讀取電荷。香港三腳插頭設火線（連保險絲防過載起火）、中線與地線。矽是最常見的半導體材料。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 4.2: Magnetism, Lorentz Force, Motors, Materials, Earth & Induction -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              4.2 Magnetism, Lorentz Force, Motors, Materials, Earth & Induction <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">磁場、勞侖茲力、馬達、磁性材料、地磁與電磁感應</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Magnetic Field, Lorentz Force & Currents <span class="cn text-xs text-slate-500">磁場、勞侖茲力與電流磁效應</span></h4>
+                <p>Magnets always exist as <strong>dipoles</strong> (N & S pairs; breaking a magnet creates two smaller dipoles; no magnetic monopoles found). Field lines emerge from N and enter S.</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\vec{F}_B = q\vec{v}\times\vec{B}, \quad R = \frac{mv}{|q|B}, \quad B_{\text{wire}} = \frac{\mu_0 i}{2\pi r}, \quad F_{ba} = \frac{\mu_0 L i_a i_b}{2\pi d}$$
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Right-Hand Rule:</strong> Sweep $\vec{v}$ into $\vec{B}$ $\to$ thumb gives $\vec{v}\times\vec{B}$ (reverse for negative $q$). $F_B = 0$ if $v=0$ or $\vec{v}\parallel\vec{B}$. Unit: Tesla ($1\text{ T} = 1\text{ N/(A}\cdot\text{m)}$; Earth $\sim 10^{-4}\text{ T}$, neutron star $10^8\text{ T}$).</li>
+                  <li><strong>Motion in $\vec{B}$:</strong> Since $\vec{F}_B \perp \vec{v}$, magnetic fields <strong>never do work on free charges</strong>! $\vec{v}\perp\vec{B} \Rightarrow$ circular motion; adding $v_\parallel \Rightarrow$ spiral helix.</li>
+                  <li><strong>Electric Motor & Solenoid:</strong> Current loop in $\vec{B}$ experiences torque; a <strong>commutator</strong> reverses current every half-turn for continuous rotation. Parallel currents <strong>attract</strong>; antiparallel currents <strong>repel</strong>. A <strong>solenoid</strong> generates a strong, uniform $\vec{B}$ inside.</li>
+                </ul>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Magnetic Materials, Earth & Induction <span class="cn text-xs text-slate-500">磁性材料、地磁與電磁感應</span></h4>
+                <ul class="list-disc pl-5 space-y-1.5 text-xs sm:text-sm">
+                  <li><strong>Origin of Magnetism:</strong> Electron <em>spin</em> & <em>orbital angular momentum</em>. <strong>Diamagnetism</strong> (weakly repelled by any pole, universal); <strong>Paramagnetism</strong> (weakly attracted); <strong>Ferromagnetism</strong> (Fe, Ni, Co — microscopic <em>magnetic domains</em> align irreversibly $\Rightarrow$ permanent magnets, hysteresis loop, hard disks).</li>
+                  <li><strong>Earth's Magnetic Field:</strong> 90% from liquid metal motion in outer core, 10% from atmospheric ions. Tilted $11.5^\circ$ from rotation axis; magnetic <strong>South pole</strong> is in the Northern Hemisphere. Recorded in Vatican mural hematite pigments (1740 vs today) & Mid-Atlantic Ridge seafloor (reverses every ~1M yrs). <strong>Van Allen belts</strong> trap solar electrons/protons in corkscrew paths $\to$ dipping into atmosphere creates <strong>Auroras</strong>.</li>
+                  <li><strong>Electromagnetic Induction:</strong> Magnetic flux $\Phi = BA\cos\theta$. Changing flux induces current (Faraday's Law). <strong>Lenz's Law:</strong> induced current produces a $\vec{B}$ field that <em>opposes the change in flux</em>. Rotating a coil in $\vec{B}$ generates sinusoidal AC voltage (<strong>electric generator</strong>).</li>
+                </ul>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">地球磁場 90% 來自液態外核，地磁南極在北半球；帶電粒子沿地磁線螺旋運動撞擊大氣產生極光。磁通量變化產生感應電流（法拉第定律），其方向反抗磁通量變化（楞次定律），為發電機原理。</p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 5: LORENTZ FORCE CYCLOTRON -->
+            <div id="lab-lorentz" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Interactive Lab 5 · Electromagnetism</span>
+                  <h4 class="text-base font-bold text-white">Charged Particle in Magnetic Field (Lorentz Force) <span class="cn text-xs font-normal text-slate-400">帶電粒子在磁場中的圓周運動模擬</span></h4>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <button id="qSignBtn" onclick="toggleLorentzQSign()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 text-white transition">Charge: +q (Positive)</button>
+                  <button id="bDirBtn" onclick="toggleLorentzBDir()" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition">B-Field: ⊗ Into Page</button>
+                </div>
+              </div>
+              <canvas id="lorentzCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 270px;"></canvas>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lorV" class="text-emerald-300 font-semibold">Speed $v$ <span class="cn">速度</span></label><span id="lorVVal" class="font-mono">5.0</span></div>
+                  <input id="lorV" type="range" min="2" max="10" step="0.5" value="5.0" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lorB" class="text-sky-300 font-semibold">Magnetic Field $|B|$ <span class="cn">磁場強度</span></label><span id="lorBVal" class="font-mono">2.0 T</span></div>
+                  <input id="lorB" type="range" min="0.8" max="4.0" step="0.2" value="2.0" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lorQ" class="text-rose-300 font-semibold">Charge $|q|$ <span class="cn">電荷量</span></label><span id="lorQVal" class="font-mono">1.0</span></div>
+                  <input id="lorQ" type="range" min="0.5" max="3.0" step="0.5" value="1.0" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="lorM" class="text-amber-300 font-semibold">Mass $m$ <span class="cn">質量</span></label><span id="lorMVal" class="font-mono">1.5</span></div>
+                  <input id="lorM" type="range" min="0.5" max="3.0" step="0.25" value="1.5" class="w-full" />
+                </div>
+              </div>
+              <div id="lorentzReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 5: QUANTUM PHYSICS                                            -->
+      <!-- ===================================================================== -->
+      <section id="ch5" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 5 · Quantum Physics 05 & 06</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Quantum Physics <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">量子物理</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch5', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 5</button>
+            <button onclick="toggleChapterCards('ch5', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 5</button>
+          </div>
+        </div>
+
+        <!-- Topic 5.1: Photoelectric Effect, Compton Scattering & Wave-Particle Duality -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              5.1 Photoelectric Effect, Compton Scattering & Wave-Particle Duality <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">光電效應、康普頓散射與波粒二象性</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Nature of Light & Photoelectric Effect <span class="cn text-xs text-slate-500">光之本質與光電效應</span></h4>
+                <p>Historical debate: Democritus & Newton (<em>Opticks</em> 1704: particles) vs Descartes, Grimaldi (diffraction), Hooke, Young (1801 double-slit), Maxwell (1861 EM waves). Then Hertz (1887) & Lenard (1902) discovered the <strong>photoelectric effect</strong>: classical EM failed because emission depends on <strong>frequency $\nu$</strong> (cutoff $\nu_c = \phi/h$), NOT intensity $I$! Intensity only controls the <strong>number</strong> of ejected electrons.</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$E_{\text{photon}} = h\nu = \frac{hc}{\lambda}, \qquad K_{\max} = eV_0 = h\nu - \phi \; (\nu \ge \nu_c)$$
+                </div>
+                <p class="text-xs sm:text-sm"><strong>Daily Applications:</strong> <strong>SPF 30 Sunscreen</strong> selectively blocks high-energy UV photons that break DNA bonds (why you don't look like a mirror or black in visible light); human vision (rhodopsin photopigment); solar panels, smoke detectors, CCD/CMOS sensors.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">愛因斯坦提出光子假說：單個光電子能量僅取決於光頻率，光強只決定光電子數量。防曬霜專門吸收高能量紫外線以保護 DNA。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Compton Scattering & Matter Waves <span class="cn text-xs text-slate-500">康普頓散射與物質波</span></h4>
+                <p><strong>Compton Scattering:</strong> Photons collide with electrons like billiard balls, transferring energy & momentum so scattered wavelength increases ($\lambda' > \lambda$):</p>
+                <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm">
+                  $$\lambda' - \lambda = \frac{h}{m_e c}(1 - \cos\phi), \qquad \lambda_{\text{de Broglie}} = \frac{h}{p} = \frac{h}{mv}$$
+                </div>
+                <p class="text-xs sm:text-sm"><strong>Single-Photon (Taylor 1909) & Electron Double-Slit:</strong> Particles arrive one-by-one as localized spots, yet accumulate into a wave interference pattern! Measuring "which slit" destroys interference. <strong>de Broglie (1924):</strong> All matter has wave properties (verified by 1927 electron crystal diffraction; at same speed, proton $\lambda_p = \lambda_e / 1836$). Fundamental links: $E = \hbar\omega$, $p = \hbar k$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">康普頓散射證實光子具有動量；單光子與電子雙縫實驗顯示微觀粒子同時具有波與粒子的性質（波粒二象性），德布羅意波長 $\lambda = h/(mv)$。</p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 6: PHOTOELECTRIC EFFECT -->
+            <div id="lab-photoelectric" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-violet-400">Interactive Lab 6 · Quantum Mechanics</span>
+                  <h4 class="text-base font-bold text-white">Photoelectric Effect Simulator <span class="cn text-xs font-normal text-slate-400">光電效應與截止頻率互動模擬</span></h4>
+                </div>
+                <select id="peMetal" class="bg-slate-800 border border-slate-700 text-xs font-semibold rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-indigo-500">
+                  <option value="2.1">Cesium (Cs) · φ = 2.1 eV</option>
+                  <option value="2.3">Sodium (Na) · φ = 2.3 eV</option>
+                  <option value="4.3" selected>Zinc (Zn) · φ = 4.3 eV</option>
+                  <option value="4.7">Copper (Cu) · φ = 4.7 eV</option>
+                </select>
+              </div>
+              <canvas id="peCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 270px;"></canvas>
+              <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1"><label for="peLambda" class="text-violet-300 font-semibold">Wavelength $\lambda$ <span class="cn">入射光波長</span></label><span id="peLambdaVal" class="font-mono">240 nm (UV)</span></div>
+                  <input id="peLambda" type="range" min="150" max="750" step="5" value="240" class="w-full" />
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1"><label for="peInt" class="text-amber-300 font-semibold">Light Intensity $I$ <span class="cn">光強度</span></label><span id="peIntVal" class="font-mono">60%</span></div>
+                  <input id="peInt" type="range" min="10" max="100" step="5" value="60" class="w-full" />
+                </div>
+              </div>
+              <div id="peReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 5.2: Wavefunction, Uncertainty, Bohr Model & Quantum Spin -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              5.2 Wavefunction, Uncertainty Principle, Bohr Atom & Quantum Spin <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">波函數、測不準原理、波耳模型與量子自旋</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Wavefunction & Uncertainty <span class="cn text-xs text-slate-500">波函數與測不準原理</span></h4>
+                <p>Probability density is $|\psi(x,t)|^2$; probability in $[a,b]$ is $\int_a^b |\psi|^2 dx$. Superposition $\psi = \psi_1 + \psi_2$ allows destructive cancellation ($|\psi_1+\psi_2|^2 = 0$ at dark fringes).</p>
+                <div class="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900">
+                  $$\Delta x\,\Delta p \ge \frac{\hbar}{2}, \quad \hbar = \frac{h}{2\pi}$$
+                </div>
+                <p>Localized spike = tiny $\Delta x$, huge $\Delta p$. Plane wave = tiny $\Delta p$, huge $\Delta x$. Measurement irreversibly collapses $\psi$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">$|\psi|^2$ 給出找到粒子的機率密度；位置與動量無法同時精確測量，測量會使波函數坍縮。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Atomic Theory & Bohr Model <span class="cn text-xs text-slate-500">原子論與波耳模型</span></h4>
+                <p>Dalton (1808 CO vs $\text{CO}_2$ simple ratios), Brownian motion (Brown 1827, Einstein 1905), Thomson (1897 electron), Rutherford (1911 nucleus — classical accelerating electrons would radiate & spiral in). <strong>Bohr (1913)</strong> quantized orbits via standing electron waves $2\pi r = n\lambda$:</p>
+                <div class="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-900">
+                  $$E_{n,Z} = \frac{-13.6\text{ eV}\cdot Z^2}{n^2}, \quad h\nu = E_m - E_n$$
+                </div>
+                <p>Explains discrete emission/absorption spectra: Lyman ($n=1$, UV), Balmer ($n=2$, visible), Paschen ($n=3$, IR).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">波耳模型以駐波條件量子化電子能級，完美解釋氫原子離散光譜（萊曼、巴爾末、帕申系）。</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
+                <h4 class="font-bold text-slate-900 dark:text-white">Quantum Spin & Stern-Gerlach <span class="cn text-xs text-slate-500">量子自旋與史特恩-革拉赫實驗</span></h4>
+                <p>Silver atoms in an inhomogeneous $\vec{B}$ split into <strong>2 discrete spots</strong> ($S_z = \pm 1$), proving quantized spin. General state: $|\Psi\rangle = \alpha|\uparrow\rangle + \beta|\downarrow\rangle$ ($\alpha^2+\beta^2=1$; probabilities $\alpha^2, \beta^2$). $x$-basis: $|\rightarrow\rangle = \frac{1}{\sqrt{2}}(|\uparrow\rangle + |\downarrow\rangle)$, $|\leftarrow\rangle = \frac{1}{\sqrt{2}}(|\uparrow\rangle - |\downarrow\rangle)$.</p>
+                <p><strong>Sequential SG:</strong> $Z\to Z$ gives 100% same; $Z\to X$ gives 50/50; $Z\to X\to Z$ gives <strong>50/50 again</strong> (measuring $x$ resets $z$!). <strong>Schrödinger's Cat:</strong> $|\text{cat}\rangle = \alpha|\text{dead}\rangle + \beta|\text{alive}\rangle$.</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">銀原子束在非均勻磁場中分裂為兩束，證實自旋量子化。連續測量 $Z\to X\to Z$ 會再次出現 50/50 結果，展現量子態坍縮。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- CHAPTER 6: ATOMS, RADIOACTIVITY, NUCLEAR & PARTICLE PHYSICS           -->
+      <!-- ===================================================================== -->
+      <section id="ch6" class="chapter-section space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Chapter 6 · Atoms, Radioactivity, Nuclear & Particle Physics</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5">
+              Atoms, Nuclear & Particle Physics <span class="cn text-lg sm:text-xl font-bold text-slate-500 dark:text-slate-400 ml-1">原子、核物理與粒子物理</span>
+            </h2>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="toggleChapterCards('ch6', true)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Expand Ch 6</button>
+            <button onclick="toggleChapterCards('ch6', false)" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition">Collapse Ch 6</button>
+          </div>
+        </div>
+
+        <!-- Topic 6.1: Atomic Structure, Isotopes, Radioactivity & Radiation Safety -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              6.1 Atomic Structure, Isotopes, Radioactivity & Safety <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">原子結構、同位素、放射性與輻射安全</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              <div class="space-y-2">
+                <p><strong>Scales & Models:</strong> Atom $\sim 10^{-10}\text{ m}$ ($0.1\text{ nm}$); Nucleus $\sim 10^{-15}\text{ m}$ (100,000$\times$ smaller); Quarks/Electrons $< 10^{-18}\text{ m}$. Models: Democritus (440 BC) $\to$ Dalton (1803 billiard ball) $\to$ Thomson (1904 plum pudding) $\to$ Rutherford (1911 tiny dense nucleus via 1909 Geiger-Marsden $\alpha$-gold foil scattering: 1 in 8000 deflected $\ge 90^\circ$) $\to$ Bohr (1913) $\to$ Schrödinger (1926 electron cloud).</p>
+                <p><strong>Subatomic Particles & Isotopes:</strong> Proton ($+1e$, 1 amu, $1.67\times 10^{-27}\text{ kg}$), Neutron ($0$, 1 amu), Electron ($-1e$, $0.0005$ amu, $9.11\times 10^{-31}\text{ kg}$). <strong>Isotopes</strong> have same $Z$ (protons) but different neutrons: Carbon ($^{12}\text{C}, ^{13}\text{C}, ^{14}\text{C}$), Hydrogen (Protium $^1\text{H}$, Deuterium $^2\text{H}$ forming Heavy Water $\text{D}_2\text{O}$, radioactive Tritium $^3\text{H}$), Uranium ($^{234}\text{U}, ^{235}\text{U}, ^{238}\text{U}$).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">同位素質子數相同、中子數不同。重水由氘（$^2\text{H}$）組成。原子核比原子小約十萬倍。</p>
+              </div>
+              <div class="space-y-2">
+                <p><strong>Radioactivity & Half-Life:</strong> Strong nuclear force is optimal at <em>nuclear magic numbers</em>; unstable nuclei emit ionizing radiation ($\alpha, \beta, \gamma$). Discovered by Becquerel (1896) & Pierre/Marie Curie (1898). <strong>Half-life ($T_{1/2}$)</strong>: average time for half of nuclei to decay ($^{14}\text{C}: 5730\text{ yrs}$, dates organic fossils up to ~50,000 yrs).</p>
+                <p><strong>Natural Radioactivity & Units:</strong> Human body has <strong>Potassium-40</strong> (~4,300 Bq; also in KCl salt); air has <strong>Radon-222</strong> (noble gas, #2 lung cancer cause, #1 in non-smokers). <strong>Units:</strong> $1\text{ Ci} = 3.7\times 10^{10}\text{ Bq}$; $1\text{ rad} = 0.01\text{ Gy}$; $1\text{ rem} = 0.01\text{ Sv}$; $\text{rem} = \text{rad}\times Q$ (Quality factor $Q$: X/$\gamma$/$\beta = 1$; $n/p = 10$; $\alpha = 20$). Limit: 20 mSv/yr avg (300 rem $\to$ 50% lethal without treatment). <strong>Shielding:</strong> $\alpha$ (paper), $\beta$ (Al sheet), $\gamma$/X (thick lead/iron), Neutrons (water/concrete).</p>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">碳-14 半衰期 5730 年用於古物定年；人體含鉀-40，空氣含氡氣（非吸煙者肺癌首因）。屏蔽能力：$\alpha$ 用紙、$\beta$ 用鋁片、$\gamma$/X 用鉛、中子用水或混凝土。</p>
+              </div>
+            </div>
+
+            <!-- INTERACTIVE LAB 7: HALF-LIFE DECAY SIMULATOR -->
+            <div id="lab-halflife" class="mt-4 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-100 border border-slate-700 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-teal-400">Interactive Lab 7 · Nuclear Physics</span>
+                  <h4 class="text-base font-bold text-white">Radioactive Half-Life Decay Simulator <span class="cn text-xs font-normal text-slate-400">放射性半衰期與指數衰變模擬</span></h4>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <select id="hlIsotope" class="bg-slate-800 border border-slate-700 text-xs font-semibold rounded-lg px-2.5 py-1.5 text-white">
+                    <option value="5730|yrs|Carbon-14">Carbon-14 (5,730 yrs)</option>
+                    <option value="7.04e8|yrs|Uranium-235">Uranium-235 (704M yrs)</option>
+                    <option value="1.26e9|yrs|Potassium-40">Potassium-40 (1.26B yrs)</option>
+                    <option value="10|s|Custom (10 s)">Custom Isotope (10 s)</option>
+                  </select>
+                  <button id="hlPlayBtn" onclick="toggleHalfLifePlay()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white transition">▶ Play</button>
+                  <button onclick="resetHalfLife()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-white transition">Reset</button>
+                </div>
+              </div>
+              <canvas id="hlCanvas" class="sim-canvas bg-slate-950 border border-slate-800" style="height: 250px;"></canvas>
+              <div class="text-xs">
+                <div class="flex justify-between mb-1"><label for="hlSlider" class="text-teal-300 font-semibold">Elapsed Half-Lives ($t / T_{1/2}$) <span class="cn">經過的半衰期數</span></label><span id="hlSliderVal" class="font-mono">0.00 T₁/₂</span></div>
+                <input id="hlSlider" type="range" min="0" max="5" step="0.05" value="0" class="w-full" />
+              </div>
+              <div id="hlReadout" class="text-xs font-mono bg-slate-800/80 px-3.5 py-2.5 rounded-xl text-slate-200 flex flex-wrap gap-x-5 gap-y-1"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Topic 6.2: Nuclear Fission, Fusion & Particle Physics Standard Model -->
+        <article class="topic-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden" data-open="true">
+          <button class="topic-header w-full px-5 py-4 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
+              6.2 Nuclear Fission & Fusion, Particle Physics & Standard Model <span class="cn text-sm font-medium text-indigo-600 dark:text-indigo-400 ml-1.5">核裂變與核聚變、粒子物理與標準模型</span>
+            </h3>
+            <svg class="chevron-icon w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="topic-body px-5 pb-5 space-y-4 border-t border-slate-100 dark:border-slate-800/80 pt-4 text-sm leading-relaxed">
+            <div class="grid md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Nuclear Fission vs. Fusion <span class="cn text-xs text-slate-500">核裂變與核聚變</span></h4>
+                <p>Energy comes from mass loss via $E = mc^2$ ($1\text{ kg } ^{235}\text{U} \approx 3,000\text{ tons coal} \approx 14,000\text{ barrels oil}$).</p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Fission (重核裂變):</strong> $n + {}^{235}_{92}\text{U} \to {}^{93}_{36}\text{Kr} + {}^{141}_{56}\text{Ba} + 2n + \text{energy}$ (chain reaction: 1 $n$ in $\to$ 2 $n$ out). Reactors slow neutrons with a <strong>moderator</strong> (usually water) for controlled steady-state flux ($\sim 10^{14}\text{ n}\cdot\text{cm}^{-2}\text{s}^{-1}$); weapons are uncontrolled.</li>
+                  <li><strong>Fusion (輕核聚變):</strong> D-T reaction ${}^2_1\text{H} + {}^3_1\text{H} \to {}^4_2\text{He} + {}^1_0n$ ($Q = 17.59\text{ MeV}$; ~14 MeV to neutron). Sun fuses 500 million tons H/s. <strong>Lawson's Criterion:</strong> high $T$, high density $n$, long confinement $\tau$ ($n\tau \ge 10^{20}\text{ s/m}^3$ for D-T).</li>
+                  <li><strong>Confinement & Blanket:</strong> <em>Magnetic confinement</em> (<strong>Tokamak</strong>: toroidal + poloidal $\to$ twisted helical field; JET, ITER) vs <em>Inertial confinement</em> (lasers hit 1 mm D-T pellet, $\tau \sim 10^{-11}\text{–}10^{-9}\text{ s}$). A ~1 m <strong>molten lithium blanket</strong> captures neutrons & breeds Tritium (${}^1_0n + {}^6_3\text{Li} \to {}^4_2\text{He} + {}^3_1\text{H}$). <em>Pros:</em> abundant fuel, no runaway meltdown, non-radioactive He product. <em>Cons:</em> limited helium for superconducting magnets, neutron structural damage/induced radioactivity.</li>
+                </ul>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">核反應釋放的能量來自質量虧損（$E=mc^2$）。裂變需減速劑（水）控制連鎖反應；聚變需滿足勞森判據，透過托卡馬克磁約束或雷射慣性約束實現，並用液態鋰層吸收中子與增殖氚。</p>
+              </div>
+              <div class="space-y-2">
+                <h4 class="font-bold text-slate-900 dark:text-white">Standard Model, Forces, Antiparticles & Quarks <span class="cn text-xs text-slate-500">標準模型、基本作用力、反粒子與夸克</span></h4>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-[11px] sm:text-xs border-collapse border border-slate-200 dark:border-slate-700">
+                    <thead class="bg-slate-100 dark:bg-slate-800">
+                      <tr><th class="p-1.5 border border-slate-200 dark:border-slate-700">Force</th><th class="p-1.5 border border-slate-200 dark:border-slate-700">Strength</th><th class="p-1.5 border border-slate-200 dark:border-slate-700">Range</th><th class="p-1.5 border border-slate-200 dark:border-slate-700">Boson (Spin)</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700 font-semibold">Strong</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">1</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">~1 fm</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Gluon (1)</td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700 font-semibold">EM</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$10^{-2}$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$1/r^2$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Photon (1)</td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700 font-semibold">Weak</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$10^{-5}$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">~0.01 fm</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$W^\pm, Z^0$ (1)</td></tr>
+                      <tr><td class="p-1.5 border border-slate-200 dark:border-slate-700 font-semibold">Gravity</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$10^{-38}$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">$1/r^2$</td><td class="p-1.5 border border-slate-200 dark:border-slate-700">Graviton (2, unconfirmed)</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm">
+                  <li><strong>Antiparticles:</strong> Predicted by Dirac (Dirac sea hole, energy $>2mc^2$); positron discovered by Carl Anderson (1932). Pair annihilation ($e^-+e^+\to\gamma+\gamma$) & pair production.</li>
+                  <li><strong>Leptons (6):</strong> $e, \mu, \tau$ & their neutrinos ($\nu_e, \nu_\mu, \nu_\tau$). Spin $1/2$, truly fundamental, <em>do not feel strong force</em>.</li>
+                  <li><strong>Hadrons & Quarks (6):</strong> Feel strong force; made of quarks ($u, c, t$ have $+\frac{2}{3}e$; $d, s, b$ have $-\frac{1}{3}e$). <strong>Mesons</strong> ($q\bar{q}$, integer spin, e.g., $\pi, K, J/\psi$). <strong>Baryons</strong> ($qqq$, half-integer spin, e.g., $p=uud$, $n=udd$, $\Omega^-=sss$). <strong>Color Charge (R, G, B)</strong> & QCD gluons ensure "white" neutral hadrons, explain quark confinement, and resolve Pauli exclusion for $\Delta^{++}(uuu)$ & $\Omega^-(sss)$.</li>
+                  <li><strong>Detectors & Accelerators:</strong> Cosmic rays; Linear (SLAC) & Cyclic (Cyclotron by Lawrence 1930; Synchrotron LHC at CERN); Neutrino observatories (Super-Kamiokande Japan, JUNO China).</li>
+                </ul>
+                <p class="cn text-xs text-slate-500 dark:text-slate-400">標準模型包含輕子（不受強作用力）、夸克（6 味，具紅綠藍三色荷並受膠子束縛成介子與重子）及傳遞四種基本力的規範玻色子。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer class="pt-6 pb-10 text-center text-xs text-slate-400 dark:text-slate-500 border-t border-slate-200 dark:border-slate-800">
+        GE1305 Foundation Physics · Interactive Bilingual Study Notes (Ready for Quiz Area expansion whenever you like!)
+      </footer>
+    </main>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT: UI, SEARCH, KATEX & 7 INTERACTIVE PHYSICS LABS            -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // 1. UI CONTROLS: THEME, BILINGUAL TOGGLE, SIDEBAR, COLLAPSIBLE CARDS
+    // =========================================================================
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+
+    function openSidebar() {
+      sidebar.classList.remove('-translate-x-full');
+      sidebarBackdrop.classList.remove('hidden');
+    }
+    function closeSidebar() {
+      sidebar.classList.add('-translate-x-full');
+      sidebarBackdrop.classList.add('hidden');
+    }
+    sidebarToggleBtn.addEventListener('click', () => {
+      if (sidebar.classList.contains('-translate-x-full')) openSidebar();
+      else closeSidebar();
+    });
+    sidebarBackdrop.addEventListener('click', closeSidebar);
+
+    // Light / Dark Mode Toggle
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    // Bilingual CN Toggle
+    const toggleCnBtn = document.getElementById('toggleCnBtn');
+    const toggleCnLabel = document.getElementById('toggleCnLabel');
+    toggleCnBtn.addEventListener('click', () => {
+      const hidden = document.body.classList.toggle('hide-cn');
+      toggleCnLabel.textContent = hidden ? '顯示中文翻譯' : '隱藏中文翻譯';
+    });
+
+    // Collapsible Topic Cards
+    document.querySelectorAll('.topic-header').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.topic-card');
+        const isOpen = card.getAttribute('data-open') === 'true';
+        card.setAttribute('data-open', isOpen ? 'false' : 'true');
+        if (!isOpen) resizeAllCanvases();
+      });
+    });
+
+    function toggleAllCards(open) {
+      document.querySelectorAll('.topic-card').forEach(c => c.setAttribute('data-open', open ? 'true' : 'false'));
+      if (open) setTimeout(resizeAllCanvases, 30);
+    }
+
+    function toggleChapterCards(chId, open) {
+      document.querySelectorAll(`#${chId} .topic-card`).forEach(c => c.setAttribute('data-open', open ? 'true' : 'false'));
+      if (open) setTimeout(resizeAllCanvases, 30);
+    }
+
+    // Chapter Filter Navigation
+    let activeChapterFilter = 'all';
+    const navBtns = document.querySelectorAll('.nav-btn');
+    function selectChapter(target) {
+      activeChapterFilter = target;
+      navBtns.forEach(b => {
+        const isTarget = b.dataset.target === target;
+        b.classList.toggle('bg-indigo-600', isTarget);
+        b.classList.toggle('text-white', isTarget);
+        b.classList.toggle('shadow-sm', isTarget);
+        b.classList.toggle('text-slate-700', !isTarget);
+        b.classList.toggle('dark:text-slate-200', !isTarget);
+      });
+      document.querySelectorAll('.chapter-section').forEach(sec => {
+        if (target === 'all' || sec.id === target) sec.classList.remove('hidden');
+        else sec.classList.add('hidden');
+      });
+      closeSidebar();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(resizeAllCanvases, 40);
+    }
+
+    navBtns.forEach(btn => btn.addEventListener('click', () => selectChapter(btn.dataset.target)));
+
+    function jumpToLab(chId, labId) {
+      selectChapter(chId);
+      const labEl = document.getElementById(labId);
+      if (labEl) {
+        const card = labEl.closest('.topic-card');
+        if (card) card.setAttribute('data-open', 'true');
+        setTimeout(() => {
+          resizeAllCanvases();
+          labEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 80);
+      }
+    }
+
+    // Real-time Keyword Search across ALL 6 Chapters
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    const mobileSearchInput = document.getElementById('mobileSearchInput');
+    const searchCountBadge = document.getElementById('searchCountBadge');
+    const mobileSearchCountBadge = document.getElementById('mobileSearchCountBadge');
+    const noSearchResults = document.getElementById('noSearchResults');
+
+    function performSearch(query) {
+      const q = query.trim().toLowerCase();
+      if (globalSearchInput.value !== query) globalSearchInput.value = query;
+      if (mobileSearchInput.value !== query) mobileSearchInput.value = query;
+
+      const sections = document.querySelectorAll('.chapter-section');
+      const cards = document.querySelectorAll('.topic-card');
+
+      if (!q) {
+        searchCountBadge.classList.add('hidden');
+        mobileSearchCountBadge.classList.add('hidden');
+        noSearchResults.classList.add('hidden');
+        cards.forEach(c => {
+          c.classList.remove('hidden', 'search-match');
+        });
+        selectChapter(activeChapterFilter);
+        return;
+      }
+
+      let matchCount = 0;
+      sections.forEach(sec => {
+        let secMatches = 0;
+        sec.querySelectorAll('.topic-card').forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(q)) {
+            card.classList.remove('hidden');
+            card.classList.add('search-match');
+            card.setAttribute('data-open', 'true');
+            secMatches++;
+            matchCount++;
+          } else {
+            card.classList.add('hidden');
+            card.classList.remove('search-match');
+          }
+        });
+        sec.classList.toggle('hidden', secMatches === 0);
+      });
+
+      const badgeText = `${matchCount} found`;
+      searchCountBadge.textContent = badgeText;
+      mobileSearchCountBadge.textContent = badgeText;
+      searchCountBadge.classList.remove('hidden');
+      mobileSearchCountBadge.classList.remove('hidden');
+      noSearchResults.classList.toggle('hidden', matchCount > 0);
+      setTimeout(resizeAllCanvases, 30);
+    }
+
+    globalSearchInput.addEventListener('input', e => performSearch(e.target.value));
+    mobileSearchInput.addEventListener('input', e => performSearch(e.target.value));
+
+    // =========================================================================
+    // 2. CANVAS RESIZE HELPER (Retina / iPad Crisp Rendering)
+    // =========================================================================
+    const canvasIds = ['lensCanvas', 'waveCanvas', 'frictionCanvas', 'carnotCanvas', 'lorentzCanvas', 'peCanvas', 'hlCanvas'];
+
+    function setupCanvas(id) {
+      const canvas = document.getElementById(id);
+      if (!canvas) return null;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return null;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return { canvas, ctx, w: rect.width, h: rect.height };
+    }
+
+    function resizeAllCanvases() {
+      canvasIds.forEach(id => setupCanvas(id));
+      drawLens();
+      drawFriction();
+      drawCarnot();
+      drawHalfLife();
+    }
+    window.addEventListener('resize', resizeAllCanvases);
+
+    // =========================================================================
+    // 3. INTERACTIVE LAB 1: THIN LENS & CURVATURE SIMULATOR
+    // =========================================================================
+    let lensType = 'convex';
+    function setLensType(type) {
+      lensType = type;
+      document.getElementById('lensConvexBtn').className = type === 'convex'
+        ? 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition'
+        : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition';
+      document.getElementById('lensConcaveBtn').className = type === 'concave'
+        ? 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white transition'
+        : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition';
+      drawLens();
+    }
+
+    function drawArrow(ctx, x1, y1, x2, y2, color, width = 2.5, dashed = false) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      if (dashed) ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      const head = 8;
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - head * Math.cos(angle - 0.4), y2 - head * Math.sin(angle - 0.4));
+      ctx.lineTo(x2 - head * Math.cos(angle + 0.4), y2 - head * Math.sin(angle + 0.4));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawLens() {
+      const info = setupCanvas('lensCanvas');
+      if (!info) return;
+      const { ctx, w, h } = info;
+      const curv = parseFloat(document.getElementById('lensCurvature').value); // 15..100
+      const n = parseFloat(document.getElementById('lensN').value);
+      const p = parseFloat(document.getElementById('lensP').value);
+      const ho = parseFloat(document.getElementById('lensH').value);
+
+      document.getElementById('lensCurvatureVal').textContent = `${curv}%`;
+      document.getElementById('lensNVal').textContent = n.toFixed(2);
+      document.getElementById('lensPVal').textContent = `${p} cm`;
+      document.getElementById('lensHVal').textContent = `${ho} cm`;
+
+      // Lensmaker approximation: thicker/more curved lens & higher n => shorter focal length f
+      // R inversely proportional to curvature
+      const R = 2600 / curv;
+      const fMag = R / (2 * (n - 1));
+      const f = lensType === 'convex' ? fMag : -fMag;
+
+      // Scale pixels per cm dynamically so diagram fits nicely
+      const scale = Math.min(w / 600, 1.15);
+      const cx = w / 2;
+      const cy = h / 2 + 6;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Subtle grid
+      ctx.strokeStyle = 'rgba(148,163,184,0.12)';
+      ctx.lineWidth = 1;
+      for (let gx = cx % 40; gx < w; gx += 40) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, h); ctx.stroke(); }
+      for (let gy = cy % 40; gy < h; gy += 40) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke(); }
+
+      // Optical axis
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(w, cy); ctx.stroke();
+
+      // Draw Lens Shape (thickness changes visually with curvature slider!)
+      const lensH = Math.min(h * 0.78, 220);
+      const halfH = lensH / 2;
+      const bulge = (curv / 100) * 28 + 5;
+      ctx.save();
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.25)';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (lensType === 'convex') {
+        ctx.moveTo(cx, cy - halfH);
+        ctx.quadraticCurveTo(cx + bulge, cy, cx, cy + halfH);
+        ctx.quadraticCurveTo(cx - bulge, cy, cx, cy - halfH);
+      } else {
+        const edgeW = bulge * 0.85 + 6;
+        const midW = 5;
+        ctx.moveTo(cx - edgeW, cy - halfH);
+        ctx.lineTo(cx + edgeW, cy - halfH);
+        ctx.quadraticCurveTo(cx + midW, cy, cx + edgeW, cy + halfH);
+        ctx.lineTo(cx - edgeW, cy + halfH);
+        ctx.quadraticCurveTo(cx - midW, cy, cx - edgeW, cy - halfH);
+      }
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // Focal points F1, F2, 2F1, 2F2
+      const fPx = fMag * scale;
+      const pts = [
+        { x: cx - fPx, label: 'F₁' },
+        { x: cx + fPx, label: 'F₂' },
+        { x: cx - 2 * fPx, label: '2F₁' },
+        { x: cx + 2 * fPx, label: '2F₂' }
+      ];
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      pts.forEach(pt => {
+        if (pt.x > 10 && pt.x < w - 10) {
+          ctx.fillStyle = '#facc15';
+          ctx.beginPath(); ctx.arc(pt.x, cy, 4, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#cbd5e1';
+          ctx.fillText(pt.label, pt.x, cy + 18);
+        }
+      });
+
+      // Object position
+      const ox = cx - p * scale;
+      const oy = cy - ho * scale;
+      drawArrow(ctx, ox, cy, ox, oy, '#f43f5e', 3);
+      ctx.fillStyle = '#fda4af';
+      ctx.fillText('Object', ox, oy - 8);
+
+      // Compute image position via 1/f = 1/i + 1/p => i = (p*f)/(p - f)
+      const denom = p - f;
+      const atFocus = Math.abs(denom) < 0.8;
+      let iDist = atFocus ? Infinity : (p * f) / denom;
+      let M = atFocus ? Infinity : -iDist / p;
+      let hi = atFocus ? Infinity : M * ho;
+
+      const ix = atFocus ? cx + 1000 : cx + iDist * scale;
+      const iy = atFocus ? cy : cy - hi * scale;
+
+      // Helper to draw extended ray
+      function rayLine(x1, y1, x2, y2, color, dashed = false) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.8;
+        if (dashed) ctx.setLineDash([5, 5]);
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+        ctx.restore();
+      }
+
+      // Ray 1 (Amber): Parallel to axis -> through F2 (convex) or appears from F1 (concave)
+      rayLine(ox, oy, cx, oy, '#fbbf24');
+      if (lensType === 'convex') {
+        const slope1 = (cy - oy) / (cx + fPx - cx);
+        const endX = w;
+        const endY = oy + slope1 * (endX - cx);
+        rayLine(cx, oy, endX, endY, '#fbbf24');
+        if (!atFocus && iDist < 0) rayLine(cx, oy, ix, iy, '#fbbf24', true);
+      } else {
+        const slope1 = (oy - cy) / (cx - (cx - fPx));
+        const endX = w;
+        const endY = oy + slope1 * (endX - cx);
+        rayLine(cx, oy, endX, endY, '#fbbf24');
+        rayLine(cx, oy, cx - fPx, cy, '#fbbf24', true);
+      }
+
+      // Ray 3 (Emerald): Straight through center (cx, cy)
+      const slope3 = (cy - oy) / (cx - ox);
+      rayLine(ox, oy, w, oy + slope3 * (w - ox), '#34d399');
+      if (!atFocus && iDist < 0) rayLine(ox, oy, ix, iy, '#34d399', true);
+
+      // Ray 2 (Violet): Through F1 (convex) or aimed at F2 (concave) -> emerges parallel
+      if (lensType === 'convex' && !atFocus) {
+        const slope2 = (cy - oy) / ((cx - fPx) - ox);
+        const hitY = oy + slope2 * (cx - ox);
+        if (Math.abs(hitY - cy) < halfH * 1.4) {
+          rayLine(ox, oy, cx, hitY, '#c084fc');
+          rayLine(cx, hitY, w, hitY, '#c084fc');
+          if (iDist < 0) rayLine(cx, hitY, ix, hitY, '#c084fc', true);
+        }
+      } else if (lensType === 'concave') {
+        const slope2 = (cy - oy) / ((cx + fPx) - ox);
+        const hitY = oy + slope2 * (cx - ox);
+        rayLine(ox, oy, cx, hitY, '#c084fc');
+        rayLine(cx, hitY, w, hitY, '#c084fc');
+        rayLine(cx, hitY, ix, hitY, '#c084fc', true);
+      }
+
+      // Draw Image Arrow
+      if (!atFocus && isFinite(ix) && ix > -50 && ix < w + 50) {
+        const isVirtual = iDist < 0;
+        drawArrow(ctx, ix, cy, ix, iy, isVirtual ? '#38bdf8' : '#a78bfa', 3, isVirtual);
+        ctx.fillStyle = isVirtual ? '#7dd3fc' : '#c4b5fd';
+        ctx.fillText(isVirtual ? 'Virtual Image' : 'Real Image', ix, iy + (hi >= 0 ? -8 : 16));
+      }
+
+      // Live Readout
+      const nature = atFocus
+        ? 'No Image (Parallel Rays at Infinity / 平行光不成像)'
+        : `${iDist > 0 ? 'Real 實像' : 'Virtual 虛像'}, ${M < 0 ? 'Inverted 倒立' : 'Upright 正立'}, ${Math.abs(M) > 1.02 ? 'Magnified 放大' : Math.abs(M) < 0.98 ? 'Diminished 縮小' : 'Same Size 等大'}`;
+      document.getElementById('lensReadout').innerHTML = `
+        <span><strong class="text-cyan-400">f</strong> = ${f.toFixed(1)} cm</span>
+        <span><strong class="text-amber-400">p</strong> = ${p.toFixed(0)} cm</span>
+        <span><strong class="text-violet-400">i</strong> = ${atFocus ? '∞' : iDist.toFixed(1) + ' cm'}</span>
+        <span><strong class="text-emerald-400">M</strong> = ${atFocus ? '∞' : M.toFixed(2) + '×'}</span>
+        <span class="text-white"><strong>Image:</strong> ${nature}</span>
+      `;
+    }
+
+    ['lensCurvature', 'lensN', 'lensP', 'lensH'].forEach(id => {
+      document.getElementById(id).addEventListener('input', drawLens);
+    });
+
+    // =========================================================================
+    // 4. INTERACTIVE LAB 2: WAVE SUPERPOSITION & BEATS
+    // =========================================================================
+    function setWavePreset(mode) {
+      const f1 = document.getElementById('waveF1');
+      const f2 = document.getElementById('waveF2');
+      const ph = document.getElementById('wavePhase');
+      if (mode === 'constructive') { f1.value = 5.0; f2.value = 5.0; ph.value = 0; }
+      else if (mode === 'cancel') { f1.value = 5.0; f2.value = 5.0; ph.value = 180; }
+      else if (mode === 'beats') { f1.value = 6.0; f2.value = 6.8; ph.value = 0; }
+    }
+
+    let waveTime = 0;
+    function drawWave() {
+      const canvas = document.getElementById('waveCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('waveCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const f1 = parseFloat(document.getElementById('waveF1').value);
+      const f2 = parseFloat(document.getElementById('waveF2').value);
+      const phaseDeg = parseFloat(document.getElementById('wavePhase').value);
+      const phaseRad = (phaseDeg * Math.PI) / 180;
+
+      document.getElementById('waveF1Val').textContent = `${f1.toFixed(1)} Hz`;
+      document.getElementById('waveF2Val').textContent = `${f2.toFixed(1)} Hz`;
+      document.getElementById('wavePhaseVal').textContent = `${phaseDeg}°`;
+
+      ctx.clearRect(0, 0, w, h);
+      const y1Mid = h * 0.2, y2Mid = h * 0.48, ySumMid = h * 0.8;
+      const amp = h * 0.11;
+
+      // Dividers & Labels
+      ctx.strokeStyle = 'rgba(148,163,184,0.2)';
+      ctx.lineWidth = 1;
+      [y1Mid, y2Mid, ySumMid].forEach(ym => {
+        ctx.beginPath(); ctx.moveTo(0, ym); ctx.lineTo(w, ym); ctx.stroke();
+      });
+
+      ctx.font = '11px Inter, sans-serif';
+      ctx.fillStyle = '#fb7185'; ctx.fillText('Wave 1 (y₁)', 10, y1Mid - amp - 4);
+      ctx.fillStyle = '#38bdf8'; ctx.fillText('Wave 2 (y₂)', 10, y2Mid - amp - 4);
+      ctx.fillStyle = '#c084fc'; ctx.fillText('Resultant (y₁ + y₂)', 10, ySumMid - amp * 1.5);
+
+      const drawSine = (mid, color, lw, fn) => {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lw;
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 2) {
+          const xn = x / w;
+          const y = mid - fn(xn);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      };
+
+      drawSine(y1Mid, '#f43f5e', 2, xn => amp * Math.sin(2 * Math.PI * (f1 * xn * 2 - waveTime * 0.5)));
+      drawSine(y2Mid, '#38bdf8', 2, xn => amp * Math.sin(2 * Math.PI * (f2 * xn * 2 - waveTime * 0.5) + phaseRad));
+      drawSine(ySumMid, '#c084fc', 2.5, xn => {
+        const v1 = Math.sin(2 * Math.PI * (f1 * xn * 2 - waveTime * 0.5));
+        const v2 = Math.sin(2 * Math.PI * (f2 * xn * 2 - waveTime * 0.5) + phaseRad);
+        return amp * 0.85 * (v1 + v2);
+      });
+
+      const fBeat = Math.abs(f1 - f2);
+      let status = fBeat > 0.05 ? `Beats Phenomenon (f_beat = ${fBeat.toFixed(1)} Hz)`
+        : (phaseDeg === 180 ? 'Complete Destructive Interference (Noise Cancellation!)' : phaseDeg === 0 || phaseDeg === 360 ? 'Complete Constructive Interference (2× Amplitude)' : 'Partial Interference');
+      document.getElementById('waveReadout').innerHTML = `
+        <span><strong class="text-violet-400">f_beat = |f₁ - f₂|</strong> = ${fBeat.toFixed(1)} Hz</span>
+        <span class="text-emerald-300"><strong>State:</strong> ${status}</span>
+      `;
+    }
+
+    // =========================================================================
+    // 5. INTERACTIVE LAB 3: FRICTION & NEWTON'S 2ND LAW
+    // =========================================================================
+    let blockX = 40, blockV = 0;
+    function resetFrictionBlock() { blockX = 40; blockV = 0; drawFriction(); }
+
+    function drawFriction(dt = 0) {
+      const canvas = document.getElementById('frictionCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('frictionCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const F = parseFloat(document.getElementById('fricF').value);
+      const m = parseFloat(document.getElementById('fricM').value);
+      const us = parseFloat(document.getElementById('fricUs').value);
+      let uk = parseFloat(document.getElementById('fricUk').value);
+      if (uk > us) { uk = us; document.getElementById('fricUk').value = uk; }
+
+      document.getElementById('fricFVal').textContent = `${F} N`;
+      document.getElementById('fricMVal').textContent = `${m} kg`;
+      document.getElementById('fricUsVal').textContent = us.toFixed(2);
+      document.getElementById('fricUkVal').textContent = uk.toFixed(2);
+
+      const g = 9.8;
+      const N = m * g;
+      const fsMax = us * N;
+      const fk = uk * N;
+
+      let friction = 0, a = 0, moving = false;
+      if (F <= fsMax && blockV < 0.05) {
+        friction = F;
+        a = 0;
+        blockV = 0;
+        moving = false;
+      } else {
+        moving = true;
+        friction = fk;
+        a = (F - fk) / m;
+        if (dt > 0) {
+          blockV = Math.max(0, blockV + a * dt * 12);
+          blockX += blockV * dt * 10;
+          if (blockX > w * 0.45) blockX = 35;
+        }
+      }
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Left half: Block animation
+      const splitX = w * 0.54;
+      const floorY = h * 0.76;
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(15, floorY); ctx.lineTo(splitX - 15, floorY); ctx.stroke();
+
+      const bw = 54, bh = 44;
+      const bx = Math.min(Math.max(blockX, 30), splitX - bw - 30);
+      const by = floorY - bh;
+
+      ctx.fillStyle = moving ? '#6366f1' : '#334155';
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.fillRect(bx, by, bw, bh);
+      ctx.strokeRect(bx, by, bw, bh);
+
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 12px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${m} kg`, bx + bw / 2, by + bh / 2 + 4);
+
+      // Force vectors
+      const fScale = 0.75;
+      if (F > 0) drawArrow(ctx, bx + bw, by + bh / 2, bx + bw + F * fScale, by + bh / 2, '#818cf8', 2.5);
+      if (friction > 0) drawArrow(ctx, bx, floorY - 6, bx - friction * fScale, floorY - 6, '#fbbf24', 2.5);
+      drawArrow(ctx, bx + bw / 2, by, bx + bw / 2, by - Math.min(N * 0.35, 55), '#34d399', 2);
+      drawArrow(ctx, bx + bw / 2, by + bh, bx + bw / 2, by + bh + Math.min(N * 0.35, 45), '#f43f5e', 2);
+
+      ctx.font = '10px Inter, sans-serif';
+      ctx.fillStyle = '#a5b4fc'; ctx.fillText(`F=${F}N`, bx + bw + 26, by + bh / 2 - 8);
+      ctx.fillStyle = '#fde68a'; ctx.fillText(`f=${friction.toFixed(1)}N`, bx - 22, floorY - 14);
+
+      // Right half: Friction vs Applied Force Graph
+      const gx0 = splitX + 35, gy0 = h - 38, gw = w - gx0 - 20, gh = h - 70;
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(gx0, gy0 - gh); ctx.lineTo(gx0, gy0); ctx.lineTo(gx0 + gw, gy0); ctx.stroke();
+
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = '11px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Applied Force F (N)', gx0 + gw / 2, h - 12);
+      ctx.fillText('Friction |f|', gx0 + 18, gy0 - gh - 8);
+
+      const maxAxis = Math.max(100, fsMax * 1.15);
+      const mapX = val => gx0 + (val / 100) * gw;
+      const mapY = val => gy0 - (val / maxAxis) * gh;
+
+      // Static linear curve + Kinetic plateau
+      ctx.strokeStyle = '#f97316';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(mapX(0), mapY(0));
+      const peakX = Math.min(fsMax, 100);
+      ctx.lineTo(mapX(peakX), mapY(peakX));
+      if (fsMax < 100) {
+        ctx.lineTo(mapX(fsMax), mapY(fk));
+        ctx.lineTo(mapX(100), mapY(fk));
+      }
+      ctx.stroke();
+
+      // Current operating point dot
+      ctx.fillStyle = moving ? '#38bdf8' : '#4ade80';
+      ctx.beginPath();
+      ctx.arc(mapX(F), mapY(friction), 5.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      document.getElementById('frictionReadout').innerHTML = `
+        <span><strong class="text-emerald-400">N = mg</strong> = ${N.toFixed(1)} N</span>
+        <span><strong class="text-amber-400">f_s,max</strong> = ${fsMax.toFixed(1)} N</span>
+        <span><strong class="text-rose-400">f_k</strong> = ${fk.toFixed(1)} N</span>
+        <span><strong class="text-indigo-300">Actual f</strong> = ${friction.toFixed(1)} N</span>
+        <span><strong class="text-cyan-300">a = F_net/m</strong> = ${a.toFixed(2)} m/s² (${moving ? 'SLIDING 滑動中' : 'STATIONARY 靜止'})</span>
+      `;
+    }
+
+    ['fricF', 'fricM', 'fricUs', 'fricUk'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => { blockV = 0; drawFriction(0); });
+    });
+
+    // =========================================================================
+    // 6. INTERACTIVE LAB 4: CARNOT HEAT ENGINE & p-V CYCLE
+    // =========================================================================
+    let carnotPhase = 0;
+    function drawCarnot(dt = 0) {
+      const canvas = document.getElementById('carnotCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('carnotCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const Th = parseFloat(document.getElementById('carnotTh').value);
+      const Tc = parseFloat(document.getElementById('carnotTc').value);
+      const Qh = parseFloat(document.getElementById('carnotQh').value);
+
+      document.getElementById('carnotThVal').textContent = `${Th} K`;
+      document.getElementById('carnotTcVal').textContent = `${Tc} K`;
+      document.getElementById('carnotQhVal').textContent = `${Qh} J`;
+
+      const eff = 1 - Tc / Th;
+      const W = Qh * eff;
+      const Qc = Qh - W;
+      const dSh = Qh / Th;
+      const cop = Tc / (Th - Tc);
+
+      if (dt > 0) carnotPhase = (carnotPhase + dt * 0.45) % 4;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Left: Carnot p-V Diagram
+      const gx0 = 42, gy0 = h - 36, gw = w * 0.5 - 50, gh = h - 68;
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(gx0, gy0 - gh); ctx.lineTo(gx0, gy0); ctx.lineTo(gx0 + gw, gy0); ctx.stroke();
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('Volume V', gx0 + gw / 2, h - 10);
+      ctx.fillText('P', gx0 - 16, gy0 - gh + 8);
+
+      // Normalized Carnot vertices (a, b, c, d) responding to Th/Tc ratio
+      const ratio = Th / Tc; // ~1.05 to 6.0
+      const pNorm = val => gy0 - Math.min(val, 1) * gh;
+      const vNorm = val => gx0 + val * gw;
+
+      const a = { v: 0.16, p: Math.min(0.95, 0.42 + ratio * 0.11) };
+      const b = { v: 0.48, p: a.p * 0.56 };
+      const c = { v: 0.88, p: Math.max(0.10, b.p * (Tc / Th) * 0.65) };
+      const d = { v: 0.34, p: Math.max(0.16, c.p * 1.95) };
+
+      // Shaded net work area
+      ctx.fillStyle = 'rgba(251, 191, 36, 0.22)';
+      ctx.beginPath();
+      ctx.moveTo(vNorm(a.v), pNorm(a.p));
+      ctx.quadraticCurveTo(vNorm(0.30), pNorm(a.p * 0.72), vNorm(b.v), pNorm(b.p));
+      ctx.quadraticCurveTo(vNorm(0.62), pNorm(c.p * 1.45), vNorm(c.v), pNorm(c.p));
+      ctx.quadraticCurveTo(vNorm(0.56), pNorm(c.p * 1.35), vNorm(d.v), pNorm(d.p));
+      ctx.quadraticCurveTo(vNorm(0.22), pNorm(d.p * 1.4), vNorm(a.v), pNorm(a.p));
+      ctx.fill();
+
+      // Draw 4 branches color-coded
+      const drawCurve = (p1, ctrl, p2, color) => {
+        ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(vNorm(p1.v), pNorm(p1.p));
+        ctx.quadraticCurveTo(vNorm(ctrl.v), pNorm(ctrl.p), vNorm(p2.v), pNorm(p2.p));
+        ctx.stroke();
+      };
+      const c1 = { v: 0.30, p: a.p * 0.72 }, c2 = { v: 0.62, p: c.p * 1.45 }, c3 = { v: 0.56, p: c.p * 1.35 }, c4 = { v: 0.22, p: d.p * 1.4 };
+      drawCurve(a, c1, b, '#f43f5e'); // Isotherm TH
+      drawCurve(b, c2, c, '#a78bfa'); // Adiabat
+      drawCurve(c, c3, d, '#38bdf8'); // Isotherm TC
+      drawCurve(d, c4, a, '#a78bfa'); // Adiabat
+
+      // Animated dot along cycle
+      const seg = Math.floor(carnotPhase), t = carnotPhase - seg;
+      const segs = [[a, c1, b], [b, c2, c], [c, c3, d], [d, c4, a]];
+      const [P0, P1, P2] = segs[seg];
+      const dotV = (1 - t) * (1 - t) * P0.v + 2 * (1 - t) * t * P1.v + t * t * P2.v;
+      const dotP = (1 - t) * (1 - t) * P0.p + 2 * (1 - t) * t * P1.p + t * t * P2.p;
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath(); ctx.arc(vNorm(dotV), pNorm(dotP), 5.5, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#fde68a'; ctx.font = 'bold 11px Inter, sans-serif';
+      ctx.fillText('W_net', vNorm(0.46), pNorm((a.p + c.p) * 0.45));
+
+      // Right: Energy Flow Bars (QH -> W + |QC|)
+      const rx = w * 0.58, rw = w * 0.36;
+      const drawBar = (y, label, val, maxV, color) => {
+        ctx.fillStyle = '#cbd5e1'; ctx.textAlign = 'left'; ctx.font = '11px Inter, sans-serif';
+        ctx.fillText(`${label}: ${val.toFixed(0)} J`, rx, y - 6);
+        ctx.fillStyle = '#1e293b'; ctx.fillRect(rx, y, rw, 20);
+        ctx.fillStyle = color; ctx.fillRect(rx, y, Math.max(4, (val / maxV) * rw), 20);
+      };
+      drawBar(45, 'Heat In (Q_H)', Qh, 5000, '#f43f5e');
+      drawBar(105, 'Useful Work (W)', W, 5000, '#fbbf24');
+      drawBar(165, 'Waste Heat (|Q_C|)', Qc, 5000, '#38bdf8');
+
+      ctx.fillStyle = '#94a3b8'; ctx.font = '11px Inter, sans-serif';
+      ctx.fillText(`Carnot Efficiency η = ${(eff * 100).toFixed(1)}%`, rx, 220);
+
+      document.getElementById('carnotReadout').innerHTML = `
+        <span><strong class="text-amber-400">η_Carnot</strong> = ${(eff * 100).toFixed(1)}%</span>
+        <span><strong class="text-emerald-400">W</strong> = ${W.toFixed(0)} J</span>
+        <span><strong class="text-sky-400">|Q_C|</strong> = ${Qc.toFixed(0)} J</span>
+        <span><strong class="text-violet-300">ΔS_H = -ΔS_C</strong> = ${dSh.toFixed(2)} J/K</span>
+        <span><strong class="text-cyan-300">Refrig. COP (K)</strong> = ${cop.toFixed(2)}</span>
+      `;
+    }
+
+    ['carnotTh', 'carnotTc', 'carnotQh'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => drawCarnot(0));
+    });
+
+    // =========================================================================
+    // 7. INTERACTIVE LAB 5: LORENTZ FORCE CYCLOTRON
+    // =========================================================================
+    let lorQSign = 1; // +1 or -1
+    let lorBDir = 1;  // +1 = into page (⊗), -1 = out of page (⊙)
+    let lorTheta = 0;
+
+    function toggleLorentzQSign() {
+      lorQSign *= -1;
+      const btn = document.getElementById('qSignBtn');
+      btn.textContent = lorQSign > 0 ? 'Charge: +q (Positive)' : 'Charge: -q (Negative)';
+      btn.className = lorQSign > 0
+        ? 'px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 text-white transition'
+        : 'px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 text-white transition';
+    }
+    function toggleLorentzBDir() {
+      lorBDir *= -1;
+      document.getElementById('bDirBtn').textContent = lorBDir > 0 ? 'B-Field: ⊗ Into Page' : 'B-Field: ⊙ Out of Page';
+    }
+
+    function drawLorentz(dt = 0) {
+      const canvas = document.getElementById('lorentzCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('lorentzCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const v = parseFloat(document.getElementById('lorV').value);
+      const B = parseFloat(document.getElementById('lorB').value);
+      const q = parseFloat(document.getElementById('lorQ').value);
+      const m = parseFloat(document.getElementById('lorM').value);
+
+      document.getElementById('lorVVal').textContent = v.toFixed(1);
+      document.getElementById('lorBVal').textContent = `${B.toFixed(1)} T`;
+      document.getElementById('lorQVal').textContent = q.toFixed(1);
+      document.getElementById('lorMVal').textContent = m.toFixed(2);
+
+      // Cyclotron radius R = m*v / (q*B)
+      const Rphys = (m * v) / (q * B);
+      const Rpx = Math.min(h * 0.39, Math.max(22, Rphys * 16));
+      const omega = (q * B) / m;
+      // Direction of rotation: for +q and B into page (⊗), v x B points inward for CCW orbit
+      const dir = -lorQSign * lorBDir;
+      if (dt > 0) lorTheta += dir * omega * dt * 1.4;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Draw uniform B-field symbols (⊗ or ⊙)
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.35)';
+      ctx.lineWidth = 1.2;
+      for (let gx = 28; gx < w - 15; gx += 46) {
+        for (let gy = 26; gy < h - 15; gy += 46) {
+          ctx.beginPath(); ctx.arc(gx, gy, 6, 0, Math.PI * 2); ctx.stroke();
+          if (lorBDir > 0) {
+            ctx.beginPath(); ctx.moveTo(gx - 3.5, gy - 3.5); ctx.lineTo(gx + 3.5, gy + 3.5);
+            ctx.moveTo(gx + 3.5, gy - 3.5); ctx.lineTo(gx - 3.5, gy + 3.5); ctx.stroke();
+          } else {
+            ctx.beginPath(); ctx.arc(gx, gy, 2, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+      }
+
+      const cx = w / 2, cy = h / 2;
+      // Orbit dashed circle
+      ctx.save();
+      ctx.strokeStyle = 'rgba(148,163,184,0.45)';
+      ctx.setLineDash([5, 5]);
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy, Rpx, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+
+      const px = cx + Rpx * Math.cos(lorTheta);
+      const py = cy + Rpx * Math.sin(lorTheta);
+
+      // Velocity tangent vector (green)
+      const vx = -dir * Math.sin(lorTheta);
+      const vy = dir * Math.cos(lorTheta);
+      const vLen = 22 + v * 3.5;
+      drawArrow(ctx, px, py, px + vx * vLen, py + vy * vLen, '#34d399', 2.5);
+
+      // Lorentz centripetal force vector (amber)
+      const fx = cx - px, fy = cy - py;
+      const fMag = Math.hypot(fx, fy) || 1;
+      const fLen = Math.min(Rpx - 4, 20 + q * v * B * 2.2);
+      drawArrow(ctx, px, py, px + (fx / fMag) * fLen, py + (fy / fMag) * fLen, '#fbbf24', 2.5);
+
+      // Particle circle
+      ctx.fillStyle = lorQSign > 0 ? '#f43f5e' : '#38bdf8';
+      ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 12px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(lorQSign > 0 ? '+' : '−', px, py + 4);
+
+      // Legend
+      ctx.textAlign = 'left'; ctx.font = '11px Inter, sans-serif';
+      ctx.fillStyle = '#34d399'; ctx.fillText('→ Velocity v', 12, 20);
+      ctx.fillStyle = '#fbbf24'; ctx.fillText('→ Lorentz Force F_B (Centripetal)', 12, 36);
+
+      document.getElementById('lorentzReadout').innerHTML = `
+        <span><strong class="text-amber-400">F_B = |q|vB</strong> = ${(q * v * B).toFixed(2)} N</span>
+        <span><strong class="text-cyan-300">Radius R = mv/(|q|B)</strong> = ${Rphys.toFixed(2)} m</span>
+        <span><strong class="text-emerald-300">Orbit</strong> = ${dir < 0 ? 'Counter-Clockwise 逆時針' : 'Clockwise 順時針'}</span>
+        <span><strong>Work by B</strong> = 0 J</span>
+      `;
+    }
+
+    // =========================================================================
+    // 8. INTERACTIVE LAB 6: PHOTOELECTRIC EFFECT SIMULATOR
+    // =========================================================================
+    const pePhotons = [];
+    const peElectrons = [];
+    let peSpawnAcc = 0;
+
+    function wavelengthToColor(nm) {
+      if (nm < 380) return '#a855f7'; // UV
+      if (nm < 450) return '#6366f1';
+      if (nm < 495) return '#3b82f6';
+      if (nm < 570) return '#22c55e';
+      if (nm < 590) return '#eab308';
+      if (nm < 620) return '#f97316';
+      return '#ef4444';
+    }
+
+    function drawPhotoelectric(dt = 0) {
+      const canvas = document.getElementById('peCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('peCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const lambdaNm = parseFloat(document.getElementById('peLambda').value);
+      const intensity = parseFloat(document.getElementById('peInt').value);
+      const phi = parseFloat(document.getElementById('peMetal').value);
+
+      const band = lambdaNm < 380 ? 'UV' : 'Visible';
+      document.getElementById('peLambdaVal').textContent = `${lambdaNm} nm (${band})`;
+      document.getElementById('peIntVal').textContent = `${intensity}%`;
+
+      // E = hc / lambda = 1240 eV*nm / lambdaNm
+      const Ephoton = 1240 / lambdaNm;
+      const Kmax = Math.max(0, Ephoton - phi);
+      const ejected = Ephoton >= phi;
+      const freq14 = (3e8 / (lambdaNm * 1e-9)) / 1e14; // in 10^14 Hz
+      const fc14 = (phi / 4.136e-15) / 1e14;
+      const color = wavelengthToColor(lambdaNm);
+
+      const splitX = w * 0.56;
+      const plateX = splitX - 38;
+
+      if (dt > 0) {
+        peSpawnAcc += dt * (intensity / 15);
+        while (peSpawnAcc >= 1) {
+          peSpawnAcc -= 1;
+          pePhotons.push({ x: 25, y: 45 + Math.random() * (h - 90), vx: 180 });
+        }
+        for (let i = pePhotons.length - 1; i >= 0; i--) {
+          const pt = pePhotons[i];
+          pt.x += pt.vx * dt;
+          if (pt.x >= plateX) {
+            if (ejected) {
+              const spd = 65 + Math.sqrt(Kmax) * 75;
+              peElectrons.push({ x: plateX - 4, y: pt.y, vx: -spd, vy: (Math.random() - 0.5) * 45 });
+            }
+            pePhotons.splice(i, 1);
+          }
+        }
+        for (let i = peElectrons.length - 1; i >= 0; i--) {
+          const el = peElectrons[i];
+          el.x += el.vx * dt;
+          el.y += el.vy * dt;
+          if (el.x < 10 || el.y < 10 || el.y > h - 10) peElectrons.splice(i, 1);
+        }
+      }
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Left: Metal Plate & Photon/Electron chamber
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(plateX, 24, 16, h - 48);
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('Metal', plateX + 8, 17);
+
+      // Photons (wavy lines / glowing dots)
+      pePhotons.forEach(pt => {
+        ctx.strokeStyle = color; ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let dx = -14; dx <= 0; dx += 2) {
+          const py = pt.y + Math.sin(dx * 0.8) * 3.5;
+          if (dx === -14) ctx.moveTo(pt.x + dx, py);
+          else ctx.lineTo(pt.x + dx, py);
+        }
+        ctx.stroke();
+        ctx.fillStyle = color;
+        ctx.beginPath(); ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2); ctx.fill();
+      });
+
+      // Ejected Photoelectrons
+      peElectrons.forEach(el => {
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath(); ctx.arc(el.x, el.y, 4.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 9px Inter'; ctx.fillText('-', el.x, el.y + 3);
+      });
+
+      // Right: K_max vs Frequency Graph
+      const gx0 = splitX + 34, gy0 = h - 38, gw = w - gx0 - 18, gh = h - 72;
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(gx0, gy0 - gh); ctx.lineTo(gx0, gy0); ctx.lineTo(gx0 + gw, gy0); ctx.stroke();
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '10px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('Frequency f (×10¹⁴ Hz)', gx0 + gw / 2, h - 12);
+      ctx.fillText('K_max (eV)', gx0 + 22, gy0 - gh - 6);
+
+      const maxF = 20, maxK = 6.5;
+      const mx = f => gx0 + (Math.min(f, maxF) / maxF) * gw;
+      const my = k => gy0 - (Math.min(k, maxK) / maxK) * gh;
+
+      // Cutoff line
+      ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(mx(0), my(0));
+      ctx.lineTo(mx(fc14), my(0));
+      const endK = (4.136e-15 * maxF * 1e14) - phi;
+      ctx.lineTo(mx(maxF), my(Math.max(0, endK)));
+      ctx.stroke();
+
+      // Current operating dot
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.arc(mx(freq14), my(Kmax), 5.5, 0, Math.PI * 2); ctx.fill();
+
+      document.getElementById('peReadout').innerHTML = `
+        <span><strong class="text-violet-300">E_photon = hf</strong> = ${Ephoton.toFixed(2)} eV</span>
+        <span><strong class="text-amber-300">Work Function φ</strong> = ${phi.toFixed(1)} eV (f_c = ${fc14.toFixed(1)}×10¹⁴ Hz)</span>
+        <span><strong class="text-cyan-300">K_max</strong> = ${Kmax.toFixed(2)} eV</span>
+        <span class="${ejected ? 'text-emerald-400' : 'text-rose-400'} font-bold">${ejected ? '✓ Electrons Ejected! 光電子發射' : '✗ Below Threshold (No Emission) 低於截止頻率'}</span>
+      `;
+    }
+
+    // =========================================================================
+    // 9. INTERACTIVE LAB 7: RADIOACTIVE HALF-LIFE SIMULATOR
+    // =========================================================================
+    const TOTAL_NUCLEI = 200;
+    let hlDecayThresholds = [];
+    let hlPlaying = false;
+
+    function initHalfLifeThresholds() {
+      hlDecayThresholds = [];
+      // Generate exponential decay times in units of half-lives: t = -log2(u)
+      for (let i = 0; i < TOTAL_NUCLEI; i++) {
+        const u = Math.max(0.001, Math.random());
+        hlDecayThresholds.push(-Math.log2(u));
+      }
+    }
+    initHalfLifeThresholds();
+
+    function toggleHalfLifePlay() {
+      hlPlaying = !hlPlaying;
+      document.getElementById('hlPlayBtn').textContent = hlPlaying ? '⏸ Pause' : '▶ Play';
+    }
+    function resetHalfLife() {
+      hlPlaying = false;
+      document.getElementById('hlPlayBtn').textContent = '▶ Play';
+      document.getElementById('hlSlider').value = 0;
+      initHalfLifeThresholds();
+      drawHalfLife();
+    }
+
+    function drawHalfLife(dt = 0) {
+      const canvas = document.getElementById('hlCanvas');
+      if (!canvas || canvas.offsetParent === null) return;
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      if (canvas.width !== Math.round(rect.width * dpr)) setupCanvas('hlCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = rect.width, h = rect.height;
+
+      const slider = document.getElementById('hlSlider');
+      let tHL = parseFloat(slider.value);
+      if (hlPlaying && dt > 0) {
+        tHL += dt * 0.55;
+        if (tHL >= 5) { tHL = 5; hlPlaying = false; document.getElementById('hlPlayBtn').textContent = '▶ Play'; }
+        slider.value = tHL.toFixed(2);
+      }
+
+      const [tHalfStr, unit, isoName] = document.getElementById('hlIsotope').value.split('|');
+      const tHalf = parseFloat(tHalfStr);
+      document.getElementById('hlSliderVal').textContent = `${tHL.toFixed(2)} T₁/₂`;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Left: 20x10 Grid of 200 Nuclei
+      const cols = 20, rows = 10;
+      const gridW = w * 0.48 - 20;
+      const gridH = h - 44;
+      const cellX = gridW / cols;
+      const cellY = gridH / rows;
+      const r = Math.min(cellX, cellY) * 0.36;
+
+      let remaining = 0;
+      for (let i = 0; i < TOTAL_NUCLEI; i++) {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const cx = 18 + col * cellX + cellX / 2;
+        const cy = 28 + row * cellY + cellY / 2;
+        const alive = hlDecayThresholds[i] > tHL;
+        if (alive) remaining++;
+        ctx.fillStyle = alive ? '#14b8a6' : '#334155';
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '11px Inter, sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText(`Parent (Teal): ${remaining}  |  Daughter (Gray): ${TOTAL_NUCLEI - remaining}`, 16, 16);
+
+      // Right: Exponential Decay Curve N(t) = N0 * (1/2)^t
+      const gx0 = w * 0.54 + 24, gy0 = h - 34, gw = w - gx0 - 18, gh = h - 62;
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(gx0, gy0 - gh); ctx.lineTo(gx0, gy0); ctx.lineTo(gx0 + gw, gy0); ctx.stroke();
+      ctx.fillStyle = '#cbd5e1'; ctx.font = '10px Inter, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('Number of Half-Lives (t / T₁/₂)', gx0 + gw / 2, h - 10);
+      ctx.fillText('Remaining (%)', gx0 + 28, gy0 - gh - 6);
+
+      ctx.strokeStyle = '#2dd4bf'; ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for (let x = 0; x <= gw; x += 2) {
+        const th = (x / gw) * 5;
+        const frac = Math.pow(0.5, th);
+        const py = gy0 - frac * gh;
+        if (x === 0) ctx.moveTo(gx0 + x, py);
+        else ctx.lineTo(gx0 + x, py);
+      }
+      ctx.stroke();
+
+      // Current marker
+      const curX = gx0 + (tHL / 5) * gw;
+      const curFrac = Math.pow(0.5, tHL);
+      const curY = gy0 - curFrac * gh;
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath(); ctx.arc(curX, curY, 5.5, 0, Math.PI * 2); ctx.fill();
+
+      const elapsed = tHL * tHalf;
+      const elapsedFmt = elapsed >= 1e6 ? elapsed.toExponential(2) : elapsed.toFixed(1);
+      document.getElementById('hlReadout').innerHTML = `
+        <span><strong class="text-teal-300">${isoName}</strong></span>
+        <span><strong>Time Elapsed:</strong> ${elapsedFmt} ${unit}</span>
+        <span><strong class="text-amber-300">Theoretical:</strong> ${(curFrac * 100).toFixed(1)}%</span>
+        <span><strong class="text-emerald-300">Simulated Sample:</strong> ${remaining}/${TOTAL_NUCLEI} (${((remaining / TOTAL_NUCLEI) * 100).toFixed(1)}%)</span>
+      `;
+    }
+
+    document.getElementById('hlSlider').addEventListener('input', () => drawHalfLife(0));
+    document.getElementById('hlIsotope').addEventListener('change', () => drawHalfLife(0));
+
+    // =========================================================================
+    // 10. MASTER ANIMATION LOOP & INITIALIZATION
+    // =========================================================================
+    let lastTs = 0;
+    function animateLoop(ts) {
+      const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 0;
+      lastTs = ts;
+      waveTime += dt;
+
+      drawWave();
+      drawFriction(dt);
+      drawCarnot(dt);
+      drawLorentz(dt);
+      drawPhotoelectric(dt);
+      drawHalfLife(dt);
+
+      requestAnimationFrame(animateLoop);
+    }
+
+    window.addEventListener('load', () => {
+      // Render all LaTeX formulas via KaTeX auto-render
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+      resizeAllCanvases();
+      requestAnimationFrame(animateLoop);
+    });
+  </script>
+</body>
+</html>
