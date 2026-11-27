@@ -1,0 +1,2921 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GE1305 Foundation Physics — Test & Review Center</title>
+
+  <!-- Inter & Noto Sans TC Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      };
+    }
+  </script>
+
+  <style>
+    /* Explicit fallback rules so toggles work even if Tailwind CDN is slow */
+    .hidden {
+      display: none !important;
+    }
+    body.hide-cn .cn {
+      display: none !important;
+    }
+    .quiz-exp-body[data-open="false"] {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-200 min-h-screen">
+
+  <!-- ================= TOP STICKY HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <!-- Brand Title -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white font-extrabold text-sm shadow-sm shrink-0">
+          Φ
+        </div>
+        <div class="truncate">
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white truncate">
+            GE1305 Foundation Physics — Test &amp; Review Center
+          </h1>
+          <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate">
+            CityU HK · 180 English 5-Option MCQs + 100-Q Mixed Exam <span class="cn">· 測驗溫習中心</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Global Controls: Toggle CN + Dark Mode -->
+      <div class="flex items-center gap-2 shrink-0">
+        <button id="toggleCnBtn" type="button"
+          class="px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition flex items-center gap-1.5 cursor-pointer">
+          <span id="toggleCnLabel">隱藏中文翻譯</span>
+          <span class="hidden sm:inline opacity-75">(CN)</span>
+        </button>
+
+        <button id="themeToggleBtn" type="button" aria-label="Toggle Dark Mode"
+          class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-300 transition cursor-pointer">
+          <svg id="sunIcon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+          </svg>
+          <svg id="moonIcon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+    <!-- Hero Banner & Practice / Exam Mode Switcher -->
+    <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-violet-950 rounded-2xl p-5 sm:p-7 text-white shadow-lg border border-indigo-800/40 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-indigo-500/30 text-indigo-200 px-3 py-1 rounded-full mb-2">
+          <span>180-Question Bank · 5 Options (A–E) · 100% English Questions</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          Test &amp; Review Center <span class="cn text-lg sm:text-xl font-bold text-indigo-300 ml-1">測驗溫習區</span>
+        </h2>
+        <p class="text-slate-300 text-sm mt-1">
+          30 unique MCQs per chapter across all 6 chapters + a 100-question balanced Final Mixed Exam. Every answer &amp; bilingual explanation is collapsible for active recall.
+          <span class="cn block text-indigo-200/90 mt-0.5">每章 30 題獨立 5 選 1 英文選擇題，加上 100 題全範圍均衡混合模擬試；所有答案與中英雙語解釋預設摺疊，方便主動溫習。</span>
+        </p>
+      </div>
+
+      <!-- Practice vs Exam Mode Toggle -->
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+        <div class="inline-flex bg-slate-800/90 p-1 rounded-xl border border-slate-700">
+          <button id="modePracticeBtn" type="button"
+            class="px-3.5 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white transition cursor-pointer">
+            ⚡ Practice Mode <span class="cn">(即時核對)</span>
+          </button>
+          <button id="modeExamBtn" type="button"
+            class="px-3.5 py-2 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition cursor-pointer">
+            🎓 Exam Mode <span class="cn">(交卷計分)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deck Selection Area -->
+    <section class="space-y-3" id="deckSelectorArea">
+      <!-- Highlighted Final Mixed Exam (100 MCQs) -->
+      <button type="button" data-deck="mixed" id="deck-btn-mixed"
+        class="deck-btn w-full text-left p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-rose-500/15 dark:from-amber-500/20 dark:to-rose-500/20 border-2 border-amber-400/80 hover:border-amber-500 transition shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 font-extrabold text-xl flex items-center justify-center shrink-0 shadow">
+            🏆
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">Final Mixed Exam (100 MCQs)</h3>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950">Balanced All 6 Chapters</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-0.5">
+              100 non-repeating shuffled questions (17 from Ch 1–4, 16 from Ch 5–6) with 90-min countdown timer &amp; chapter score breakdown.
+              <span class="cn block text-xs text-slate-500 dark:text-slate-400">最終混合模擬試：從六章均衡隨機抽取 100 題不重複選擇題，附 90 分鐘倒數計時器與各章成績分析。</span>
+            </p>
+          </div>
+        </div>
+        <span class="text-xs font-bold px-4 py-2 rounded-xl bg-amber-500 text-slate-950 self-start sm:self-center shrink-0">
+          Launch 100-Q Exam →
+        </span>
+      </button>
+
+      <!-- 6 Chapter Selector Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <button type="button" data-deck="ch1" id="deck-btn-ch1" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 1</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Wave &amp; Optics</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">波動與光學</div>
+        </button>
+
+        <button type="button" data-deck="ch2" id="deck-btn-ch2" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 2</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Force &amp; Motion</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">力與運動</div>
+        </button>
+
+        <button type="button" data-deck="ch3" id="deck-btn-ch3" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 3</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Thermal Physics</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">熱物理學</div>
+        </button>
+
+        <button type="button" data-deck="ch4" id="deck-btn-ch4" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 4</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Electricity &amp; Magnetism</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">電磁學</div>
+        </button>
+
+        <button type="button" data-deck="ch5" id="deck-btn-ch5" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 5</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Quantum Physics</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">量子物理</div>
+        </button>
+
+        <button type="button" data-deck="ch6" id="deck-btn-ch6" class="deck-btn text-left p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition shadow-sm cursor-pointer">
+          <div class="flex justify-between items-center mb-1"><span class="text-xs font-extrabold text-indigo-600 dark:text-indigo-400">CHAPTER 6</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">30 MCQs</span></div>
+          <div class="font-bold text-slate-900 dark:text-white text-sm">Atoms, Nuclear &amp; Particle Physics</div>
+          <div class="cn text-xs text-slate-500 dark:text-slate-400 mt-0.5">原子、核物理與粒子物理</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Active Quiz Workspace -->
+    <section id="quizWorkspace" class="space-y-5">
+      <!-- Sticky Scoreboard, Timer & Controls -->
+      <div class="sticky top-16 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-800 p-4 shadow-md space-y-3">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="flex items-center flex-wrap gap-2">
+            <h3 id="activeDeckTitle" class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">Chapter 1: Wave &amp; Optics (30 MCQs)</h3>
+            <span id="activeModeBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">Practice Mode</span>
+          </div>
+
+          <!-- Timer, Reshuffle & Submit Exam -->
+          <div class="flex items-center flex-wrap gap-2">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-mono font-bold text-slate-700 dark:text-slate-200">
+              <span>⏱</span>
+              <span id="timerDisplay">30:00</span>
+              <button id="timerToggleBtn" type="button" class="ml-1 px-2 py-0.5 rounded bg-indigo-600 text-white text-[11px] font-sans hover:bg-indigo-500 transition cursor-pointer">Start</button>
+              <button id="timerResetBtn" type="button" title="Reset Timer" class="px-1.5 py-0.5 rounded bg-slate-300 dark:bg-slate-700 text-[11px] font-sans hover:opacity-80 transition cursor-pointer">↺</button>
+            </div>
+            <button id="newShuffleBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition cursor-pointer">
+              🔀 Reset / Reshuffle
+            </button>
+            <button id="submitExamBtn" type="button" class="hidden px-4 py-1.5 rounded-xl text-xs font-extrabold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition cursor-pointer">
+              ✅ Submit Exam <span class="cn">(交卷批改)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Score Metrics -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <div class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">Answered</span>
+            <span id="statAnswered" class="font-extrabold font-mono">0 / 30</span>
+          </div>
+          <div class="px-3 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 flex justify-between">
+            <span class="text-emerald-700 dark:text-emerald-400">Correct</span>
+            <span id="statCorrect" class="font-extrabold font-mono text-emerald-700 dark:text-emerald-300">0</span>
+          </div>
+          <div class="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 flex justify-between">
+            <span class="text-rose-700 dark:text-rose-400">Wrong</span>
+            <span id="statWrong" class="font-extrabold font-mono text-rose-700 dark:text-rose-300">0</span>
+          </div>
+          <div class="px-3 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 flex justify-between">
+            <span class="text-indigo-700 dark:text-indigo-400">Accuracy</span>
+            <span id="statAccuracy" class="font-extrabold font-mono text-indigo-700 dark:text-indigo-300">0%</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+          <div id="quizProgressBar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all duration-300" style="width: 0%;"></div>
+        </div>
+
+        <!-- Filters & Bulk Actions -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <div class="flex flex-wrap gap-1.5" id="filterPillsGroup">
+            <button type="button" data-filter="all" id="filter-all" class="qfilter-btn px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white transition cursor-pointer">All</button>
+            <button type="button" data-filter="unanswered" id="filter-unanswered" class="qfilter-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition cursor-pointer">Unanswered</button>
+            <button type="button" data-filter="wrong" id="filter-wrong" class="qfilter-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition cursor-pointer">Wrong Only</button>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <button id="expandAllExpBtn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer">Expand All Answers</button>
+            <button id="collapseAllExpBtn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer">Collapse All Answers</button>
+            <button id="toggleNavGridBtn" type="button" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer">Jump Grid ▾</button>
+          </div>
+        </div>
+
+        <!-- Collapsible Question Jump Grid -->
+        <div id="quizNavGridWrapper" class="hidden pt-2 border-t border-slate-200 dark:border-slate-800">
+          <div id="quizNavGrid" class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto p-1"></div>
+        </div>
+      </div>
+
+      <!-- Exam Mode Results & Chapter Breakdown Panel -->
+      <div id="examBreakdownPanel" class="hidden bg-white dark:bg-slate-900 rounded-2xl border-2 border-emerald-500/60 p-5 shadow-md space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Exam Graded · Results Summary</span>
+            <h4 id="examFinalScoreHeading" class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Score: 0 / 100 (0%)</h4>
+          </div>
+          <button id="reviewWrongFromBreakdownBtn" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white transition self-start sm:self-auto cursor-pointer">
+            Review Wrong Questions Only
+          </button>
+        </div>
+        <div id="examChapterBreakdown" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs"></div>
+      </div>
+
+      <!-- Empty Filter State -->
+      <div id="emptyFilterNotice" class="hidden text-center py-10 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+        <p class="text-base font-bold text-slate-700 dark:text-slate-200">No questions match this filter.</p>
+        <p class="text-xs text-slate-500 mt-1">Switch back to "All" to view the full question set. <span class="cn">目前篩選條件下沒有題目，請切回「All」查看全部題目。</span></p>
+      </div>
+
+      <!-- Rendered MCQ Cards Container -->
+      <div id="quizQuestionsContainer" class="space-y-4"></div>
+    </section>
+
+    <footer class="pt-6 pb-10 text-center text-xs text-slate-400 dark:text-slate-500 border-t border-slate-200 dark:border-slate-800">
+      GE1305 Foundation Physics · City University of Hong Kong · 180-Question Test &amp; Review Center
+    </footer>
+  </main>
+
+  <!-- ================= APPLICATION LOGIC & 180-MCQ BANK ================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      // =======================================================================
+      // 1. CHAPTER METADATA & COMPLETE 180-MCQ BANK (30 PER CHAPTER, 5 OPTIONS)
+      // Entry structure: [question, [optA, optB, optC, optD, optE], correctIdx, expEn, expCn]
+      // =======================================================================
+      const CHAPTER_NAMES = {
+        ch1: 'Chapter 1: Wave & Optics',
+        ch2: 'Chapter 2: Force & Motion',
+        ch3: 'Chapter 3: Thermal Physics',
+        ch4: 'Chapter 4: Electricity & Magnetism',
+        ch5: 'Chapter 5: Quantum Physics',
+        ch6: 'Chapter 6: Atoms, Nuclear & Particle Physics'
+      };
+
+      const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+
+      const QUESTION_BANK = {
+        // ---------------------------------------------------------------------
+        // CHAPTER 1: WAVE & OPTICS (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch1: [
+          [
+            "Which of the following is a defining characteristic of a transverse wave?",
+            [
+              "Particles of the medium oscillate parallel to the direction of wave propagation.",
+              "Particles of the medium oscillate perpendicular to the direction of wave propagation.",
+              "The wave consists of alternating compressions and rarefactions.",
+              "The wave continuously transports matter from the source to the detector.",
+              "The wave can only travel through air and gases."
+            ],
+            1,
+            "In a transverse wave (such as light or waves on a string), particle oscillations are perpendicular to the direction of propagation.",
+            "橫波的質點振動方向垂直於波的傳播方向（例如光波與弦波）。"
+          ],
+          [
+            "A wave has a frequency of 500 Hz and a wavelength of 1.2 m. What is its propagation speed?",
+            ["100 m/s", "300 m/s", "600 m/s", "900 m/s", "1200 m/s"],
+            2,
+            "Using the wave speed equation v = f × λ, we get v = 500 Hz × 1.2 m = 600 m/s.",
+            "根據波速公式 v = fλ，計算得 500 × 1.2 = 600 m/s。"
+          ],
+          [
+            "Which of the following statements about sound waves in air is TRUE?",
+            [
+              "Sound waves are transverse electromagnetic waves.",
+              "Sound waves travel faster in vacuum than in water.",
+              "Sound waves are longitudinal mechanical waves requiring a material medium.",
+              "Sound waves travel faster than light in air.",
+              "Sound waves have the exact same speed in all materials."
+            ],
+            2,
+            "Sound is a longitudinal mechanical wave that requires a material medium (solid, liquid, or gas) and cannot travel through vacuum.",
+            "聲波是縱向機械波，必須依靠物質介質（固、液、氣體）傳播，不能在真空中傳播。"
+          ],
+          [
+            "What is the typical audible frequency range of a healthy young human ear?",
+            ["1 Hz to 1,000 Hz", "20 Hz to 20,000 Hz", "14 Hz to 12,000 Hz", "200 Hz to 200,000 Hz", "7,000 Hz to 200,000 Hz"],
+            1,
+            "Young human hearing covers 20 Hz to 20,000 Hz. Frequencies below 20 Hz are infrasound and above 20,000 Hz are ultrasound.",
+            "健康年輕人的聽覺範圍為 20 Hz 至 20,000 Hz；低於 20 Hz 為次聲波，高於 20,000 Hz 為超聲波。"
+          ],
+          [
+            "How are the musical qualities of pitch, loudness, and timbre related to physical wave properties?",
+            [
+              "Pitch → Amplitude; Loudness → Frequency; Timbre → Wave speed.",
+              "Pitch → Frequency; Loudness → Amplitude; Timbre → Waveform (Fourier spectrum).",
+              "Pitch → Wavelength; Loudness → Phase; Timbre → Polarization.",
+              "Pitch → Intensity; Loudness → Period; Timbre → Refraction.",
+              "Pitch → Waveform; Loudness → Frequency; Timbre → Amplitude."
+            ],
+            1,
+            "Frequency determines pitch, amplitude (with intensity I ∝ A²) determines loudness, and waveform (sum of sine waves via Fourier analysis) determines timbre.",
+            "頻率決定音調，振幅決定響度，波形（由傅立葉分析分解的正弦波組合）決定音色。"
+          ],
+          [
+            "If the intensity of a sound wave increases by a factor of 100 (from I to 100 I), by how many decibels (dB) does the sound level increase?",
+            ["2 dB", "10 dB", "20 dB", "100 dB", "1000 dB"],
+            2,
+            "Sound level in dB is 10 log₁₀(I / I₀). Multiplying I by 100 adds 10 log₁₀(100) = 10 × 2 = 20 dB.",
+            "聲強增加為 100 倍時，分貝數增加 10 × log₁₀(100) = 20 dB。"
+          ],
+          [
+            "How do active noise-canceling earphones suppress steady ambient background noise?",
+            [
+              "By creating a vacuum chamber inside the ear canal.",
+              "By converting ambient sound into radio waves.",
+              "By recording ambient noise and emitting an equal-amplitude wave phase-shifted by 180° to cause destructive interference.",
+              "By doubling the frequency of ambient noise into ultrasound.",
+              "By reflecting all sound away with a parabolic mirror."
+            ],
+            2,
+            "Active noise cancellation uses destructive superposition: an inverted (180° out-of-phase) anti-noise wave cancels the incoming noise wave.",
+            "主動降噪耳機透過發出與環境噪音振幅相同、相位差 180° 的反相聲波，利用相消干涉抵銷噪音。"
+          ],
+          [
+            "In a standing wave on a stretched string fixed at both ends, what is a 'node'?",
+            [
+              "A point that always oscillates with maximum amplitude.",
+              "A point that always remains at zero displacement (zero amplitude).",
+              "The crest moving at the speed of light.",
+              "The distance between two adjacent crests.",
+              "A region of high air pressure in vacuum."
+            ],
+            1,
+            "Nodes are stationary points of permanent destructive interference with zero amplitude; antinodes have maximum amplitude.",
+            "駐波中的波節（Node）是指振幅始終為零的靜止點；波腹（Antinode）振幅最大。"
+          ],
+          [
+            "For a wave on a guitar string (v = √(τ/ρ)), what happens to the wave speed and fundamental pitch if you tighten the string (increase tension τ)?",
+            [
+              "Wave speed increases and pitch becomes higher.",
+              "Wave speed decreases and pitch becomes lower.",
+              "Wave speed stays constant and pitch stays the same.",
+              "Wavelength doubles and pitch halves.",
+              "Standing waves can no longer form."
+            ],
+            0,
+            "Since v = √(τ/ρ) and f₁ = v / (2L), increasing tension τ increases wave speed v and raises the fundamental frequency (pitch).",
+            "弦波波速 v = √(τ/ρ)，張力增大會使波速加快，從而提高基頻與音調。"
+          ],
+          [
+            "A piano tuner strikes a 256 Hz tuning fork and a piano string simultaneously and hears 3 beats per second. What are the possible frequencies of the string?",
+            ["250 Hz or 262 Hz", "253 Hz or 259 Hz", "256 Hz only", "259 Hz or 265 Hz", "128 Hz or 512 Hz"],
+            1,
+            "Beat frequency is f_beat = |f₁ − f₂| = 3 Hz, so the string frequency must be either 256 − 3 = 253 Hz or 256 + 3 = 259 Hz.",
+            "拍頻 f_beat = |f₁ − f₂| = 3 Hz，故琴弦頻率可能是 253 Hz 或 259 Hz。"
+          ],
+          [
+            "An ambulance siren emits a steady frequency f while moving rapidly TOWARD a stationary observer. What does the observer hear?",
+            [
+              "A lower frequency than f because wavefronts are stretched apart.",
+              "A higher frequency than f because wavefronts are compressed together.",
+              "The exact same frequency f because sound speed in air is constant.",
+              "Zero sound until the ambulance passes.",
+              "A beat frequency equal to 2f."
+            ],
+            1,
+            "By the Doppler effect, a source approaching an observer compresses wavefronts, increasing the observed frequency f' = [v / (v − v_s)] f.",
+            "根據都卜勒效應，聲源靠近觀察者時波前被壓縮，觀測到的頻率高於原頻率。"
+          ],
+          [
+            "When a jet aircraft flies faster than the speed of sound in air, what does it generate?",
+            [
+              "A standing wave with zero pressure change.",
+              "A 3D shock wave (high-pressure cone at bow and low-pressure cone at tail, producing an N-shaped pressure wave / sonic boom).",
+              "A destructive interference cone of complete silence.",
+              "A rainbow caused by dispersion.",
+              "An electromagnetic microwave beam."
+            ],
+            1,
+            "When source speed exceeds wave speed, overlapping wavefronts form a high-amplitude constructive cone (bow wave in 2D, 3D shock wave / sonic boom in air).",
+            "超音速飛機速度超過聲速，產生機頭高壓錐與機尾低壓錐組成的三維衝擊波（地面呈現 N 形氣壓波與音爆）。"
+          ],
+          [
+            "Which of the following lists electromagnetic waves in order from LONGEST wavelength to SHORTEST wavelength?",
+            [
+              "Gamma → X-ray → UV → Visible → IR → Microwave → Radio",
+              "Radio → Microwave → Infrared → Visible → Ultraviolet → X-ray → Gamma",
+              "Radio → Infrared → Microwave → Visible → X-ray → UV → Gamma",
+              "Visible → IR → Radio → Microwave → UV → X-ray → Gamma",
+              "Microwave → Radio → Visible → IR → UV → Gamma → X-ray"
+            ],
+            1,
+            "Wavelength decreases (and frequency/photon energy increases) from Radio → Microwave → IR → Visible → UV → X-ray → Gamma.",
+            "電磁波由長波長至短波長（能量由低至高）依序為：無線電波 → 微波 → 紅外線 → 可見光 → 紫外線 → X 射線 → 伽馬射線。"
+          ],
+          [
+            "Diamond has a refractive index of n ≈ 2.42. Approximately what is the speed of light inside diamond (c = 3.0 × 10⁸ m/s)?",
+            ["7.26 × 10⁸ m/s", "3.00 × 10⁸ m/s", "2.00 × 10⁸ m/s", "1.24 × 10⁸ m/s", "0.50 × 10⁸ m/s"],
+            3,
+            "Using n = c / v, we get v = c / n = (3.0 × 10⁸) / 2.42 ≈ 1.24 × 10⁸ m/s.",
+            "由 n = c/v 計算，光在鑽石中的速度為 3.0×10⁸ / 2.42 ≈ 1.24×10⁸ m/s。"
+          ],
+          [
+            "A light beam passes from air (n = 1.00) into water (n = 1.33). Which combination of changes occurs?",
+            [
+              "Speed decreases, wavelength decreases, frequency stays constant.",
+              "Speed decreases, wavelength increases, frequency decreases.",
+              "Speed increases, wavelength increases, frequency stays constant.",
+              "Speed stays constant, wavelength decreases, frequency increases.",
+              "Speed decreases, wavelength stays constant, frequency decreases."
+            ],
+            0,
+            "Entering a higher-n medium slows light down (v = c/n). Because frequency f is fixed by the source, wavelength λ = v/f must also decrease.",
+            "光由空氣進入水中，波速與波長變小，但頻率由光源決定而保持不變。"
+          ],
+          [
+            "Why does a fish submerged in a clear pond appear nearer to the water surface than it actually is?",
+            [
+              "Rayleigh scattering by water molecules.",
+              "Refraction of light rays bending away from the normal as they leave water into air.",
+              "Total internal reflection at the bottom of the pond.",
+              "Chromatic aberration in the fish's scales.",
+              "Diffraction around water ripples."
+            ],
+            1,
+            "Light from the fish bends away from the normal when exiting water (n = 1.33) into air (n = 1.00); tracing the rays backward forms a shallower virtual image.",
+            "光線從水射入空氣時偏離法線折射，人眼沿折射光反向延長線看去，會覺得水中的魚比實際位置更淺。"
+          ],
+          [
+            "What atmospheric condition produces a SUPERIOR mirage (such as a 'flying ship' hovering above the ocean horizon)?",
+            [
+              "Hot air below cooler air near a sun-baked road.",
+              "A layer of warm air (lower n) sitting above cooler, denser air (higher n) near the cold sea surface.",
+              "Uniform air temperature and density everywhere.",
+              "Total absorption of red light by seawater.",
+              "Strong wind blowing parallel to the ship."
+            ],
+            1,
+            "Since n_cool > n_warm, warm air over cold water bends light rays downward toward the observer, making distant ships appear elevated above the horizon.",
+            "冷海面上方覆蓋較暖空氣（下冷上熱）時，光線向下彎折，形成船隻懸浮空中的上現蜃景（Superior mirage）。"
+          ],
+          [
+            "What are the two required conditions for Total Internal Reflection (TIR), the operating principle of optical fibres pioneered by Sir Charles Kuen Kao?",
+            [
+              "Light travels from n₁ < n₂ at any angle.",
+              "Light travels from n₁ > n₂ with incident angle θ₁ exceeding the critical angle θ_c = sin⁻¹(n₂/n₁).",
+              "Light travels from n₁ > n₂ with incident angle θ₁ smaller than θ_c.",
+              "Light strikes a rough diffuse surface at 90°.",
+              "Light is polarized horizontally."
+            ],
+            1,
+            "TIR requires light travelling from a higher refractive index to a lower refractive index (n₁ > n₂) at an incident angle greater than the critical angle θ_c.",
+            "全內反射需滿足光從光密介質射向光疏介質（n₁ > n₂），且入射角大於臨界角 θ_c。"
+          ],
+          [
+            "Why does a glass prism or a raindrop split white sunlight into a spectrum of colours (dispersion)?",
+            [
+              "Because all colours have the exact same speed in glass and water.",
+              "Because the refractive index n depends on light frequency/wavelength, causing violet light to bend more than red light.",
+              "Because prisms emit coloured photons when heated.",
+              "Because red light cannot enter water.",
+              "Because white light is a longitudinal wave."
+            ],
+            1,
+            "Dispersion occurs because different frequencies travel at slightly different speeds in glass/water, so violet refracts more strongly than red.",
+            "色散是因為介質對不同頻率光的折射率不同，紫光折射偏折角大於紅光，從而將白光分解成光譜。"
+          ],
+          [
+            "Why is the daytime sky blue whereas sunsets appear red and orange?",
+            [
+              "Air molecules absorb red light at noon and emit red light at sunset.",
+              "Rayleigh scattering scatters shorter (blue/violet) wavelengths much more strongly than red; at sunset sunlight traverses a thicker atmosphere, leaving red/orange.",
+              "The Sun cools down to 1000 K every evening.",
+              "Water vapour reflects ocean colour onto the sky.",
+              "Clouds polarize blue light into red light."
+            ],
+            1,
+            "Atmospheric Rayleigh scattering strongly scatters short-wavelength blue light across the sky; through a thick sunset atmosphere, most blue is scattered out, transmitting red/orange.",
+            "大氣瑞利散射對短波長藍光散射最強（藍天）；日落時陽光斜穿更厚大氣層，藍光幾乎被散射殆盡，剩下紅橙光進入人眼。"
+          ],
+          [
+            "An object is placed at p = 30 cm from a thin convex lens with focal length f = 10 cm. Where is the image located and what are its properties?",
+            [
+              "i = +15 cm; real, inverted, diminished (M = −0.5).",
+              "i = +15 cm; virtual, upright, magnified.",
+              "i = +20 cm; real, inverted, same size.",
+              "i = −15 cm; virtual, upright, diminished.",
+              "At infinity; no image is formed."
+            ],
+            0,
+            "1/i = 1/f − 1/p = 1/10 − 1/30 = 2/30 ⇒ i = +15 cm; magnification M = −i/p = −15/30 = −0.5 (real, inverted, diminished).",
+            "由透鏡公式 1/i = 1/10 − 1/30 得 i = +15 cm，放大率 M = −0.5，為倒立縮小實像。"
+          ],
+          [
+            "If you make a glass convex lens thicker (sharper surface curvature) while keeping the same glass material, how does its focal length f change?",
+            [
+              "Its focal length f decreases (stronger converging power).",
+              "Its focal length f increases (weaker converging power).",
+              "Its focal length f remains strictly unchanged.",
+              "Its focal length becomes negative (diverging).",
+              "It can no longer form real images."
+            ],
+            0,
+            "Greater curvature bends incoming parallel rays more steeply toward the optical axis, shortening the focal length f.",
+            "透鏡越厚（表面曲率越大），對光線的會聚能力越強，焦距 f 越短。"
+          ],
+          [
+            "How does an antireflective (AR) coating of thickness λ/4 reduce reflections on camera lenses and eyeglasses?",
+            [
+              "By absorbing all visible light inside the coating.",
+              "By causing destructive interference between light waves reflected from the top and bottom interfaces of the coating.",
+              "By converting visible glare into ultraviolet light.",
+              "By increasing spherical aberration.",
+              "By reflecting light via total internal reflection."
+            ],
+            1,
+            "A λ/4 thin film produces a λ/2 round-trip path difference so the two reflected waves cancel each other via destructive interference.",
+            "λ/4 厚度的減反射鍍膜使上下表面反射光產生半波長光程差，互相相消干涉以消除反光。"
+          ],
+          [
+            "In the human eye, which structure is adjusted by ciliary muscles to vary focal length, and which retinal cells detect colour?",
+            [
+              "Iris adjusts focal length; Rod cells detect colour.",
+              "Crystalline lens adjusts focal length; Cone cells (L-red, M-green, S-blue) detect colour.",
+              "Retina adjusts focal length; Optic nerve detects colour.",
+              "Cornea changes shape rapidly; Blind spot detects colour.",
+              "Vitreous humor adjusts focal length; Rod cells detect colour."
+            ],
+            1,
+            "The cornea provides most fixed focusing, the crystalline lens varies shape for near/far focus, rods handle low-light vision, and RGB cones handle colour vision.",
+            "晶狀體透過睫狀肌改變形狀調節焦距；視網膜上的紅綠藍視錐細胞負責彩色視覺，視桿細胞負責暗視覺。"
+          ],
+          [
+            "Why do high-magnification optical instruments (such as microscopes and camera lenses) use COMPOUND lens systems instead of a single lens?",
+            [
+              "Single lenses cannot refract visible light.",
+              "Very short focal-length single lenses (~2.5 mm) are hard to make and suffer from spherical and chromatic aberrations, which compound lenses minimize.",
+              "Compound lenses violate Snell's law.",
+              "Single lenses only form virtual images.",
+              "Compound lenses eliminate the need for light."
+            ],
+            1,
+            "Combining multiple lenses achieves high magnification while compensating for spherical aberration (edge rays focusing closer) and chromatic aberration (colour dispersion).",
+            "單一短焦距透鏡難以製造且存在球面像差與色差，複合透鏡組能大幅降低像差並實現高倍率成像。"
+          ],
+          [
+            "How does printed CMYK colour mixing differ from RGB screen colour mixing?",
+            [
+              "RGB is subtractive (absorbs light); CMYK is additive (emits light).",
+              "RGB is additive (emits R, G, B light to form white); CMYK is subtractive (inks absorb light: Cyan absorbs Red, Magenta absorbs Green, Yellow absorbs Blue).",
+              "Both RGB and CMYK emit light directly from paper.",
+              "CMYK only produces black-and-white images.",
+              "Cyan ink absorbs blue light and reflects red light."
+            ],
+            1,
+            "Displays emit R+G+B light (additive); printed pigments absorb specific colours and reflect the rest (subtractive CMYK).",
+            "螢幕採用 RGB 加色法（發光疊加）；印刷採用 CMYK 減色法（油墨吸收特定色光：青吸紅、品紅吸綠、黃吸藍）。"
+          ],
+          [
+            "How do modern RealD 3D cinema glasses deliver separate images to your left and right eyes?",
+            [
+              "By using one red lens and one cyan lens.",
+              "By using orthogonal polarization filters (linear or circular polarizers) so each eye receives only its matching polarized projection.",
+              "By reflecting sound waves into the ears.",
+              "By using two different focal-length magnifying glasses.",
+              "By flashing infrared heat at the audience."
+            ],
+            1,
+            "Modern 3D cinema projects left- and right-eye images with orthogonal polarizations; matching polarizers in the glasses separate the two views cleanly in full colour.",
+            "現代 3D 電影利用線性或圓偏振片，讓左右眼分別只接收對應偏振方向的畫面，呈現全彩立體效果。"
+          ],
+          [
+            "Why are modern LED bulbs roughly 7.5 times more energy-efficient than incandescent tungsten filament bulbs?",
+            [
+              "Tungsten filaments at ~2500–3000 K emit less than 5% of their energy as visible light and waste >95% as infrared heat, whereas LEDs emit directly in the visible spectrum.",
+              "LED bulbs operate at 10,000 K.",
+              "Incandescent bulbs emit only X-rays.",
+              "LED bulbs do not consume electrical power.",
+              "Tungsten bulbs suffer from total internal reflection."
+            ],
+            0,
+            "Blackbody emission at ~3000 K peaks in the infrared (waste heat); semiconductor LEDs convert electrical energy directly into visible photons.",
+            "白熾鎢絲燈超過 95% 的能量以紅外線熱能浪費，而半導體 LED 直接發射可見光，效率高約 7.5 倍。"
+          ],
+          [
+            "Which UV band has the shortest wavelength (100–280 nm) and is widely used to destroy germs in water purification, and which UV band stimulates Vitamin D production?",
+            [
+              "UVA destroys germs; UVC produces Vitamin D.",
+              "UVC destroys germs; UVB (280–315 nm) stimulates Vitamin D synthesis (and causes sunburn).",
+              "UVB destroys germs; Infrared produces Vitamin D.",
+              "UVA destroys germs; Gamma rays produce Vitamin D.",
+              "UVC produces Vitamin D; Microwaves destroy germs."
+            ],
+            1,
+            "UVC (short-wave, highest photon energy) mutates bacterial DNA for disinfection; UVB causes sunburn/skin cancer but also triggers Vitamin D synthesis in skin.",
+            "UVC 波長最短能量最高，用於殺菌淨水；UVB 會造成曬傷但也幫助皮膚合成維他命 D。"
+          ],
+          [
+            "How does a medical Chest CT scan radiation dose (~6 mSv) compare with the worldwide average annual natural background radiation (~2.4 mSv/yr)?",
+            [
+              "A Chest CT is about 1000 times smaller than annual natural background.",
+              "A Chest CT (~6 mSv) is roughly 2.5 times the annual natural background dose (and much higher than a 0.1 mSv Chest X-ray).",
+              "A Chest CT delivers zero ionizing radiation.",
+              "A Chest CT equals a dental X-ray (0.005 mSv).",
+              "Natural background radiation is 600 mSv/yr."
+            ],
+            1,
+            "Typical doses: Dental X-ray 0.005 mSv, Chest X-ray 0.1 mSv, Natural background 2.4 mSv/yr, Chest CT ~6 mSv.",
+            "胸部 CT 劑量約 6 mSv，約為全球年均自然背景輻射（2.4 mSv）的 2.5 倍，遠高於單次胸部 X 光（0.1 mSv）。"
+          ]
+        ],
+
+        // ---------------------------------------------------------------------
+        // CHAPTER 2: FORCE & MOTION (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch2: [
+          [
+            "If reliable, repeatable experimental measurements contradict a well-known physical law, what must scientists do?",
+            [
+              "Discard the experimental data because established laws are permanent.",
+              "Hold a vote to keep the law if most scientists like it.",
+              "Keep the law if its equations are mathematically elegant.",
+              "Revise, restrict the validity range of, or replace the law to agree with experimental evidence.",
+              "Wait for philosophy to explain 'why' the law exists."
+            ],
+            3,
+            "Physics is an experimental science explaining 'how' nature behaves: reproducible experimental evidence always takes precedence over authority or aesthetics.",
+            "物理是實驗科學，當可靠且可重複的實驗與現有定律矛盾時，必須修正、限定適用範圍或取代該定律。"
+          ],
+          [
+            "A student walks along a straight path from x = 2 m to x = 14 m in 4 s. What is the student's average velocity?",
+            ["+3 m/s", "+3.5 m/s", "+4 m/s", "+12 m/s", "+16 m/s"],
+            0,
+            "Average velocity v_avg = Δx / Δt = (14 m − 2 m) / 4 s = +12 m / 4 s = +3 m/s.",
+            "平均速度 = 位移 / 時間 = (14 − 2) / 4 = +3 m/s。"
+          ],
+          [
+            "On a velocity-versus-time (v–t) graph, what physical quantity does the slope of the line connecting two points represent?",
+            ["Total distance travelled", "Average velocity", "Average acceleration", "Kinetic energy", "Gravitational force"],
+            2,
+            "Slope on a v–t graph is Δv / Δt, which is the definition of average acceleration (whereas slope on an x–t graph is average velocity).",
+            "v–t 圖的斜率 Δv/Δt 代表平均加速度（而 x–t 圖的斜率代表平均速度）。"
+          ],
+          [
+            "When a speeding bus brakes suddenly, why does an unrestrained passenger lurch forward relative to the bus?",
+            [
+              "The brakes exert a forward pushing force on the passenger.",
+              "The passenger tends to maintain their original forward velocity due to inertia (Newton's 1st Law).",
+              "Gravity suddenly pulls the passenger horizontally.",
+              "Air inside the bus pushes the passenger forward.",
+              "A real outward centrifugal force pushes the passenger."
+            ],
+            1,
+            "No forward force acts on the passenger; by Newton's 1st Law (inertia), their body keeps moving at its prior forward velocity while the bus slows beneath them.",
+            "煞車時沒有向前的力推乘客，而是乘客因慣性保持原本向前的速度，因此相對減速的車身前傾。"
+          ],
+          [
+            "Which ancient thinker believed that an object's natural state is at rest and it stops moving once pushing forces cease—a view overturned by Galileo and Newton?",
+            ["Aristotle", "Archimedes", "Kepler", "Maxwell", "Faraday"],
+            0,
+            "Aristotle claimed continuous force is needed to maintain motion; Galileo introduced the principle of inertia formalized in Newton's 1st Law.",
+            "亞里斯多德認為物體無外力便會停下，此觀點後來被伽利略與牛頓的慣性定律推翻。"
+          ],
+          [
+            "Two horizontal forces act on a 2 kg block on a frictionless floor: 10 N to the right and 4 N to the left. What is the block's acceleration?",
+            ["7 m/s² to the right", "5 m/s² to the right", "3 m/s² to the left", "3 m/s² to the right", "2 m/s² to the left"],
+            3,
+            "Sum forces as vectors first: ΣF = 10 N − 4 N = +6 N (right). By Newton's 2nd Law, a = ΣF / m = 6 / 2 = 3 m/s² to the right.",
+            "先求合外力 ΣF = 10 − 4 = 6 N 向右，再由 a = ΣF/m = 6/2 = 3 m/s² 向右。"
+          ],
+          [
+            "How does an automotive airbag reduce the risk of severe head injury during a crash?",
+            [
+              "It reduces the total velocity change needed to come to rest.",
+              "It lengthens the stopping time Δt, reducing deceleration magnitude |a| and peak impact force F = ma.",
+              "It eliminates the passenger's mass and inertia.",
+              "It prevents Newton's 3rd Law from acting.",
+              "It converts kinetic energy into nuclear energy."
+            ],
+            1,
+            "Stopping from speed v to 0 over a longer time Δt reduces deceleration a = Δv/Δt, lowering the impact force exerted on the head.",
+            "安全氣囊延長頭部減速停止的時間 Δt，從而大幅降低減速度與峰值衝擊力。"
+          ],
+          [
+            "A heavy truck collides head-on with a compact car. During the collision, how do the forces they exert on each other compare?",
+            [
+              "The truck exerts a much larger force on the car because it has greater mass.",
+              "The forces have equal magnitudes and opposite directions.",
+              "The car exerts a larger force because it suffers more damage.",
+              "The forces have equal magnitudes and point in the same direction.",
+              "Only the faster vehicle exerts a force."
+            ],
+            1,
+            "By Newton's 3rd Law, F_{truck on car} = −F_{car on truck} (equal magnitude, opposite direction). The lighter car suffers greater acceleration (a = F/m), not greater force.",
+            "由牛頓第三定律，兩車碰撞時互相施加的力大小相等、方向相反；小車加速度較大是因為質量較小，而非受力較大。"
+          ],
+          [
+            "Why can a rocket accelerate in the vacuum of outer space where there is no air to push against?",
+            [
+              "The vacuum pulls the rocket forward.",
+              "The rocket expels exhaust gas backward, and the exhaust gas exerts an equal forward reaction thrust on the rocket.",
+              "Burning fuel eliminates the rocket's inertia.",
+              "Starlight pushes the rocket forward.",
+              "Gravity disappears when engines fire."
+            ],
+            1,
+            "Rocket thrust (F_thrust ≈ ṁ v_e) is an action-reaction pair between the rocket and its own expelled exhaust gases—no external air is needed.",
+            "火箭向後高速噴出燃氣，燃氣對火箭施加向前的反作用推力，無需空氣介質。"
+          ],
+          [
+            "Why do the action and reaction forces in Newton's 3rd Law NEVER cancel each other out to prevent motion?",
+            [
+              "Because the action force is always slightly larger.",
+              "Because they act on two DIFFERENT bodies, whereas acceleration of one body depends only on forces acting on THAT body.",
+              "Because reaction forces only act after a 1-second delay.",
+              "Because they point in the same direction.",
+              "Because Newton's 3rd Law does not apply to moving objects."
+            ],
+            1,
+            "F_{A on B} acts on body B while F_{B on A} acts on body A; only forces acting on the SAME body can be summed to cancel.",
+            "作用力與反作用力分別作用在兩個不同的物體上，不會在同一物體上互相抵銷。"
+          ],
+          [
+            "A crate slides horizontally to the right while a crane exerts a constant upward vertical force on it. How much mechanical work does this upward force do on the crate?",
+            ["Zero work", "Positive work", "Negative work", "Work equal to mgh", "Work equal to ½ mv²"],
+            0,
+            "Mechanical work is W = F d cos θ. Since the upward force is perpendicular (θ = 90°) to the horizontal displacement, cos 90° = 0 and W = 0 J.",
+            "向上的力與水平位移垂直（θ = 90°），由 W = Fd cos90° = 0，該力作功為零。"
+          ],
+          [
+            "A worker holds a 20 kg toolbox completely motionless in midair and becomes exhausted. Which statement is physically accurate?",
+            [
+              "The worker does large positive mechanical work on the toolbox.",
+              "Zero mechanical work is done on the toolbox (d = 0), but the worker's muscles burn chemical energy and convert it into heat.",
+              "No energy of any kind is expended because the box is stationary.",
+              "Gravity does positive work on the stationary box.",
+              "Kinetic friction inside the air holds the box up."
+            ],
+            1,
+            "With displacement d = 0, mechanical work on the box is zero; fatigue arises because muscle fibers continuously convert chemical energy into heat to maintain tension.",
+            "工具箱位移為零故對箱子作功為零，但肌肉持續發力消耗體內化學能並轉化為熱能，因此感到疲勞。"
+          ],
+          [
+            "When does a constant force do NEGATIVE mechanical work on a moving object?",
+            [
+              "When the angle θ between force and displacement is 0°.",
+              "When 0° < θ < 90°.",
+              "When θ = 90°.",
+              "When 90° < θ ≤ 180° (the force has a component opposing the displacement).",
+              "Mechanical work can never be negative."
+            ],
+            3,
+            "For 90° < θ ≤ 180°, cos θ < 0, so W = Fd cos θ < 0, removing mechanical energy from the object (e.g., friction slowing a sliding box).",
+            "當力與位移夾角大於 90° 時，cos θ < 0，力對物體作負功（例如摩擦力使滑行物體減速）。"
+          ],
+          [
+            "In a modern electric vehicle (EV), what is the primary energy role of regenerative braking?",
+            [
+              "It burns extra gasoline during stops.",
+              "It runs the electric motor as a generator to convert the car's kinetic energy back into electrical/chemical energy stored in the battery.",
+              "It eliminates normal force on the tires.",
+              "It converts electrical energy directly into gravitational potential energy on flat roads.",
+              "It increases aerodynamic drag to zero."
+            ],
+            1,
+            "Regenerative braking recovers kinetic energy that would otherwise be wasted as brake heat, recharging the Li-ion battery pack.",
+            "再生煞車將電動車減速時的機械動能透過馬達發電回收，重新儲存為電池化學能。"
+          ],
+          [
+            "A block rests on a horizontal floor with normal force N = 100 N and μ_s = 0.50. You push horizontally with 20 N and the block does not move. What is the static friction force?",
+            ["0 N", "20 N, opposite your push", "50 N, opposite your push", "20 N, in the same direction as your push", "100 N, downward"],
+            1,
+            "Maximum static friction is f_{s,max} = μ_s N = 50 N. Because the 20 N push is below this limit, static friction matches it at exactly 20 N opposite the push.",
+            "最大靜摩擦力為 50 N；外力 20 N 未達上限，故實際靜摩擦力恰好為 20 N，方向與推力相反。"
+          ],
+          [
+            "For two dry solid surfaces, how does the coefficient of kinetic friction (μ_k) generally compare with the coefficient of static friction (μ_s)?",
+            [
+              "μ_k is usually smaller than μ_s.",
+              "μ_k is always much larger than μ_s.",
+              "μ_k is always equal to 1.0.",
+              "μ_k is negative.",
+              "μ_k depends solely on the object's mass."
+            ],
+            0,
+            "Once sliding starts, microscopic surface asperities no longer interlock as deeply, so kinetic friction is typically less than maximum static friction (μ_k < μ_s).",
+            "物體開始滑動後較易克服接觸面微觀咬合，因此動摩擦係數通常小於靜摩擦係數（μ_k < μ_s）。"
+          ],
+          [
+            "When you walk forward without slipping on a flat sidewalk, which force from the ground accelerates you forward?",
+            [
+              "Backward kinetic friction",
+              "Forward kinetic friction",
+              "Forward static friction",
+              "The upward normal force",
+              "Centrifugal force"
+            ],
+            2,
+            "Your shoe pushes backward on the ground without sliding; by Newton's 3rd Law, the ground exerts a forward static friction force on your shoe.",
+            "鞋底向後蹬地且未打滑時，地面對鞋底施加「向前的靜摩擦力」推動人體前進。"
+          ],
+          [
+            "A 5 kg crate is pulled across a rough horizontal floor at a CONSTANT velocity of 4 m/s by a 15 N horizontal rope. What is the magnitude of the kinetic friction force?",
+            ["0 N", "5 N", "15 N", "20 N", "49 N"],
+            2,
+            "Constant velocity means acceleration a = 0 and net force ΣF = 0, so kinetic friction must exactly balance the 15 N pulling force.",
+            "等速運動代表加速度與合外力皆為零，故動摩擦力大小恰好等於拉力 15 N。"
+          ],
+          [
+            "A clock's minute hand sweeps through 180° in 30 minutes. What is its average angular speed ω?",
+            ["0.5°/min", "3°/min", "6°/min", "12°/min", "30°/min"],
+            2,
+            "ω_avg = Δθ / Δt = 180° / 30 min = 6° per minute (360° / 60 min), independent of the hand's length.",
+            "平均角速率 ω = 180° / 30 分鐘 = 每分鐘 6°（與指針半徑無關）。"
+          ],
+          [
+            "Why do observers on Earth always see the same face of the Moon?",
+            [
+              "The Moon never rotates on its own axis.",
+              "Tidal locking has synchronized the Moon's rotational period with its orbital period around Earth.",
+              "Earth's atmosphere refracts light from the far side.",
+              "The Moon has zero angular momentum.",
+              "The far side of the Moon does not reflect sunlight."
+            ],
+            1,
+            "Because of tidal locking, the Moon completes one rotation on its axis in the exact same time it takes to orbit Earth once.",
+            "由於潮汐鎖定，月球自轉週期與繞地公轉週期同步，因此永遠以同一面朝向地球。"
+          ],
+          [
+            "A stone tied to a string whirls in a horizontal circle. If the string suddenly snaps (ignoring gravity and air drag), what path does the stone immediately follow?",
+            [
+              "A straight line tangent to the circle at the point of release.",
+              "A straight line radially outward from the centre.",
+              "The same circular path at constant speed.",
+              "A spiral inward toward the centre.",
+              "A straight line toward the centre."
+            ],
+            0,
+            "When centripetal tension vanishes, net horizontal force is zero, so inertia carries the stone straight along its instantaneous tangent velocity.",
+            "繩子斷裂後向心力消失，石塊因慣性沿斷裂瞬間的切線方向作直線運動（所謂離心力只是假想力）。"
+          ],
+          [
+            "Why does a car skid off a curved road when hitting a patch of ice or oil?",
+            [
+              "A real outward centrifugal force suddenly appears on ice.",
+              "The required inward centripetal force mv²/r exceeds the maximum static friction μ_s N available from the slippery road.",
+              "The car's gravitational mass doubles on curves.",
+              "Normal force drops to zero on flat ice.",
+              "Static friction pushes the car outward."
+            ],
+            1,
+            "Static friction provides the centripetal force to turn; on low-μ_s ice/oil, friction cannot supply mv²/r, so the car slides tangentially outward.",
+            "轉彎向心力由輪胎與地面的靜摩擦力提供；結冰或油漬使最大靜摩擦力小於所需向心力 mv²/r 時便會打滑。"
+          ],
+          [
+            "In which of the following cases is an object's state of motion CHANGING according to Newton's Laws?",
+            [
+              "Sitting stationary on a desk.",
+              "Moving in a straight line at a constant speed of 25 m/s.",
+              "Moving around a circular track at a constant speed of 10 m/s.",
+              "Drifting in deep space with zero net force.",
+              "Sliding on frictionless ice at constant velocity."
+            ],
+            2,
+            "Velocity is a vector: circular motion continuously changes direction, producing inward centripetal acceleration (a_c = v²/r ≠ 0).",
+            "速度是向量，等速率圓周運動的方向不斷改變，存在向心加速度，故運動狀態正在改變。"
+          ],
+          [
+            "Two planets attract each other with gravitational force F. If the distance between their centres DOUBLES while their masses stay constant, what is the new gravitational force?",
+            ["F / 2", "F / 4", "2F", "4F", "F / 8"],
+            1,
+            "By Newton's inverse-square law F = Gm₁m₂ / r², doubling r reduces F by a factor of 2² = 4.",
+            "萬有引力與距離平方成反比，距離變為 2 倍時，引力變為原來的 1/4。"
+          ],
+          [
+            "Which fundamental constant was measured by the Cavendish torsion balance and remains one of the least precisely known constants in physics?",
+            ["Speed of light c", "Boltzmann constant k_B", "Newtonian gravitational constant G", "Elementary charge e", "Planck's constant h"],
+            2,
+            "Because gravity is extraordinarily weak at laboratory scales, G (6.67430 × 10⁻¹¹ m³ kg⁻¹ s⁻²) has a relatively large uncertainty (~2.2 × 10⁻⁵).",
+            "重力在實驗室尺度極微弱，卡文迪許扭秤測得的萬有引力常數 G 至今仍是相對不確定度較大的基本常數。"
+          ],
+          [
+            "Photons of light have zero rest mass, yet starlight bends when passing near the Sun. How does Einstein's General Relativity explain this?",
+            [
+              "Photons acquire rest mass near hot stars.",
+              "Mass curves spacetime, and massless light follows the shortest paths (null geodesics) in curved spacetime.",
+              "Solar wind blows the light sideways.",
+              "Gravity only bends light that has electric charge.",
+              "Refraction in vacuum bends the light."
+            ],
+            1,
+            "In General Relativity, mass-energy curves spacetime geometry, so both matter and massless light follow curved geodesics (gravitational lensing).",
+            "廣義相對論指出質量使時空彎曲，無靜止質量的光線沿彎曲時空的測地線前進，產生引力透鏡效應。"
+          ],
+          [
+            "Under which physical limits does Einstein's General Relativity reduce smoothly to Newton's Law of Gravitation?",
+            [
+              "Speeds near c and distances inside a black hole event horizon.",
+              "Slow-moving objects (v ≪ c), weak gravitational fields (r ≫ Schwarzschild radius r_s = 2GM/c²), and quasi-static fields.",
+              "Massless particles travelling at c only.",
+              "Temperatures near absolute zero only.",
+              "Only in the absence of magnetic fields."
+            ],
+            1,
+            "Newtonian gravity is the weak-field (r ≫ r_s), low-speed (v ≪ c), quasi-static approximation of General Relativity.",
+            "當速度遠小於光速（v ≪ c）、處於弱重力場（遠大於史瓦西半徑）且場近似靜態時，廣義相對論退化為牛頓重力。"
+          ],
+          [
+            "What astrophysical event did the LIGO laser interferometers directly detect in the historic observation GW150914?",
+            [
+              "Radio signals from Jupiter.",
+              "Gravitational waves radiated by the inspiral and merger of two black holes.",
+              "Neutrinos emitted by a nuclear power plant.",
+              "Alpha particles scattering off gold foil.",
+              "Solar flares hitting Earth's ionosphere."
+            ],
+            1,
+            "LIGO measured tiny spacetime ripples (gravitational waves) generated by two coalescing black holes, confirming a key prediction of General Relativity.",
+            "LIGO 直接偵測到兩個黑洞旋進並合併時所產生的時空漣漪——引力波。"
+          ],
+          [
+            "Which type of earthquake seismic wave is a LONGITUDINAL wave (compressing and stretching rock parallel to its travel direction)?",
+            ["P-wave (Primary wave)", "S-wave (Secondary wave)", "Love wave", "Electromagnetic wave", "Transverse string wave"],
+            0,
+            "Seismic P-waves are longitudinal, S-waves are transverse, and surface waves include Love waves (side-to-side) and Rayleigh waves (elliptical rolling).",
+            "地震波中 P 波是縱波，S 波是橫波，洛夫波與瑞利波屬於地表傳播的表面波。"
+          ],
+          [
+            "In radio communication, how does FM (Frequency Modulation) differ from AM (Amplitude Modulation) when encoding an audio message onto a carrier wave?",
+            [
+              "FM varies the carrier's frequency while keeping amplitude constant; AM varies the carrier's amplitude.",
+              "FM varies the speed of light; AM varies the speed of sound.",
+              "FM uses longitudinal waves; AM uses gravitational waves.",
+              "FM works only underwater; AM works only in vacuum.",
+              "FM transmits no energy; AM transmits matter."
+            ],
+            0,
+            "AM encodes signal information in variations of carrier amplitude, whereas FM encodes it in variations of carrier frequency.",
+            "AM 透過改變載波振幅來編碼訊號，FM 則透過改變載波頻率來編碼訊號。"
+          ]
+        ],
+
+        // ---------------------------------------------------------------------
+        // CHAPTER 3: THERMAL PHYSICS (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch3: [
+          [
+            "Microscopically, what is absolute temperature T directly proportional to?",
+            [
+              "The total mass of the container.",
+              "The average kinetic energy of molecules (½ k_B T per degree of freedom).",
+              "The gravitational potential energy of the gas.",
+              "The physical diameter of a single proton.",
+              "The electrical resistance of the thermometer."
+            ],
+            1,
+            "Temperature is a measure of average molecular kinetic energy (½ k_B T per degree of freedom, where k_B = 1.38 × 10⁻²³ J/K).",
+            "溫度正比於分子的平均動能（每個自由度平均能量為 ½ k_B T）。"
+          ],
+          [
+            "What does the Zeroth Law of Thermodynamics state?",
+            [
+              "Energy can neither be created nor destroyed.",
+              "Total entropy of an isolated system can never decrease.",
+              "If systems A and B are each in thermal equilibrium with a third system C, then A and B are in thermal equilibrium with each other.",
+              "No heat engine can exceed Carnot efficiency.",
+              "Heat flows spontaneously from cold to hot."
+            ],
+            2,
+            "The Zeroth Law guarantees transitivity of thermal equilibrium (T_A = T_C and T_B = T_C ⇒ T_A = T_B), making thermometers meaningful.",
+            "熱力學第零定律：若系統 A 與 B 分別與系統 C 處於熱平衡，則 A 與 B 亦互為熱平衡（同溫）。"
+          ],
+          [
+            "What is 69°F converted to the Celsius scale (rounded to the nearest integer)?",
+            ["12°C", "16°C", "21°C (exact: 20.6°C)", "27°C", "37°C"],
+            2,
+            "Using C = (F − 32) / 1.8 = (69 − 32) / 1.8 = 37 / 1.8 ≈ 20.56°C ≈ 21°C.",
+            "由 C = (69 − 32) / 1.8 ≈ 20.6°C（約 21°C）。"
+          ],
+          [
+            "Absolute zero (0 K) corresponds to which temperature on the Celsius scale?",
+            ["0°C", "−100°C", "−173.15°C", "−273.15°C", "−459.67°C"],
+            3,
+            "Since C = K − 273.15, absolute zero (0 K, where thermal motion ceases) is −273.15°C (and −459.67°F).",
+            "絕對零度 0 K 對應攝氏 −273.15°C（華氏 −459.67°F）。"
+          ],
+          [
+            "Why do most solids expand when their temperature increases?",
+            [
+              "Individual atomic nuclei swell in size.",
+              "The interatomic potential energy curve V(r) is asymmetric (easier to move apart than closer), so stronger thermal vibrations increase average atomic separation.",
+              "Heating creates extra atoms inside the material.",
+              "Gravity weakens at higher temperatures.",
+              "Electrons push the outer surface outward by magnetism."
+            ],
+            1,
+            "Repulsion at short range is much steeper than attraction at longer range, so higher vibrational energy shifts the mean bond length outward.",
+            "原子間位能曲線不對稱（靠近時斥力急升、遠離時引力較緩），受熱振動加劇使平均原子間距變大。"
+          ],
+          [
+            "If a solid metal cube has a coefficient of linear thermal expansion α, what is its approximate coefficient of volume expansion β?",
+            ["α / 3", "α", "2α", "3α", "α³"],
+            3,
+            "For small temperature changes, V = (L + δL)³ ≈ L³ + 3L²δL, giving δV / V = 3α δT, so β = 3α.",
+            "小溫差下三維體積膨脹係數近似為線性膨脹係數的 3 倍：β = 3α。"
+          ],
+          [
+            "Approximately what fraction of modern global sea-level rise is caused by the thermal expansion of warming ocean water?",
+            ["Less than 1%", "Between 1/3 and 1/2", "Exactly 95%", "Zero—only melting icebergs matter", "100%"],
+            1,
+            "Climate science data (IPCC / NASA) indicates roughly 1/3 to 1/2 of global sea-level rise is due to ocean thermal expansion.",
+            "氣候研究數據指出，全球海平面上升約有 1/3 至 1/2 來自海水受熱膨脹。"
+          ],
+          [
+            "An oil trucker loads 37,000 L of diesel fuel in hot weather and delivers it in a city 23.0 K colder (β_diesel = 9.50 × 10⁻⁴ /°C). Approximately how much fuel volume does he deliver?",
+            ["37,808 L", "37,000 L", "36,192 L (shrinks by ~808 L)", "35,000 L", "18,500 L"],
+            2,
+            "δV = V β δT = 37,000 × (9.50 × 10⁻⁴) × (−23.0) ≈ −808 L, so delivered volume is 37,000 − 808 = 36,192 L.",
+            "柴油冷縮量 δV = 37000 × 9.50×10⁻⁴ × (−23) ≈ −808 升，實際送達約 36,192 升。"
+          ],
+          [
+            "Which unusual compound exhibits NEGATIVE thermal expansion (contracts when heated) continuously from 0.3 K to 1050 K?",
+            ["Mild steel", "Aluminum", "ZrW₂O₈ (Zirconium tungstate)", "Concrete", "Pure copper"],
+            2,
+            "ZrW₂O₈ is a famous material that shrinks with increasing temperature across 0.3 K to 1050 K.",
+            "鎢酸鋯（ZrW₂O₈）在 0.3 K 至 1050 K 範圍內呈現罕見的負熱膨脹（熱縮冷脹）。"
+          ],
+          [
+            "How does liquid freshwater behave as it is warmed from 0°C to 4°C?",
+            [
+              "It expands rapidly like an ideal gas.",
+              "It contracts and becomes denser, reaching its maximum density at 4°C.",
+              "Its density drops to zero at 4°C.",
+              "It immediately boils into vapour.",
+              "Its volume remains completely unchanged."
+            ],
+            1,
+            "Water violates normal thermal expansion between 0°C and 4°C: it contracts as open ice-like structures collapse, peaking in density at 4°C so ice floats on top.",
+            "水在 0°C 至 4°C 之間反常收縮、密度增加並在 4°C 達最大值，因此冰與最冷的水浮於水面。"
+          ],
+          [
+            "How many Joules are equivalent to one scientific calorie (1 cal) and one nutritional Calorie (1 kcal)?",
+            [
+              "1 cal = 1 J; 1 kcal = 100 J",
+              "1 cal = 4.1868 J; 1 kcal = 4186.8 J",
+              "1 cal = 10 J; 1 kcal = 10,000 J",
+              "1 cal = 273.15 J; 1 kcal = 273,150 J",
+              "1 cal = 1000 J; 1 kcal = 1,000,000 J"
+            ],
+            1,
+            "1 cal (heating 1 g of water by 1°C) = 4.1868 J, so 1 kcal (food Calorie) = 4186.8 J.",
+            "1 卡路里（cal）= 4.1868 焦耳，營養學的 1 大卡（kcal）= 4186.8 焦耳。"
+          ],
+          [
+            "A fixed amount of heat Q warms 1 g of material A by 3°C and 1 g of material B by 4°C. Which material has the GREATER specific heat capacity?",
+            ["Material A", "Material B", "Both have identical specific heat", "Neither has a defined specific heat", "Cannot tell without knowing their densities"],
+            0,
+            "From Q = c m ΔT ⇒ c = Q / (m ΔT). For the same Q and m, the smaller ΔT (material A) corresponds to a GREATER specific heat capacity.",
+            "由 c = Q/(mΔT)，吸收相同熱量時溫升較小的物質 A 擁有較大的比熱容。"
+          ],
+          [
+            "Which of the following common substances has the HIGHEST specific heat capacity?",
+            ["Copper (0.38 kJ/kg·K)", "Iron (0.45 kJ/kg·K)", "Dry air (1.005 kJ/kg·K)", "Liquid water (4.186 kJ/kg·K)", "Lead (0.13 kJ/kg·K)"],
+            3,
+            "Liquid water has an exceptionally large specific heat capacity of 4.186 kJ/(kg·K), making it an excellent thermal buffer.",
+            "液態水的比熱容為 4.186 kJ/(kg·K)，遠高於金屬與空氣。"
+          ],
+          [
+            "On a temperature-vs-heat-added graph for water, why is there a long flat horizontal plateau at 100°C?",
+            [
+              "The heater turns off automatically at 100°C.",
+              "Added heat goes into latent heat of vaporization (Q = L_V m) to break intermolecular bonds at constant temperature.",
+              "Water's specific heat becomes zero at 100°C.",
+              "Thermal conduction stops at 100°C.",
+              "Steam has lower energy than liquid water."
+            ],
+            1,
+            "During phase change (melting or boiling), added energy breaks intermolecular bonds rather than raising molecular kinetic energy, so T stays flat.",
+            "沸騰相變期間，吸收的熱量為汽化潛熱（Q = L_V m），用於破壞分子間作用力，因此溫度維持在 100°C 不變。"
+          ],
+          [
+            "In thermal conduction across a wall (P_cond = k A (T_H − T_C) / L), which single change will DOUBLE the rate of heat flow?",
+            [
+              "Doubling the wall thickness L.",
+              "Halving the cross-sectional area A.",
+              "Doubling the temperature difference (T_H − T_C).",
+              "Replacing copper (k = 401) with polyurethane foam (k = 0.024).",
+              "Setting T_H equal to T_C."
+            ],
+            2,
+            "Heat conduction power is directly proportional to k, A, and (T_H − T_C), and inversely proportional to L.",
+            "熱傳導功率正比於溫差 (T_H − T_C) 與截面積 A，反比於厚度 L；溫差加倍則傳熱速率加倍。"
+          ],
+          [
+            "What drives natural CONVECTION currents in a pot of heated water or in the atmosphere?",
+            [
+              "Direct electron hopping between stationary atoms.",
+              "Heated fluid expands, becomes less dense, and rises due to a net upward buoyant force while cooler denser fluid sinks.",
+              "Electromagnetic radiation bouncing off the lid.",
+              "Magnetic attraction from Earth's core.",
+              "Negative thermal expansion above 50°C."
+            ],
+            1,
+            "Convection transfers heat by bulk fluid motion driven by buoyancy differences between warm (low-density) and cool (high-density) fluid parcels.",
+            "對流是流體受熱膨脹、密度降低而在浮力作用下上升，冷流體下沉補充所形成的整體熱傳遞。"
+          ],
+          [
+            "Which heat transfer mechanism follows the Stefan-Boltzmann law P_rad = σ ε A T⁴ and can travel across the vacuum of space?",
+            ["Conduction", "Convection", "Thermal radiation", "Latent fusion", "Isothermal compression"],
+            2,
+            "Thermal radiation is emitted as electromagnetic waves by oscillating thermal charges and requires no medium.",
+            "熱輻射遵循 P = σεAT⁴，以電磁波形式傳遞熱量，無需介質即可穿過太空真空。"
+          ],
+          [
+            "According to the First Law of Thermodynamics (dE = dQ − dW), if a gas absorbs 600 J of heat and performs 250 J of work on a piston, what is the change in its internal energy dE?",
+            ["−850 J", "−350 J", "+250 J", "+350 J", "+850 J"],
+            3,
+            "dE = dQ − dW = 600 J − 250 J = +350 J.",
+            "由熱力學第一定律 dE = dQ − dW = 600 − 250 = +350 J。"
+          ],
+          [
+            "On a pressure-volume (p–V) diagram, what does the area enclosed by a CLOCKWISE closed cycle represent?",
+            [
+              "The temperature of the cold reservoir.",
+              "The positive net work W_net done by the gas during one complete cycle.",
+              "The specific heat capacity of the cylinder.",
+              "The total mass of the gas.",
+              "Zero work because the cycle returns to its start."
+            ],
+            1,
+            "Because W = ∫p dV, expanding at higher pressure and compressing at lower pressure (clockwise loop) produces net positive work equal to the enclosed area.",
+            "p–V 圖中順時針封閉循環所圍面積等於氣體一個循環對外輸出的正淨功。"
+          ],
+          [
+            "Which thermodynamic process occurs with ZERO heat exchange between the system and its surroundings (ΔQ = 0)?",
+            ["Isothermal process", "Isobaric process", "Isochoric process", "Adiabatic process", "Phase transition"],
+            3,
+            "An adiabatic process is thermally insulated (ΔQ = 0), so by the 1st Law any work done changes internal energy directly (dE = −dW).",
+            "絕熱過程（Adiabatic process）與外界沒有熱量交換（ΔQ = 0）。"
+          ],
+          [
+            "For an ideal gas undergoing an ISOTHERMAL process (constant temperature T), what is true about its internal energy change ΔU?",
+            [
+              "ΔU = 0, so all heat absorbed equals work done (Q = W).",
+              "ΔU is always negative.",
+              "Q = 0 automatically.",
+              "Pressure stays constant as volume increases.",
+              "Entropy stays zero."
+            ],
+            0,
+            "Since an ideal gas's internal energy depends only on temperature, constant T implies ΔU = 0 and therefore Q = W.",
+            "理想氣體內能僅取決於溫度，故等溫過程中 ΔU = 0，吸收的熱量全部用來對外作功（Q = W）。"
+          ],
+          [
+            "Why is it impossible to extract net positive work in a closed cycle using only a SINGLE constant-temperature heat reservoir?",
+            [
+              "Because gas pressure is zero at constant temperature.",
+              "Because compressing the gas back along the same isotherm requires as much work as the expansion produced, giving zero net work.",
+              "Because gases cannot expand at constant temperature.",
+              "Because the First Law prohibits absorbing heat.",
+              "Because entropy cannot change isothermally."
+            ],
+            1,
+            "Returning along the same isotherm encloses zero area on a p–V diagram; two reservoirs at different temperatures (T_H > T_C) are required by the 2nd Law.",
+            "沿同一條等溫線壓縮回原點所需作功會完全抵銷膨脹作功，封閉面積為零，無法輸出淨功（第二定律）。"
+          ],
+          [
+            "What is the maximum theoretical (Carnot) efficiency of a heat engine operating between T_H = 850 K and T_C = 300 K?",
+            ["25.0%", "35.3%", "50.0%", "64.7%", "85.0%"],
+            3,
+            "η_Carnot = 1 − T_C / T_H = 1 − 300 / 850 = 550 / 850 ≈ 0.647 = 64.7%.",
+            "卡諾效率 η = 1 − 300/850 ≈ 64.7%。"
+          ],
+          [
+            "Rank the efficiencies of three Carnot engines from GREATEST to LEAST: (a) 400 K & 500 K, (b) 600 K & 800 K, (c) 400 K & 600 K.",
+            ["η_a > η_b > η_c", "η_b > η_a > η_c", "η_c > η_b > η_a", "η_c > η_a > η_b", "All three have equal efficiency."],
+            2,
+            "η_a = 1 − 400/500 = 20%; η_b = 1 − 600/800 = 25%; η_c = 1 − 400/600 = 33.3%. Thus η_c > η_b > η_a.",
+            "計算得 η_c (33.3%) > η_b (25%) > η_a (20%)。"
+          ],
+          [
+            "An inventor claims to have built a heat engine with 75% efficiency operating between 0°C (freezing water) and 100°C (boiling water). Why is this claim impossible?",
+            [
+              "Because water cannot boil inside a metal cylinder.",
+              "Because in Kelvin (273 K to 373 K), the maximum possible Carnot efficiency is only 1 − 273/373 ≈ 27%.",
+              "Because 100°C − 0°C = 100%, which is less than 75%.",
+              "Because friction always lowers efficiency to 0%.",
+              "Because heat engines cannot use liquid water."
+            ],
+            1,
+            "Always convert to Kelvin! η_Carnot = 1 − 273.15 / 373.15 ≈ 26.8% (~27%). No heat engine can surpass Carnot efficiency.",
+            "必須換算成絕對溫度 K：1 − 273/373 ≈ 27%，任何熱機效率皆不可能超過卡諾上限 27%。"
+          ],
+          [
+            "For reversible heat transfer Q at constant absolute temperature T, how is the entropy change δS defined?",
+            ["δS = Q × T", "δS = Q / T", "δS = T / Q", "δS = Q² / T", "δS = 0 whenever heat is transferred"],
+            1,
+            "Entropy change for reversible isothermal heat transfer is δS = Q / T (units: J/K).",
+            "可逆等溫傳熱的熵變定義為 δS = Q/T。"
+          ],
+          [
+            "When an ideal gas expands isothermally into a larger volume at constant temperature, what happens to its entropy S?",
+            [
+              "Entropy decreases because pressure decreases.",
+              "Entropy remains strictly unchanged.",
+              "Entropy increases because there are more possible spatial positions (higher disorder/uncertainty) for the molecules.",
+              "Entropy becomes negative.",
+              "Entropy depends only on the mass of the piston."
+            ],
+            2,
+            "Expanding into a larger volume increases the number of accessible microscopic configurations, raising entropy S.",
+            "等溫膨脹使分子可佔據的空間微觀態增多、不確定性與無序度上升，故熵增加。"
+          ],
+          [
+            "After a working gas completes one full reversible Carnot cycle and returns to its initial state, what is the net change in entropy of the gas (ΔS_gas)?",
+            ["Always positive", "Always negative", "Exactly zero (ΔS_gas = 0)", "Equal to Q_H / T_C", "Infinite"],
+            2,
+            "Entropy is a state function: returning to the same state gives ΔS_gas = Q_H/T_H + Q_C/T_C = 0.",
+            "熵是狀態函數，氣體完成可逆封閉循環回到原狀態後，氣體的淨熵變必為零。"
+          ],
+          [
+            "What is the Coefficient of Performance (COP) K of an ideal Carnot refrigerator operating between cold temperature T_C and hot temperature T_H?",
+            ["K = 1 − T_C / T_H", "K = T_H / T_C", "K = T_C / (T_H − T_C)", "K = (T_H − T_C) / T_H", "K = T_H × T_C"],
+            2,
+            "For a refrigerator, desired cooling is |Q_C| and work input is |W| = |Q_H| − |Q_C|, giving K = |Q_C|/|W| = T_C / (T_H − T_C).",
+            "卡諾製冷機的效能係數 K = |Q_C|/|W| = T_C / (T_H − T_C)。"
+          ],
+          [
+            "Which of the following is NOT an equivalent statement of the Second Law of Thermodynamics?",
+            [
+              "No heat engine can exceed Carnot efficiency between two reservoirs.",
+              "Net work cannot be extracted in a closed cycle from a single heat bath.",
+              "Heat does not spontaneously flow from a colder body to a hotter body.",
+              "The total entropy of interacting systems cannot decrease (ΔS_total ≥ 0).",
+              "Total energy can be created from nothing in an adiabatic cycle."
+            ],
+            4,
+            "Creating energy from nothing violates the First Law (conservation of energy), whereas the other four statements are equivalent forms of the Second Law.",
+            "無中生有創造能量違反的是第一定律（能量守恆），其餘四項均為熱力學第二定律的等價表述。"
+          ]
+        ],
+
+        // ---------------------------------------------------------------------
+        // CHAPTER 4: ELECTRICITY & MAGNETISM (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch4: [
+          [
+            "How does the electrostatic repulsive force between two electrons compare with their gravitational attraction?",
+            [
+              "Gravity is slightly stronger.",
+              "They have equal magnitudes.",
+              "The electrostatic force is roughly 4.17 × 10⁴² times stronger than gravity.",
+              "The electrostatic force is 100 times weaker than gravity.",
+              "Electrons do not interact gravitationally."
+            ],
+            2,
+            "At the subatomic scale, Coulomb's electric force overwhelms gravity by a factor of ~4.17 × 10⁴².",
+            "兩個電子之間的靜電斥力比萬有引力強約 4.17 × 10⁴² 倍。"
+          ],
+          [
+            "A negatively charged plastic rod is held close to—WITHOUT touching—the metal knob of a neutral electroscope. Why do the metal leaves spread apart?",
+            [
+              "Protons jump through the air from the electroscope to the rod.",
+              "Free electrons are repelled down into the leaves (electrostatic induction/polarization), making both leaves negatively charged so they repel.",
+              "The rod magnetizes the metal leaves.",
+              "Air friction heats the leaves until they expand.",
+              "Nothing happens unless the rod physically touches the knob."
+            ],
+            1,
+            "The negative rod pushes mobile electrons down into the leaves by induction; like charges on the two leaves repel each other.",
+            "帶負電棒透過靜電感應排斥導體內的自由電子流向金屬箔，使兩片金屬箔同帶負電而互相排斥張開。"
+          ],
+          [
+            "How is the electric field vector E defined at a point in space?",
+            [
+              "Electric potential energy multiplied by charge.",
+              "Electric force F on a small positive test charge divided by that test charge (E = F / q₀).",
+              "Current divided by resistance.",
+              "Charge divided by voltage.",
+              "Magnetic flux divided by area."
+            ],
+            1,
+            "E = F / q₀ gives the force per unit positive test charge (units: N/C or V/m).",
+            "電場強度定義為單位正試探電荷所受的靜電力：E = F/q₀。"
+          ],
+          [
+            "Which statement about electric potential V, electric field E, and equipotential surfaces is TRUE?",
+            [
+              "Electric field lines are always parallel to equipotential surfaces.",
+              "Electric field lines are always perpendicular to equipotential surfaces, and V = 0 does NOT necessarily mean E = 0.",
+              "Electric field lines start on negative charges and end on positive charges.",
+              "Moving a charge along an equipotential surface requires large positive work.",
+              "V = 0 guarantees that E = 0 at that point."
+            ],
+            1,
+            "Since no work is done along constant V, E must be perpendicular to equipotential surfaces; e.g., midway between +q and −q, V = 0 but E ≠ 0.",
+            "電力線處處垂直於等勢面；電勢為零的位置（如正負等量點電荷中點）電場不一定為零。"
+          ],
+          [
+            "Why are passengers inside a closed metal-bodied car or airplane protected during a lightning strike?",
+            [
+              "Rubber tires completely block a million-volt lightning bolt.",
+              "A closed metal conductor acts as a Faraday cage: charges reside on the exterior surface and the interior electric field is zero.",
+              "Lightning cannot strike moving metal.",
+              "Glass windows reflect electric current.",
+              "Airplanes fly above all atmospheric charges."
+            ],
+            1,
+            "In electrostatic shielding (Faraday cage), free charges distribute on the outer conductor shell, keeping E = 0 inside.",
+            "金屬車殼或機艙構成法拉第籠，電荷分布於外表面，內部電場為零，保護內部人員安全。"
+          ],
+          [
+            "How does a sharp metal lightning rod protect a tall building?",
+            [
+              "It repels storm clouds away from the roof.",
+              "Its sharp tip concentrates charge and creates an intense electric field (tip discharge), safely conducting lightning current to ground.",
+              "It stores the lightning bolt in a capacitor.",
+              "It insulates the roof from air.",
+              "It converts lightning into sound waves."
+            ],
+            1,
+            "High curvature at a sharp conducting tip produces a strong E-field that ionizes air and provides a low-resistance path directly to the ground rod.",
+            "避雷針利用尖端放電產生強電場電離空氣，並經導線將雷電流安全導入大地。"
+          ],
+          [
+            "What determines the capacitance C of a parallel-plate capacitor?",
+            [
+              "Only the charge q placed on it.",
+              "Only the voltage V of the battery.",
+              "Its physical geometry (plate area and separation) and the dielectric material between the plates.",
+              "Only the current flowing in the connecting wires.",
+              "Only the magnetic field of the Earth."
+            ],
+            2,
+            "In q = C V, capacitance C is fixed by the capacitor's geometry and dielectric material, independent of q and V.",
+            "電容 C 僅由極板的幾何形狀（面積、間距）與極板間的介質決定，與電荷量或電壓無關。"
+          ],
+          [
+            "How does a CCD (Charge-Coupled Device) digital image sensor capture and read out an image?",
+            [
+              "By measuring the gravitational weight of photons.",
+              "Photodiodes generate electrons proportional to light intensity, store them in pixel capacitors, and shift them out row-by-row ('bucket brigade') to an amplifier.",
+              "By spinning a permanent magnet behind the lens.",
+              "By darkening silver halide chemical film.",
+              "By discharging a lightning rod across each pixel."
+            ],
+            1,
+            "A CCD combines photosensitive photodiodes with capacitor wells that transfer charge packets sequentially to an output amplifier (often cooled to reduce thermal noise).",
+            "CCD 以光電二極管產生與光強成正比的電子並儲存在像素電容中，再以「水桶接力」方式逐行移出放大讀取。"
+          ],
+          [
+            "In a coaxial cable (such as a TV or lab signal cable), what is the electrical purpose of the outer braided copper mesh tube?",
+            [
+              "It only adds mechanical weight.",
+              "It provides the closed-loop return path for electric current (and shields the inner signal wire).",
+              "It acts as a thermal insulator.",
+              "It generates permanent magnetism.",
+              "It prevents electrons from flowing in a loop."
+            ],
+            1,
+            "Electric current requires a closed loop; the outer conducting mesh returns current back to the source while shielding the inner conductor.",
+            "電流必須在封閉迴路中流動，同軸電纜的外層銅網提供電流回流路徑並具電磁屏蔽作用。"
+          ],
+          [
+            "According to Ohm's Law (R = V / i), what current flows through a 4 Ω resistor connected across a 12 V battery?",
+            ["0.33 A", "3 A", "8 A", "16 A", "48 A"],
+            1,
+            "i = V / R = 12 V / 4 Ω = 3 A.",
+            "由歐姆定律 i = V/R = 12 / 4 = 3 A。"
+          ],
+          [
+            "A household appliance operates at 220 V and draws a steady current of 1 A for 1 hour. How much electrical energy does it consume?",
+            ["220 J", "0.22 kWh", "2.2 kWh", "220 kWh", "1.0 kWh"],
+            1,
+            "Power P = V I = 220 V × 1 A = 220 W = 0.22 kW. Energy used in 1 hour = 0.22 kW × 1 h = 0.22 kWh.",
+            "功率 P = 220 × 1 = 220 W = 0.22 kW，運作 1 小時耗電 0.22 kWh（度）。"
+          ],
+          [
+            "Why is a static shock from your finger to a doorknob (40,000–100,000 V) harmless despite the huge voltage?",
+            [
+              "Because voltage has no connection to energy.",
+              "Because the total charge transferred and the resulting current are extremely tiny.",
+              "Because human skin is a superconductor.",
+              "Because metal doorknobs are insulators.",
+              "Because static electricity has zero electric field."
+            ],
+            1,
+            "Electrical injury depends primarily on current magnitude and duration; static discharges carry negligible charge and minuscule energy.",
+            "靜電放電雖然電壓極高，但轉移的總電荷量與電流極其微弱且時間極短，因此對人體無害。"
+          ],
+          [
+            "What is the safety function of the fuse inside a standard Hong Kong 13 A three-pin plug?",
+            [
+              "It steps up the voltage to 250 V.",
+              "Connected to the Live wire, it melts and breaks the circuit if excessive current flows, preventing overheating and electrical fire.",
+              "It stores backup battery power.",
+              "It converts AC into DC.",
+              "It connects directly to the plastic casing."
+            ],
+            1,
+            "A fuse is a thin wire in series with the Live (brown) pin designed to melt safely when current exceeds its rating (e.g., 13 A).",
+            "保險絲串聯於火線（棕色），當電流超載時會熔斷切斷電路，防止電線過熱引發火災。"
+          ],
+          [
+            "Which element is the foundational SEMICONDUCTOR material used in computer chips and solar photovoltaic panels?",
+            ["Copper", "Silver", "Silicon", "Rubber", "Diamond"],
+            2,
+            "Silicon has conductivity intermediate between conductors and insulators and is the core material of modern microelectronics and solar cells.",
+            "矽（Silicon）是最核心的半導體材料，廣泛應用於微電子晶片與太陽能光伏電池。"
+          ],
+          [
+            "What happens if you break a permanent bar magnet cleanly in half?",
+            [
+              "You obtain one isolated North pole and one isolated South pole.",
+              "Both halves lose all magnetism permanently.",
+              "Each half becomes a complete smaller magnet with both a North pole and a South pole.",
+              "One half becomes positively charged and the other negatively charged.",
+              "The two halves repel iron nails."
+            ],
+            2,
+            "Magnetic poles always appear in N–S dipole pairs; isolated magnetic monopoles have never been observed.",
+            "磁鐵總是磁偶極（N、S 極成對出現），折斷後每一段都會形成新的完整 N 極與 S 極。"
+          ],
+          [
+            "Under which condition is the magnetic Lorentz force F_B = q v × B on a charged particle equal to ZERO?",
+            [
+              "Whenever the particle has positive charge.",
+              "When the particle is stationary (v = 0) or moves parallel/antiparallel to B (angle 0° or 180°).",
+              "When the particle moves perpendicular to B (angle 90°).",
+              "Whenever B is uniform.",
+              "Never—a magnetic field exerts force on every charge."
+            ],
+            1,
+            "Since F_B = |q| v B sin φ, the force vanishes when v = 0 or sin φ = 0 (motion along the B-field line).",
+            "由 F_B = |q|vB sinφ，當粒子靜止（v = 0）或速度平行於磁場（sinφ = 0）時，磁力為零。"
+          ],
+          [
+            "How much work does a static magnetic field B do on a freely moving charged particle?",
+            [
+              "Positive work equal to qvB.",
+              "Negative work equal to −½ mv².",
+              "Always ZERO, because the magnetic force F_B is always perpendicular to velocity v.",
+              "Work proportional to the orbital radius R.",
+              "Work equal to B A cos θ."
+            ],
+            2,
+            "Because F_B ⊥ v at all times, a magnetic field curves a particle's trajectory without changing its speed or kinetic energy.",
+            "勞侖茲力永遠垂直於帶電粒子的速度方向，因此靜磁場永不對自由電荷作功。"
+          ],
+          [
+            "A proton enters a uniform magnetic field B with velocity v perpendicular to B, moving in a circle of radius R = mv/(qB). If its speed v is DOUBLED, what happens to R?",
+            ["R stays unchanged.", "R is halved.", "R doubles.", "R quadruples.", "The proton stops."],
+            2,
+            "From R = mv / (qB), the cyclotron radius is directly proportional to speed v, so doubling v doubles R.",
+            "由圓周半徑公式 R = mv/(qB)，速度加倍時軌道半徑 R 亦加倍。"
+          ],
+          [
+            "What trajectory does a charged particle follow in a uniform magnetic field if its velocity has BOTH a component perpendicular to B and a component parallel to B?",
+            ["A straight line.", "A flat circle.", "A spiral (helical) path winding along the magnetic field lines.", "A parabola.", "A square loop."],
+            2,
+            "The perpendicular velocity creates circular motion while the parallel velocity drifts steadily along B, forming a helix.",
+            "垂直磁場的分速度形成圓周運動，平行磁場的分速度維持等速前進，合成沿磁力線的螺旋軌跡。"
+          ],
+          [
+            "In a DC electric motor, what is the role of the split-ring commutator?",
+            [
+              "To create the permanent magnetic field.",
+              "To reverse the current direction in the coil every half-turn so magnetic torque keeps rotating the loop continuously in one direction.",
+              "To melt if the voltage drops.",
+              "To cool the battery.",
+              "To convert sound into electricity."
+            ],
+            1,
+            "Without the commutator reversing current every 180°, the torque would reverse direction and the coil would merely oscillate back and forth.",
+            "換向器每半圈反轉線圈電流方向，使磁力矩持續朝同一方向轉動馬達。"
+          ],
+          [
+            "Two long parallel wires carry electric currents in the SAME direction. What magnetic force acts between them?",
+            [
+              "They repel each other.",
+              "They attract each other.",
+              "They exert zero force on each other.",
+              "They twist into a circle.",
+              "Their resistances cancel out."
+            ],
+            1,
+            "Parallel currents attract each other (F = μ₀ L i_a i_b / 2πd), while antiparallel currents repel.",
+            "同向平行電流互相吸引，反向平行電流互相排斥。"
+          ],
+          [
+            "What magnetic field is generated inside a long current-carrying solenoid?",
+            [
+              "Zero magnetic field.",
+              "A strong, nearly uniform magnetic field directed along the interior axis of the solenoid.",
+              "A radially outward field.",
+              "A field pointing perpendicular to the axis.",
+              "Only an electric field."
+            ],
+            1,
+            "The magnetic fields of individual coils add constructively along the axis to form a strong uniform interior B-field.",
+            "通電螺線管內部會產生沿軸向的強均勻磁場。"
+          ],
+          [
+            "What is the microscopic atomic origin of magnetism in matter?",
+            [
+              "Nuclear fission inside iron nuclei.",
+              "Electron spin and orbital angular momentum generating tiny atomic magnetic dipole moments.",
+              "Thermal conduction of protons.",
+              "Gravitational pull between neutrons.",
+              "Static friction between atoms."
+            ],
+            1,
+            "Electrons possess intrinsic spin and orbital motion that behave as microscopic current loops with magnetic dipole moments.",
+            "物質磁性的微觀來源是電子的自旋與軌道角動量所產生的磁偶極矩。"
+          ],
+          [
+            "Which type of magnetic response is universal to all materials and causes weak REPULSION from both North and South poles?",
+            ["Ferromagnetism", "Paramagnetism", "Diamagnetism", "Electrostatic induction", "Piezo-magnetism"],
+            2,
+            "Diamagnetism is present in all matter and weakly repels any applied magnetic pole, though it is overshadowed in paramagnetic/ferromagnetic materials.",
+            "抗磁性（Diamagnetism）普遍存在於所有物質中，對 N 極與 S 極皆呈微弱排斥。"
+          ],
+          [
+            "Why can ferromagnetic materials (Fe, Ni, Co) retain permanent magnetism after an external magnetic field is removed?",
+            [
+              "They contain isolated magnetic monopoles.",
+              "Their microscopic magnetic domains align irreversibly (hysteresis), leaving net magnetization even after the external field is turned off.",
+              "They have zero resistance at room temperature.",
+              "They have no electrons.",
+              "They repel all magnetic fields."
+            ],
+            1,
+            "Ferromagnetic domains align strongly and exhibit hysteresis (irreversibility), making permanent magnets and magnetic hard disks possible.",
+            "鐵磁材料的微觀磁疇受外磁場磁化後具不可逆性（磁滯效應），撤去外磁場後仍能保留永久磁性。"
+          ],
+          [
+            "What produces approximately 90% of Earth's magnetic field?",
+            [
+              "A giant solid bar magnet at the North Pole.",
+              "Convective motion of liquid metal in Earth's outer core.",
+              "Ocean tides driven by the Moon.",
+              "Lightning bolts in the troposphere.",
+              "Solar wind hitting the equator."
+            ],
+            1,
+            "Roughly 90% originates from liquid metal convection in Earth's outer core, and ~10% from atmospheric ion/electron currents.",
+            "地球磁場約 90% 來自液態金屬外核的對流運動，約 10% 來自高空大氣離子流動。"
+          ],
+          [
+            "Near Earth's Geographic North Pole, which magnetic pole of Earth's internal dipole is located?",
+            [
+              "The magnetic North pole.",
+              "The magnetic South pole (tilted ~11.5° from the rotation axis).",
+              "Neither—there is no magnetic pole in the Northern Hemisphere.",
+              "A positive electric monopole.",
+              "A zero-field zone."
+            ],
+            1,
+            "Because the North end of a compass needle points geographically north (opposites attract), Earth's internal magnetic South pole lies in the Northern Hemisphere.",
+            "指南針 N 極指向地理北方（異極相吸），代表地球內部等效磁偶極的 S 極位於北半球（偏角約 11.5°）。"
+          ],
+          [
+            "How are the Northern and Southern Lights (Auroras) created?",
+            [
+              "By sunlight refracting through polar icebergs.",
+              "By solar electrons and protons trapped in Van Allen belts spiraling into the upper atmosphere along magnetic field lines and exciting air molecules to glow.",
+              "By underwater volcanoes glowing through ice.",
+              "By FM radio waves reflecting off clouds.",
+              "By city lights bouncing off the Moon."
+            ],
+            1,
+            "Charged particles trapped in the Van Allen radiation belts dip into the polar atmosphere during geomagnetic activity, causing atmospheric gases to emit light.",
+            "范艾倫輻射帶捕獲的太陽帶電粒子沿地磁線螺旋進入極區高空大氣，激發大氣分子發光形成極光。"
+          ],
+          [
+            "According to Faraday's Law and Lenz's Law, what induces a current in a closed conducting loop and what determines its direction?",
+            [
+              "A constant static magnetic field induces current clockwise.",
+              "A changing magnetic flux (Φ = B A cos θ) induces current, directed so its own magnetic field opposes the change in flux.",
+              "Holding a magnet still inside the coil induces maximum current.",
+              "Only gravitational flux induces current.",
+              "Induced current always reinforces the flux change to create infinite energy."
+            ],
+            1,
+            "Changing magnetic flux induces emf/current (Faraday), and its direction opposes the flux change (Lenz, reflecting energy conservation).",
+            "磁通量隨時間變化會產生感應電流（法拉第定律），且感應電流產生的磁場總是反抗原本的磁通量變化（楞次定律）。"
+          ],
+          [
+            "How does an AC electric generator produce alternating sinusoidal voltage?",
+            [
+              "By burning coal inside a capacitor.",
+              "By mechanically rotating a conducting coil in a magnetic field so the flux Φ = B A cos θ varies sinusoidally with time.",
+              "By keeping both magnet and coil completely stationary.",
+              "By using static sparks from a doorknob.",
+              "By passing DC through a resistor."
+            ],
+            1,
+            "Continuously rotating a coil in a uniform B-field changes the angle θ between the coil normal and B, inducing a sinusoidal AC voltage.",
+            "外力驅動線圈在磁場中持續旋轉，使磁通量 BA cosθ 呈正弦規律變化，從而輸出交流電壓。"
+          ]
+        ],
+
+        // ---------------------------------------------------------------------
+        // CHAPTER 5: QUANTUM PHYSICS (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch5: [
+          [
+            "In the photoelectric effect, what determines WHETHER any electrons are ejected from a given metal surface?",
+            [
+              "The intensity (brightness) of the light beam.",
+              "Whether the light frequency ν meets or exceeds the metal's cutoff frequency ν_c = φ / h.",
+              "How long the light shines on the metal.",
+              "The thickness of the metal plate.",
+              "The air pressure in the room."
+            ],
+            1,
+            "An electron absorbs a single photon of energy hν; emission occurs only if hν ≥ work function φ, regardless of how bright the beam is.",
+            "能否激發光電子僅取決於入射光頻率是否達到或超過金屬的截止頻率 ν_c = φ/h，與光強無關。"
+          ],
+          [
+            "In the photoelectric effect (above the cutoff frequency), increasing the FREQUENCY of the light while keeping intensity constant causes:",
+            [
+              "The maximum kinetic energy K_max of emitted electrons to increase linearly (K_max = hν − φ).",
+              "K_max to decrease.",
+              "K_max to remain strictly constant.",
+              "Electron emission to stop.",
+              "The work function φ of the metal to double."
+            ],
+            0,
+            "Higher frequency means higher energy per photon (E = hν), giving ejected electrons greater maximum kinetic energy K_max = hν − φ.",
+            "提高頻率增加單個光子能量 hν，使光電子的最大動能 K_max = hν − φ 線性增加。"
+          ],
+          [
+            "Above the cutoff frequency in the photoelectric effect, what does increasing the LIGHT INTENSITY increase?",
+            [
+              "The maximum kinetic energy of each individual electron.",
+              "The work function of the metal.",
+              "The number of photoelectrons emitted per second (photocurrent).",
+              "The cutoff frequency.",
+              "The wavelength of each photon."
+            ],
+            2,
+            "Higher intensity supplies more photons per second, ejecting more electrons per second without changing each photon's individual energy hν.",
+            "超過截止頻率後，提高光強只會增加每秒入射的光子數與發射的光電子數目，不改變單個光電子的最大動能。"
+          ],
+          [
+            "Using the photoelectric threshold concept, why does SPF 30 sunscreen protect skin from DNA damage without making your skin look black or mirror-like?",
+            [
+              "It blocks 100% of visible light.",
+              "It selectively absorbs/blocks high-energy UV photons (which exceed the energy threshold to break DNA bonds) while transmitting visible light.",
+              "It freezes skin cells to 0 K.",
+              "It reflects only radio waves.",
+              "It turns UV photons into X-rays."
+            ],
+            1,
+            "DNA damage is triggered by high-energy UV photons; sunscreen selectively filters the UV band while allowing lower-energy visible light through.",
+            "防曬霜針對能破壞 DNA 化學鍵的高能量紫外線波段進行吸收阻擋，而讓可見光正常通過，因此不會顯得發黑或像鏡子。"
+          ],
+          [
+            "In Compton scattering of X-rays off free electrons, how does the scattered photon's wavelength λ' compare with the incident wavelength λ?",
+            [
+              "λ' < λ (shorter wavelength).",
+              "λ' = λ (unchanged, as classical wave theory predicted).",
+              "λ' > λ (longer wavelength, lower photon energy).",
+              "λ' drops to zero.",
+              "λ' depends only on beam intensity."
+            ],
+            2,
+            "The photon transfers energy and momentum to the recoiling electron, losing energy so its wavelength increases: λ' − λ = (h / m_e c)(1 − cos φ).",
+            "光子碰撞電子後將部分能量與動量轉移給電子，散射光子能量下降、波長變長（λ' > λ）。"
+          ],
+          [
+            "What fundamental property of light did Compton scattering conclusively prove?",
+            [
+              "Light is strictly a continuous classical wave.",
+              "Photons behave like particles carrying discrete momentum (p = h/λ) as well as energy (E = hν) in collisions.",
+              "Electrons have zero mass.",
+              "X-rays do not interact with electrons.",
+              "Momentum is not conserved in quantum physics."
+            ],
+            1,
+            "Applying relativistic energy and momentum conservation to a photon-electron collision exactly reproduces the observed Compton wavelength shift.",
+            "康普頓散射精確吻合粒子碰撞的能量與動量守恆，證實光子除了能量外還攜帶離散動量。"
+          ],
+          [
+            "In Taylor's single-photon double-slit experiment (1909), photons arrive one at a time at a screen behind two slits. What pattern emerges after millions of photons?",
+            [
+              "Two sharp vertical bands directly behind the slits.",
+              "A uniform featureless grey glow.",
+              "Individual localized particle dots that accumulate into a wave interference pattern of bright and dark fringes.",
+              "A single central spot.",
+              "No photons reach the screen."
+            ],
+            2,
+            "Each photon is detected as a single localized particle dot, yet its arrival probability obeys wave interference—demonstrating wave-particle duality.",
+            "單光子逐個抵達螢幕留下離散亮點（粒子性），但累積大量光子後卻呈現明暗干涉條紋（波動性）。"
+          ],
+          [
+            "In the electron double-slit experiment, what happens if you place a detector at the slits to measure WHICH slit each electron passes through?",
+            [
+              "The interference fringes become twice as sharp.",
+              "The interference pattern disappears, collapsing into a classical two-band sum.",
+              "All electrons bounce backward.",
+              "The electrons' wavelength becomes infinite.",
+              "The electrons turn into protons."
+            ],
+            1,
+            "Determining 'which slit' collapses the electron's wavefunction to a single-slit state, destroying the superposition required for interference.",
+            "偵測電子通過哪條狹縫會導致波函數坍縮為單縫態，破壞疊加性，使干涉條紋完全消失。"
+          ],
+          [
+            "A proton is 1836 times more massive than an electron. If both travel at the SAME non-relativistic speed v, how does the proton's de Broglie wavelength λ_p compare to the electron's λ_e?",
+            ["λ_p = 1836 λ_e", "λ_p = λ_e", "λ_p = λ_e / 1836", "λ_p = √1836 λ_e", "Protons do not have a de Broglie wavelength."],
+            2,
+            "By de Broglie's relation λ = h / (mv), at equal speed v, λ_p / λ_e = m_e / m_p = 1 / 1836.",
+            "由德布羅意波長 λ = h/(mv)，相同速率下質量為 1836 倍的質子其波長為電子的 1/1836。"
+          ],
+          [
+            "What experimental discovery in 1927 directly confirmed de Broglie's hypothesis that electrons behave as waves?",
+            [
+              "Measuring electron charge in oil drops.",
+              "Observing diffraction patterns when an electron beam scattered off a crystal lattice.",
+              "Observing gravitational lensing of starlight.",
+              "Measuring thermal expansion of steel.",
+              "Detecting cosmic microwave background."
+            ],
+            1,
+            "Crystal diffraction of electron beams produced clear wave interference rings matching λ = h / p.",
+            "1927 年電子束在晶體點陣中產生繞射圖樣，直接證實電子具有物質波性質。"
+          ],
+          [
+            "What does the squared magnitude of the quantum wavefunction, |ψ(x, t)|², physically represent?",
+            [
+              "The exact classical trajectory of a particle.",
+              "The electric charge density of empty space.",
+              "The probability density of finding the particle at position x at time t.",
+              "The speed of the particle.",
+              "The temperature of the wave."
+            ],
+            2,
+            "In Born's probability interpretation, |ψ(x, t)|² is the probability density, and ∫_a^b |ψ|² dx is the probability of locating the particle in [a, b].",
+            "波函數模平方 |ψ(x, t)|² 代表在時間 t 於位置 x 找到粒子的機率密度。"
+          ],
+          [
+            "At a dark fringe of a double-slit pattern, individual slit amplitudes ψ₁ and ψ₂ are both non-zero, yet zero particles arrive there. Why?",
+            [
+              "Particles physically collide and bounce back.",
+              "Wavefunctions add by superposition with opposite signs (ψ₁ + ψ₂ = 0), yielding probability density |ψ₁ + ψ₂|² = 0.",
+              "Closing one slit makes the dark fringe even darker.",
+              "The detector turns off at dark fringes.",
+              "Particles decay before hitting the screen."
+            ],
+            1,
+            "Quantum probability comes from squaring the SUM of amplitudes: destructive interference (ψ₁ = −ψ₂) produces zero probability.",
+            "兩路徑波函數在暗紋處符號相反互相抵銷（ψ₁ + ψ₂ = 0），故機率密度 |ψ₁ + ψ₂|² = 0。"
+          ],
+          [
+            "According to the Heisenberg Uncertainty Principle (Δx Δp ≥ ħ / 2), if a wavefunction is compressed into an ultra-narrow spike in position (tiny Δx), what must be true about its momentum?",
+            [
+              "Its momentum is also known exactly (Δp = 0).",
+              "Its momentum uncertainty Δp must be very large.",
+              "Its mass becomes zero.",
+              "Its kinetic energy becomes zero.",
+              "The particle stops existing."
+            ],
+            1,
+            "Because Δx Δp ≥ ħ / 2, localizing a particle tightly in space (small Δx) unavoidably creates a huge spread in momentum (large Δp).",
+            "由測不準原理 Δx Δp ≥ ħ/2，位置越精確（Δx 極小），動量不確定度 Δp 就必然越大。"
+          ],
+          [
+            "Which wavefunction shape represents a quantum particle with a VERY WELL-DEFINED momentum/velocity (very small Δp)?",
+            [
+              "A sharp narrow spike localized at one point.",
+              "A widely extended sinusoidal plane wave (large position spread Δx).",
+              "A flat line at ψ = 0 everywhere.",
+              "A single dot at x = 0.",
+              "A step function of width zero."
+            ],
+            1,
+            "A plane wave has a single well-defined wavelength λ and momentum p = h / λ (tiny Δp), at the expense of a large spatial spread Δx.",
+            "越接近無限延伸的平面波，波長與動量越確定（Δp 極小），代價是位置不確定度 Δx 極大。"
+          ],
+          [
+            "How did John Dalton (1808) provide early chemical evidence for the existence of discrete atoms?",
+            [
+              "By imaging single atoms with an electron microscope.",
+              "By showing that elements like carbon and oxygen combine in simple small-integer mass ratios (e.g., 1:2 in CO vs. CO₂).",
+              "By discovering the electron in 1897.",
+              "By measuring Brownian motion of pollen.",
+              "By solving the Schrödinger equation."
+            ],
+            1,
+            "Small whole-number mass ratios in chemical compounds (Law of Multiple Proportions) are naturally explained by discrete indivisible atoms.",
+            "道爾頓觀察到碳與氧化合形成 CO 與 CO₂ 時呈現簡單整數質量比（1:2），成為原子論的重要化學證據。"
+          ],
+          [
+            "Who first observed the erratic 'dancing' motion of pollen grains suspended in water (1827), and who explained it mathematically (1905) as proof of random molecular collisions?",
+            ["Newton and Hooke", "Robert Brown and Albert Einstein", "Bohr and Rutherford", "Planck and Maxwell", "Dirac and Fermi"],
+            1,
+            "Botanist Robert Brown observed Brownian motion in 1827, and Einstein (1905) derived its quantitative explanation from random water-molecule impacts.",
+            "植物學家布朗於 1827 年發現布朗運動，愛因斯坦於 1905 年用液體分子隨機碰撞成功作出數學解釋。"
+          ],
+          [
+            "What fatal flaw in classical physics made Rutherford's 1911 planetary model of the atom unstable?",
+            [
+              "Protons would repel neutrons out of the atom.",
+              "An orbiting electron undergoes continuous centripetal acceleration, so classical electrodynamics predicts it should radiate EM waves and spiral into the nucleus.",
+              "Electrons would immediately accelerate beyond c.",
+              "Gravity would pull electrons away from the nucleus.",
+              "Atoms would emit only continuous radio waves."
+            ],
+            1,
+            "Classical E&M states that accelerating charges radiate energy, which would cause an orbiting electron to collapse into the nucleus in a tiny fraction of a second.",
+            "古典電磁學預言作圓周加速運動的電子會不斷輻射電磁波而失去能量，在極短時間內墜入原子核。"
+          ],
+          [
+            "In Bohr's 1913 atomic model, what standing-wave condition restricts electrons to only discrete allowed circular orbits?",
+            [
+              "The orbit circumference must equal an integer multiple of the electron's de Broglie wavelength (2πr = nλ).",
+              "The orbit radius must be a multiple of 1 cm.",
+              "Air resistance stops all intermediate orbits.",
+              "The electron speed must equal c.",
+              "The nucleus emits standing sound waves."
+            ],
+            0,
+            "Requiring the electron matter wave to close constructively around the orbit (2πr = nλ = nh/mv) quantizes angular momentum, radii, and energy levels.",
+            "電子物質波沿圓周軌道必須形成閉合駐波（2πr = nλ），從而使軌道半徑與能級量子化。"
+          ],
+          [
+            "In Bohr's hydrogen atom (E_n = −13.6 eV / n²), what is the energy of the first excited state (n = 2)?",
+            ["−13.6 eV", "−6.80 eV", "−3.40 eV", "−1.51 eV", "−0.85 eV"],
+            2,
+            "E₂ = −13.6 eV / 2² = −13.6 / 4 = −3.40 eV.",
+            "代入波耳能級公式：E₂ = −13.6 / 2² = −3.40 eV。"
+          ],
+          [
+            "In the hydrogen emission spectrum, which spectral series consists of transitions ending at n = 2 (producing visible light)?",
+            ["Lyman series (UV)", "Balmer series (Visible)", "Paschen series (IR)", "Compton series", "Dirac series"],
+            1,
+            "Lyman ends at n = 1 (ultraviolet), Balmer ends at n = 2 (visible light), and Paschen ends at n = 3 (infrared).",
+            "電子躍遷至 n = 2 產生的可見光譜線稱為巴爾末系（Balmer series）；n = 1 為萊曼系，n = 3 為帕申系。"
+          ],
+          [
+            "For a single-electron (hydrogen-like) ion with atomic number Z, how do the Bohr energy levels scale with Z?",
+            [
+              "Linearly with Z.",
+              "Proportionally to Z² (E_{n,Z} = −13.6 Z² / n² eV).",
+              "Inversely with Z.",
+              "Independent of Z.",
+              "Proportionally to Z³."
+            ],
+            1,
+            "Stronger nuclear charge Ze increases Coulomb attraction by Z and shrinks the orbit by Z, scaling binding energy as Z².",
+            "類氫離子能級與原子序平方成正比：E_{n,Z} = −13.6 Z² / n² eV。"
+          ],
+          [
+            "In Bohr's model, as the principal quantum number n becomes very large, how do adjacent energy levels behave?",
+            [
+              "They become infinitely far apart.",
+              "They become very closely spaced, approaching the classical continuous limit.",
+              "They become positive and infinite.",
+              "They all equal −13.6 eV.",
+              "They vanish completely."
+            ],
+            1,
+            "Since E_n = −13.6 / n² eV, the spacing between E_n and E_{n+1} shrinks rapidly as n → ∞, recovering classical continuity (correspondence principle).",
+            "當主量子數 n 很大時，相鄰能級間距越來越密，逐漸過渡到古典物理的連續能譜。"
+          ],
+          [
+            "What landmark result did the Stern-Gerlach experiment produce when a beam of neutral silver atoms passed through an inhomogeneous magnetic field?",
+            [
+              "A single continuous vertical band on the screen.",
+              "Zero deflection because silver atoms are electrically neutral.",
+              "The beam split into exactly TWO discrete spots, proving that spin angular momentum is quantized.",
+              "All atoms bent into a full circle.",
+              "The silver atoms ionized into protons."
+            ],
+            2,
+            "Classically, randomly oriented atomic magnets should form a continuous smear; observing only 2 discrete spots proved quantized spin (S_z = ±1).",
+            "銀原子束未呈連續帶狀，而是分裂為兩個離散亮點，直接證明了量子自旋的空間量子化。"
+          ],
+          [
+            "A spin-1/2 particle is prepared in the state |Ψ⟩ = (√3 / 2)|↑⟩ + (1 / 2)|↓⟩. What is the probability of measuring z-spin UP (|↑⟩)?",
+            ["1/4 (25%)", "1/2 (50%)", "3/4 (75%)", "√3/2 (86.6%)", "100%"],
+            2,
+            "Measurement probability is the squared amplitude: P(↑) = α² = (√3 / 2)² = 3/4 = 75%.",
+            "測得自旋向上的機率等於係數平方：α² = (√3/2)² = 3/4（75%）。"
+          ],
+          [
+            "A particle has just been measured in the z-spin-up state |↑⟩. If it immediately enters a SECOND Stern-Gerlach device aligned along the SAME z-axis, what is the probability of measuring |↑⟩ again?",
+            ["0%", "25%", "50%", "75%", "100%"],
+            4,
+            "Once collapsed into |↑⟩, an immediate repeat measurement along the same z-axis yields |↑⟩ with 100% certainty.",
+            "坍縮至 |↑⟩ 態後，立即沿同一 z 軸再次測量，測得向上的機率為 100%。"
+          ],
+          [
+            "A particle in state |↑⟩ (z-spin up) enters a Stern-Gerlach apparatus aligned along the x-axis (SG x̂). What is the probability of measuring x-spin up (|→⟩)?",
+            ["0%", "25%", "50%", "75%", "100%"],
+            2,
+            "Because |↑⟩ = (1/√2)|→⟩ + (1/√2)|←⟩, the probability of measuring |→⟩ is (1/√2)² = 1/2 = 50%.",
+            "因 |↑⟩ = (1/√2)|→⟩ + (1/√2)|←⟩，沿正交 x 軸測得 |→⟩ 的機率為 (1/√2)² = 50%。"
+          ],
+          [
+            "A beam of 10,000 particles all in state |↑⟩ passes sequentially through three orthogonal filters: SG x̂ (select |→⟩) → SG ẑ (select |↓⟩) → SG x̂ (select |→⟩). Approximately how many particles emerge?",
+            ["0", "1,250", "2,500", "5,000", "10,000"],
+            1,
+            "Each orthogonal measurement transmits 50%: 10,000 × (1/2) = 5,000 → × (1/2) = 2,500 → × (1/2) = 1,250 particles.",
+            "每次正交自旋篩選通過率為 1/2：10,000 × 1/2 × 1/2 × 1/2 = 1,250 個粒子。"
+          ],
+          [
+            "In a sequential Stern-Gerlach setup (SG ẑ select |↑⟩ → SG x̂ select |→⟩ → SG ẑ), why do 50% of final particles emerge as |↓⟩ even though |↓⟩ was blocked in the first stage?",
+            [
+              "Some |↓⟩ atoms leaked past the first barrier.",
+              "Measuring x-spin collapsed the state to |→⟩ = (1/√2)(|↑⟩ + |↓⟩), erasing prior z-spin certainty and restoring a 50/50 z-spin superposition.",
+              "The magnetic field flipped the atoms' electric charge.",
+              "Thermal noise randomized the beam.",
+              "The third magnet was upside down."
+            ],
+            1,
+            "Measuring an incompatible observable (x-spin) irreversibly resets the state into an eigenstate of x-spin, which is an equal superposition of |↑⟩ and |↓⟩.",
+            "中間沿 x 軸測量使態坍縮為 |→⟩（它是 |↑⟩ 與 |↓⟩ 各 50% 的疊加態），抹去了先前的 z 自旋結果。"
+          ],
+          [
+            "What fundamental quantum concept is illustrated by Schrödinger's Cat thought experiment (|cat⟩ = α|dead⟩ + β|alive⟩)?",
+            [
+              "How cats detect infrared light.",
+              "Quantum superposition of states prior to observation and wavefunction collapse upon measurement.",
+              "The speed of sound in a sealed box.",
+              "Thermal conduction across fur.",
+              "Newton's Third Law in a vacuum."
+            ],
+            1,
+            "Schrödinger proposed the paradox to highlight the conceptual tension between microscopic quantum superposition and definite macroscopic outcomes after measurement.",
+            "薛丁格的貓思想實驗用以凸顯微觀量子疊加態在觀測前同時存在、觀測後才坍縮為單一結果的特性。"
+          ],
+          [
+            "Which pair of fundamental quantum equations links particle properties (energy E, momentum p) to wave properties (angular frequency ω, wavenumber k)?",
+            [
+              "E = mc² and F = ma",
+              "E = ħω and p = ħk",
+              "V = IR and q = CV",
+              "PV = nRT and dS = dQ/T",
+              "n₁ sinθ₁ = n₂ sinθ₂"
+            ],
+            1,
+            "Planck's E = hν = ħω and de Broglie's p = h/λ = ħk unify particle and wave descriptions for both photons and matter.",
+            "E = ħω 與 p = ħk 是將微觀粒子性（能量、動量）與波動性（角頻率、波數）連結的核心量子公式。"
+          ]
+        ],
+
+        // ---------------------------------------------------------------------
+        // CHAPTER 6: ATOMS, NUCLEAR & PARTICLE PHYSICS (30 Unique MCQs)
+        // ---------------------------------------------------------------------
+        ch6: [
+          [
+            "Approximately how many times smaller is an atomic nucleus (~10⁻¹⁵ m) compared to the entire atom (~10⁻¹⁰ m)?",
+            ["10 times smaller", "100 times smaller", "1,000 times smaller", "100,000 times smaller", "They have the same radius"],
+            3,
+            "10⁻¹⁰ m / 10⁻¹⁵ m = 10⁵ = 100,000 times smaller—demonstrating that atoms are overwhelmingly empty space.",
+            "原子半徑約 10⁻¹⁰ m，原子核約 10⁻¹⁵ m，原子核比整個原子小約 100,000 倍。"
+          ],
+          [
+            "In the 1909 Geiger-Marsden-Rutherford gold foil experiment, ~1 in 8,000 alpha particles deflected by ≥ 90°. What did this prove?",
+            [
+              "Thomson's Plum Pudding model was completely accurate.",
+              "Positive charge and nearly all atomic mass are concentrated in a tiny, dense central nucleus.",
+              "Electrons are 2,000 times heavier than protons.",
+              "Gold atoms are solid, impenetrable spheres.",
+              "Alpha particles carry negative charge."
+            ],
+            1,
+            "Most α-particles passed straight through empty space, while rare large-angle rebounds required a tiny, massive, positively charged nucleus.",
+            "絕大多數 α 粒子直穿金箔，極少數（約八千分之一）大角度反彈，證明原子正電荷與質量集中在極小的緻密原子核內。"
+          ],
+          [
+            "What defines two atoms as ISOTOPES of the same element?",
+            [
+              "Same number of neutrons, different number of protons.",
+              "Same number of protons (same atomic number Z), different number of neutrons.",
+              "Same mass number, different atomic numbers.",
+              "Different numbers of electrons in neutral atoms.",
+              "Both must be artificially synthesized."
+            ],
+            1,
+            "Isotopes belong to the same element (identical Z, e.g., ¹²C, ¹³C, ¹⁴C all have 6 protons) but differ in neutron count.",
+            "同位素具有相同的質子數（原子序 Z 相同），但中子數不同。"
+          ],
+          [
+            "What is 'heavy water' (D₂O) made of?",
+            [
+              "Ordinary water frozen under extreme pressure.",
+              "Water molecules whose hydrogen atoms are Deuterium (²H: 1 proton + 1 neutron).",
+              "Water mixed with dissolved uranium.",
+              "Water made exclusively of radioactive Tritium.",
+              "Hydrogen peroxide (H₂O₂)."
+            ],
+            1,
+            "Deuterium (²H, heavy hydrogen) contains an extra neutron compared to Protium (¹H), making D₂O denser than regular H₂O.",
+            "重水（D₂O）是由氘（²H，1 質子 + 1 中子）與氧原子結合而成的水分子。"
+          ],
+          [
+            "A sample initially contains 10.0 g of Carbon-14 (T₁/₂ = 5,730 years). How much Carbon-14 remains after 3 half-lives (17,190 years)?",
+            ["5.00 g", "3.33 g", "2.50 g", "1.25 g", "0.00 g"],
+            3,
+            "After n = 3 half-lives, remaining mass = 10.0 g × (1/2)³ = 10.0 / 8 = 1.25 g.",
+            "經過 3 個半衰期後剩餘量為 10.0 × (1/2)³ = 1.25 g。"
+          ],
+          [
+            "Why is Carbon-14 dating limited to organic remains younger than roughly 50,000 years (and unsuitable for 65-million-year-old dinosaur bones)?",
+            [
+              "Dinosaurs contained no carbon.",
+              "With T₁/₂ = 5,730 years, after ~50,000 years (~9–10 half-lives) too little C-14 remains to measure accurately.",
+              "Carbon-14 stops decaying in fossilized bone.",
+              "Cosmic rays did not exist 65 million years ago.",
+              "Carbon-14 decays into uranium."
+            ],
+            1,
+            "After ~10 half-lives (~50,000 years), less than 0.1% of the original C-14 remains; older geological samples require much longer-lived isotopes.",
+            "碳-14 半衰期為 5730 年，超過約 5 萬年後殘留量微乎其微，無法準確定年，古生物化石需改用長半衰期同位素。"
+          ],
+          [
+            "Which naturally occurring radioactive isotope is the LARGEST source of internal radioactivity inside the human body (and is also present in KCl salt substitutes)?",
+            ["Uranium-235", "Plutonium-239", "Potassium-40 (K-40)", "Tritium (H-3)", "Polonium-210"],
+            2,
+            "A typical 70 kg adult contains natural Potassium-40 producing ~4,300 radioactive decays per second (Bq) continuously.",
+            "鉀-40（K-40）是人體內最大的天然放射性來源（每秒約 4300 次衰變），也存在於低鈉氯化鉀鹽中。"
+          ],
+          [
+            "Which colourless, odourless radioactive noble gas seeping from soil and rock is the #1 cause of lung cancer among non-smokers?",
+            ["Helium", "Neon", "Argon", "Radon-222 (Rn, Z = 86)", "Xenon"],
+            3,
+            "Radon-222 is a radioactive noble gas that accumulates in poorly ventilated indoor spaces and is the leading cause of lung cancer in non-smokers.",
+            "氡氣（Radon-222，原子序 86）是從土壤岩石逸出的放射性惰性氣體，是非吸煙者罹患肺癌的首要原因。"
+          ],
+          [
+            "Which of the following belongs to IONIZING radiation capable of knocking electrons out of atoms and damaging DNA?",
+            ["AM radio waves", "Wi-Fi microwaves", "Infrared heat", "X-rays, Gamma rays, α particles, and β particles", "Visible yellow light"],
+            3,
+            "Ionizing radiation carries sufficient energy per quantum/particle to ionize atoms and break biological chemical bonds.",
+            "X 射線、伽馬射線以及高能 α、β 粒子具備足夠能量使原子電離並破壞 DNA，屬於游離輻射。"
+          ],
+          [
+            "How is equivalent biological radiation dose (rem) calculated from absorbed dose (rad) and quality factor (Q), and which radiation has the highest Q (= 20)?",
+            [
+              "rem = rad / Q; gamma rays have Q = 20.",
+              "rem = rad × Q; alpha (α) particles have Q = 20 (vs. Q = 1 for X/γ/β and Q = 10 for n/p).",
+              "rem = rad + Q; beta particles have Q = 20.",
+              "rem = 100 × Sv; radio waves have Q = 20.",
+              "Q is identical (= 1) for all radiation types."
+            ],
+            1,
+            "1 rem = 1 rad × Q (and 1 rem = 0.01 Sv). Heavy, doubly charged alpha particles cause dense ionization damage (Q = 20).",
+            "等效劑量（rem）= 吸收劑量（rad）× 品質因數（Q）；α 粒子品質因數最高（Q = 20），X/γ/β 為 1。"
+          ],
+          [
+            "Which shielding materials are typically effective for blocking alpha (α) particles versus slowing/attenuating neutron beams?",
+            [
+              "A sheet of paper blocks α; hydrogen-rich water or thick concrete attenuates neutrons.",
+              "Thick lead is required for α; paper blocks neutrons.",
+              "Aluminum foil blocks α; thin glass stops neutrons.",
+              "Nothing can stop α; air alone stops neutrons.",
+              "Water stops α only; paper stops gamma rays."
+            ],
+            0,
+            "Shielding hierarchy: α (paper/skin), β (thin aluminum), γ/X (thick lead/iron), neutrons (hydrogen-rich water or concrete).",
+            "屏蔽能力：α 粒子一張紙即可擋住，β 用薄鋁片，γ/X 需厚鉛板，中子則用水或混凝土減弱。"
+          ],
+          [
+            "Who discovered radioactivity in 1896, and who coined the term 'radioactivity' and discovered polonium and radium in 1898?",
+            [
+              "Rutherford (1896) and Bohr (1898).",
+              "Antoine Henri Becquerel (1896) and Pierre & Marie Curie (1898).",
+              "Einstein (1896) and Dirac (1898).",
+              "Thomson (1896) and Lawrence (1898).",
+              "Dalton (1896) and Maxwell (1898)."
+            ],
+            1,
+            "Becquerel discovered uranium radioactivity in 1896; Pierre and Marie Curie coined the term and isolated new radioactive elements in 1898 (shared 1903 Nobel Prize).",
+            "貝克勒於 1896 年發現放射性，居禮夫婦於 1898 年命名放射性並發現釙與鐳，三人共享 1903 年諾貝爾物理學獎。"
+          ],
+          [
+            "Where does the immense energy released in nuclear fission of Uranium-235 come from?",
+            [
+              "Chemical combustion of uranium with oxygen.",
+              "Mass defect: the total mass of the fission products is slightly LESS than the reactants, converted into energy via E = Δm c².",
+              "The total mass of products is greater than the reactants.",
+              "Electrons accelerating past the speed of light.",
+              "Destruction of electric charge."
+            ],
+            1,
+            "Lost mass Δm converts to huge energy via E = Δm c² (fissioning 1 kg of U-235 yields energy comparable to ~3,000 tons of coal).",
+            "裂變產物總質量略小於反應物，虧損的質量依 E = Δmc² 轉化為龐大能量（1 kg 鈾-235 約相當於 3000 噸煤）。"
+          ],
+          [
+            "In a controlled nuclear fission power reactor (n + ²³⁵U → ⁹³Kr + ¹⁴¹Ba + 2n), what is the function of the MODERATOR (usually water)?",
+            [
+              "To accelerate neutrons to the speed of light.",
+              "To slow fast neutrons down to thermal speeds so they can efficiently sustain a steady-state fission chain reaction.",
+              "To convert uranium directly into helium.",
+              "To trigger an uncontrolled bomb explosion.",
+              "To generate magnetic fields."
+            ],
+            1,
+            "Thermal (slow) neutrons have a much higher probability of inducing U-235 fission; water moderators slow neutrons to maintain controlled steady-state power.",
+            "減速劑（通常為水）將快中子減速為熱中子，提高鈾-235 裂變機率以維持可控的穩定連鎖反應。"
+          ],
+          [
+            "What is the core distinction between nuclear FISSION and nuclear FUSION?",
+            [
+              "Fission combines light nuclei; fusion splits heavy nuclei.",
+              "Fission splits a heavy nucleus (e.g., U-235) into lighter nuclei; fusion combines light nuclei (e.g., Deuterium + Tritium) into a heavier nucleus.",
+              "Fission happens only in stars; fusion happens only in coal plants.",
+              "Fission absorbs energy; fusion releases no energy.",
+              "Fission involves only electrons; fusion involves only photons."
+            ],
+            1,
+            "Heavy nuclei undergo fission and light nuclei undergo fusion; both move toward more tightly bound nuclei and release nuclear binding energy.",
+            "核裂變是重核分裂成較輕原子核，核聚變則是輕核（如氘、氚）融合成較重原子核。"
+          ],
+          [
+            "How does the Sun power itself continuously?",
+            [
+              "Burning 500 million tons of coal every second.",
+              "Nuclear fission of Uranium-238 in its core.",
+              "Nuclear fusion of roughly 500 million tons of hydrogen nuclei into helium every second.",
+              "Chemical oxidation of hydrogen gas.",
+              "Radioactive decay of Potassium-40."
+            ],
+            2,
+            "The Sun's extreme core temperature and pressure drive thermonuclear fusion of ~500 million tons of hydrogen per second.",
+            "太陽核心每秒將約 5 億噸氫原子核透過核聚變轉化為氦，釋放巨大能量。"
+          ],
+          [
+            "What three conditions (including Lawson's criterion) must a D–T thermonuclear fusion reactor achieve for net energy gain?",
+            [
+              "Low temperature, low density, and instant escape.",
+              "Extreme temperature (to overcome Coulomb repulsion), high ion density n, and long confinement time τ (nτ ≥ 10²⁰ s/m³).",
+              "Room temperature, vacuum, and lead walls.",
+              "Zero magnetic field and water moderator.",
+              "High pressure and uranium fuel rods."
+            ],
+            1,
+            "High T lets nuclei overcome electrostatic repulsion, while Lawson's criterion (nτ ≥ 10²⁰ s/m³ for D–T) ensures fusion output beats energy losses.",
+            "核聚變須同時具備極高溫度（克服庫侖斥力）、高離子密度 n 與足夠長的約束時間 τ（勞森判據 nτ ≥ 10²⁰ s/m³）。"
+          ],
+          [
+            "How does a TOKAMAK fusion device (such as JET or ITER) keep ultra-hot plasma away from its solid chamber walls?",
+            [
+              "Using thick quartz glass plates.",
+              "Using combined toroidal and poloidal magnetic fields that form a twisted helical magnetic cage.",
+              "Using laser pulses lasting 10⁻¹¹ s on a 1 mm frozen pellet.",
+              "Using artificial gravity.",
+              "Using liquid water moderators."
+            ],
+            1,
+            "Tokamaks use magnetic confinement: toroidal + poloidal fields produce a helical magnetic field that forces charged plasma ions to spiral away from walls.",
+            "托卡馬克結合環向與極向磁場形成螺旋磁場籠，將高溫帶電等離子體約束在空中不接觸器壁。"
+          ],
+          [
+            "In a D–T fusion power plant design, why is the plasma chamber surrounded by a ~1 m blanket of molten LITHIUM?",
+            [
+              "To cool superconducting magnets to 4 K.",
+              "To absorb escaping high-energy (~14 MeV) neutrons for heat extraction AND breed fresh Tritium fuel (n + ⁶Li → ⁴He + ³H).",
+              "To reflect laser beams onto the plasma.",
+              "To block alpha particles that escape the magnetic cage.",
+              "To slow down electrons."
+            ],
+            1,
+            "Uncharged 14 MeV neutrons escape the magnetic field; molten lithium captures them to extract thermal energy and regenerate scarce Tritium fuel.",
+            "液態鋰包層可捕獲逃出磁場的 14 MeV 高能中子以導出熱能發電，並透過核反應增殖稀缺的氚燃料。"
+          ],
+          [
+            "Which of the following correctly lists both a major ADVANTAGE and a real ENGINEERING CHALLENGE of nuclear fusion?",
+            [
+              "Advantage: works at 100°C; Challenge: produces no energy.",
+              "Advantage: abundant fuel, no runaway meltdown, non-radioactive He product; Challenge: neutron structural damage/induced radioactivity and limited helium for superconducting magnets.",
+              "Advantage: uses uranium ore; Challenge: zero neutrons.",
+              "Advantage: requires no magnets; Challenge: produces massive CO₂.",
+              "Advantage: already supplies 80% of world power; Challenge: too cold."
+            ],
+            1,
+            "Fusion avoids meltdown risks and long-lived fission waste, but faces intense 14 MeV neutron wall damage, induced structural radioactivity, and cryogenic helium supply limits.",
+            "核聚變優點是燃料豐富、不會失控熔毀、產物氦無放射性；挑戰包括高能中子對材料結構的損傷與超導磁鐵液氦資源有限。"
+          ],
+          [
+            "List the four fundamental forces of nature in order from STRONGEST to WEAKEST relative strength:",
+            [
+              "Gravity > Electromagnetic > Weak > Strong",
+              "Electromagnetic > Strong > Weak > Gravity",
+              "Strong > Electromagnetic > Weak > Gravity",
+              "Weak > Strong > Gravity > Electromagnetic",
+              "Strong > Gravity > Electromagnetic > Weak"
+            ],
+            2,
+            "Relative strengths: Strong (1) > Electromagnetic (10⁻²) > Weak (10⁻⁵) > Gravity (10⁻³⁸).",
+            "四種基本作用力由強至弱依序為：強核力 > 電磁力 > 弱核力 > 重力。"
+          ],
+          [
+            "Which gauge bosons mediate the Strong, Electromagnetic, and Weak fundamental forces respectively?",
+            [
+              "Photons, Gluons, Gravitons",
+              "Gluons, Photons, and W± / Z⁰ bosons",
+              "Electrons, Protons, and Neutrons",
+              "Quarks, Leptons, and Mesons",
+              "Alpha, Beta, and Gamma particles"
+            ],
+            1,
+            "Gluons (spin 1) carry the strong force, photons (spin 1) carry EM, W± and Z⁰ (spin 1) carry the weak force, and hypothetical gravitons (spin 2) carry gravity.",
+            "強核力由膠子傳遞，電磁力由光子傳遞，弱核力由 W± 與 Z⁰ 玻色子傳遞。"
+          ],
+          [
+            "In Dirac's theory of antiparticles (confirmed by Carl Anderson's 1932 positron discovery), what is the minimum photon energy needed for electron-positron pair production?",
+            ["mc²", "2mc² (≈ 1.022 MeV)", "½ mc²", "13.6 eV", "0 eV"],
+            1,
+            "Creating both an electron and a positron (each of rest mass-energy mc²) requires a minimum energy of 2mc².",
+            "產生一對電子與正電子（各有靜止能量 mc²）至少需要 2mc²（約 1.022 MeV）的能量。"
+          ],
+          [
+            "Which fundamental particle family has spin 1/2, has no internal quark substructure, and does NOT feel the strong nuclear force?",
+            ["Baryons", "Mesons", "Leptons (e, μ, τ and their neutrinos)", "Hadrons", "Gluons"],
+            2,
+            "The 6 leptons (electron, muon, tau, and their 3 neutrinos) are truly elementary spin-1/2 fermions unaffected by the strong force.",
+            "輕子（電子、渺子、陶子及其三種中微子）自旋為 1/2、無內部結構，且不受強核力作用。"
+          ],
+          [
+            "Inside the hadron family (particles that feel the strong force), how do MESONS differ from BARYONS?",
+            [
+              "Mesons contain no quarks; baryons contain 1 quark.",
+              "Mesons consist of a quark-antiquark pair (q q̄, integer spin); baryons consist of 3 quarks (qqq, half-integer spin).",
+              "Mesons never decay; baryons decay instantly.",
+              "Mesons only feel gravity; baryons only feel EM force.",
+              "Mesons are always heavier than all baryons."
+            ],
+            1,
+            "Mesons (like π, K, J/ψ) are q q̄ bosons (integer spin), while baryons (like proton, neutron, Ω⁻) are qqq fermions (half-integer spin).",
+            "介子由一對夸克與反夸克組成（整數自旋）；重子由三個夸克組成（半整數自旋，如質子、中子）。"
+          ],
+          [
+            "What are the quark compositions and net electric charges of a PROTON and a NEUTRON?",
+            [
+              "Proton = udd (+1e); Neutron = uud (0).",
+              "Proton = uud (+1e); Neutron = udd (0).",
+              "Proton = uuu (+2e); Neutron = ddd (−1e).",
+              "Proton = u d̄ (+1e); Neutron = d ū (0).",
+              "Proton = sss (+1e); Neutron = ccc (0)."
+            ],
+            1,
+            "With u = +2/3 e and d = −1/3 e: Proton (uud) = +2/3 + 2/3 − 1/3 = +1e; Neutron (udd) = +2/3 − 1/3 − 1/3 = 0.",
+            "u 夸克帶 +2/3 e，d 夸克帶 −1/3 e：質子 uud 淨電荷 +1e，中子 udd 淨電荷為 0。"
+          ],
+          [
+            "How many flavors of quarks exist in the Standard Model of particle physics?",
+            ["2 (up, down)", "3 (up, down, strange)", "4 (up, down, strange, charm)", "6 (up, down, strange, charm, top, bottom)", "12"],
+            3,
+            "There are 6 quark flavors: u, c, t (charge +2/3 e) and d, s, b (charge −1/3 e).",
+            "標準模型共有 6 種夸克味：上(u)、下(d)、奇(s)、魅(c)、底(b)、頂(t)。"
+          ],
+          [
+            "Why was 'color charge' (Red, Green, Blue) introduced in Quantum Chromodynamics (QCD)?",
+            [
+              "Because quarks reflect red, green, and blue visible light.",
+              "To give quarks an additional quantum number so baryons like Δ⁺⁺ (uuu) and Ω⁻ (sss) with parallel spins satisfy the Pauli exclusion principle, and to explain quark confinement.",
+              "To explain why rainbows have seven colours.",
+              "To replace electric charge in atoms.",
+              "To allow free isolated quarks to travel across space."
+            ],
+            1,
+            "Three identical quarks in the same spin state would violate Pauli exclusion unless each carries a distinct color (R, G, B), combining into color-neutral 'white' hadrons.",
+            "色荷（紅、綠、藍）提供額外量子數，讓自旋平行的 Δ⁺⁺(uuu) 與 Ω⁻(sss) 符合包立不相容原理，並解釋為何自然界只存在「白色」中性強子（夸克禁閉）。"
+          ],
+          [
+            "Which major underground observatory in China (alongside Super-Kamiokande in Japan) is specifically designed to detect elusive NEUTRINOS?",
+            ["SLAC (Stanford)", "LHC (CERN)", "JUNO (Jiangmen Underground Neutrino Observatory)", "ITER (France)", "FAST (Guizhou)"],
+            2,
+            "JUNO in Jiangmen, China, and Super-Kamiokande in Japan are world-leading underground neutrino detectors.",
+            "中國江門中微子實驗（JUNO）與日本超級神岡探測器同為國際領先的地下中微子觀測設施。"
+          ],
+          [
+            "How does a SYNCHROTRON (such as CERN's 27 km LHC) differ from a LINEAR accelerator (such as SLAC)?",
+            [
+              "A synchrotron accelerates neutral atoms only.",
+              "A synchrotron steers charged particles around a closed circular ring using bending magnets so they pass repeatedly through accelerating cavities.",
+              "A linear accelerator bends particles into a spiral.",
+              "A synchrotron cannot accelerate protons.",
+              "A linear accelerator uses nuclear fission to push particles."
+            ],
+            1,
+            "Circular accelerators (cyclotrons invented by Lawrence in 1930, and modern synchrotrons like the LHC) reuse accelerating cavities over millions of revolutions.",
+            "同步加速器（如 CERN 的 LHC）利用偏轉磁鐵使帶電粒子沿封閉環形軌道反覆通過加速腔，而直線加速器（如 SLAC）則沿直線一次加速。"
+          ]
+        ]
+      };
+
+      // =======================================================================
+      // 2. APPLICATION STATE
+      // =======================================================================
+      let currentDeckKey = 'ch1';
+      let currentQuizMode = 'practice'; // 'practice' | 'exam'
+      let currentFilter = 'all';        // 'all' | 'unanswered' | 'wrong'
+      let activeQuestions = [];
+      let userSelections = {};
+      let examSubmitted = false;
+
+      let timerSeconds = 30 * 60;
+      let timerInterval = null;
+      let timerRunning = false;
+
+      // =======================================================================
+      // 3. DOM HELPERS
+      // =======================================================================
+      function $(id) {
+        return document.getElementById(id);
+      }
+
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const tmp = copy[i];
+          copy[i] = copy[j];
+          copy[j] = tmp;
+        }
+        return copy;
+      }
+
+      function buildDeckQuestions(deckKey) {
+        if (deckKey === 'mixed') {
+          // Balanced 100 non-repeating questions: 17 from Ch 1-4, 16 from Ch 5-6 (68 + 32 = 100)
+          const quotas = { ch1: 17, ch2: 17, ch3: 17, ch4: 17, ch5: 16, ch6: 16 };
+          let combined = [];
+          Object.keys(quotas).forEach(function (ch) {
+            const picked = shuffleArray(QUESTION_BANK[ch]).slice(0, quotas[ch]).map(function (item) {
+              return {
+                ch: ch,
+                chName: CHAPTER_NAMES[ch],
+                q: item[0],
+                opts: item[1],
+                ans: item[2],
+                en: item[3],
+                cn: item[4]
+              };
+            });
+            combined = combined.concat(picked);
+          });
+          return shuffleArray(combined);
+        }
+
+        return QUESTION_BANK[deckKey].map(function (item) {
+          return {
+            ch: deckKey,
+            chName: CHAPTER_NAMES[deckKey],
+            q: item[0],
+            opts: item[1],
+            ans: item[2],
+            en: item[3],
+            cn: item[4]
+          };
+        });
+      }
+
+      // =======================================================================
+      // 4. TIMER LOGIC
+      // =======================================================================
+      function updateTimerDisplay() {
+        const el = $('timerDisplay');
+        if (!el) return;
+        const m = Math.floor(timerSeconds / 60);
+        const s = timerSeconds % 60;
+        el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      }
+
+      function stopExamTimer() {
+        timerRunning = false;
+        if (timerInterval) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+        const btn = $('timerToggleBtn');
+        if (btn) btn.textContent = 'Start';
+      }
+
+      function toggleExamTimer() {
+        if (timerRunning) {
+          stopExamTimer();
+        } else {
+          timerRunning = true;
+          const btn = $('timerToggleBtn');
+          if (btn) btn.textContent = 'Pause';
+          timerInterval = setInterval(function () {
+            if (timerSeconds > 0) {
+              timerSeconds -= 1;
+              updateTimerDisplay();
+            } else {
+              stopExamTimer();
+              if (currentQuizMode === 'exam' && !examSubmitted) {
+                submitExam();
+              }
+            }
+          }, 1000);
+        }
+      }
+
+      function resetExamTimer() {
+        stopExamTimer();
+        timerSeconds = currentDeckKey === 'mixed' ? 90 * 60 : 30 * 60;
+        updateTimerDisplay();
+      }
+
+      // =======================================================================
+      // 5. QUIZ ENGINE: DECK LOADING, MODE, FILTERS, RENDERING & GRADING
+      // =======================================================================
+      function startQuizDeck(deckKey, reshuffle) {
+        currentDeckKey = deckKey;
+        userSelections = {};
+        examSubmitted = false;
+        currentFilter = 'all';
+
+        document.querySelectorAll('.deck-btn').forEach(function (btn) {
+          btn.classList.remove('ring-2', 'ring-indigo-500');
+        });
+        const activeBtn = $('deck-btn-' + deckKey);
+        if (activeBtn) activeBtn.classList.add('ring-2', 'ring-indigo-500');
+
+        activeQuestions = buildDeckQuestions(deckKey);
+        if (reshuffle && deckKey !== 'mixed') {
+          activeQuestions = shuffleArray(activeQuestions);
+        }
+
+        const titleEl = $('activeDeckTitle');
+        if (titleEl) {
+          titleEl.textContent = deckKey === 'mixed'
+            ? '🏆 Final Mixed Exam (100 MCQs · All 6 Chapters)'
+            : CHAPTER_NAMES[deckKey] + ' (' + activeQuestions.length + ' MCQs)';
+        }
+
+        const shuffleBtn = $('newShuffleBtn');
+        if (shuffleBtn) {
+          shuffleBtn.textContent = deckKey === 'mixed' ? '🔀 New 100-Q Shuffle' : '🔀 Reset / Reshuffle';
+        }
+
+        resetExamTimer();
+        const breakdown = $('examBreakdownPanel');
+        if (breakdown) breakdown.classList.add('hidden');
+
+        updateFilterPillsUI();
+        updateModeUI();
+        renderQuizQuestions();
+        updateQuizStats();
+      }
+
+      function setQuizMode(mode) {
+        currentQuizMode = mode;
+        examSubmitted = false;
+        const breakdown = $('examBreakdownPanel');
+        if (breakdown) breakdown.classList.add('hidden');
+        updateModeUI();
+        renderQuizQuestions();
+        updateQuizStats();
+      }
+
+      function updateModeUI() {
+        const pBtn = $('modePracticeBtn');
+        const eBtn = $('modeExamBtn');
+        const badge = $('activeModeBadge');
+        const submitBtn = $('submitExamBtn');
+
+        if (currentQuizMode === 'practice') {
+          if (pBtn) pBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white transition cursor-pointer';
+          if (eBtn) eBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition cursor-pointer';
+          if (badge) {
+            badge.textContent = 'Practice Mode (Instant Feedback)';
+            badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300';
+          }
+          if (submitBtn) submitBtn.classList.add('hidden');
+        } else {
+          if (eBtn) eBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition cursor-pointer';
+          if (pBtn) pBtn.className = 'px-3.5 py-2 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition cursor-pointer';
+          if (badge) {
+            badge.textContent = examSubmitted ? 'Exam Mode (Graded)' : 'Exam Mode (Grade on Submit)';
+            badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300';
+          }
+          if (submitBtn) submitBtn.classList.toggle('hidden', examSubmitted);
+        }
+      }
+
+      function setQuizFilter(filter) {
+        currentFilter = filter;
+        updateFilterPillsUI();
+        applyQuizFilter();
+      }
+
+      function updateFilterPillsUI() {
+        ['all', 'unanswered', 'wrong'].forEach(function (f) {
+          const el = $('filter-' + f);
+          if (!el) return;
+          el.className = f === currentFilter
+            ? 'qfilter-btn px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white transition cursor-pointer'
+            : 'qfilter-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition cursor-pointer';
+        });
+      }
+
+      function applyQuizFilter() {
+        const revealResults = currentQuizMode === 'practice' || examSubmitted;
+        let visibleCount = 0;
+
+        document.querySelectorAll('.quiz-q-card').forEach(function (card) {
+          const idx = parseInt(card.dataset.qidx, 10);
+          const sel = userSelections[idx];
+          const isAnswered = sel !== undefined;
+          const isWrong = isAnswered && revealResults && sel !== activeQuestions[idx].ans;
+
+          let show = true;
+          if (currentFilter === 'unanswered') show = !isAnswered;
+          else if (currentFilter === 'wrong') show = isWrong;
+
+          card.classList.toggle('hidden', !show);
+          if (show) visibleCount += 1;
+        });
+
+        const emptyNotice = $('emptyFilterNotice');
+        if (emptyNotice) emptyNotice.classList.toggle('hidden', visibleCount > 0);
+      }
+
+      function buildOptionsMarkup(item, qIdx, sel, revealResults) {
+        return item.opts.map(function (optText, oi) {
+          let cls = 'border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/50 hover:border-indigo-400 dark:hover:border-indigo-500';
+          let badgeCls = 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200';
+
+          if (sel !== undefined) {
+            if (revealResults) {
+              if (oi === item.ans) {
+                cls = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-100';
+                badgeCls = 'bg-emerald-600 text-white';
+              } else if (oi === sel) {
+                cls = 'border-rose-500 bg-rose-50 dark:bg-rose-950/50 text-rose-900 dark:text-rose-100';
+                badgeCls = 'bg-rose-600 text-white';
+              }
+            } else if (oi === sel) {
+              cls = 'border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-900 dark:text-indigo-100';
+              badgeCls = 'bg-indigo-600 text-white';
+            }
+          }
+
+          return (
+            '<button type="button" data-action="select-option" data-qidx="' + qIdx + '" data-oidx="' + oi + '" ' +
+            'class="w-full text-left p-3 rounded-xl border text-xs sm:text-sm transition flex items-start gap-3 cursor-pointer ' + cls + '">' +
+              '<span class="w-6 h-6 rounded-lg font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5 ' + badgeCls + '">' + LETTERS[oi] + '</span>' +
+              '<span class="leading-snug">' + optText + '</span>' +
+            '</button>'
+          );
+        }).join('');
+      }
+
+      function renderQuizQuestions() {
+        const container = $('quizQuestionsContainer');
+        if (!container) return;
+        const revealResults = currentQuizMode === 'practice' || examSubmitted;
+
+        const html = activeQuestions.map(function (item, idx) {
+          const sel = userSelections[idx];
+          const optionsHtml = buildOptionsMarkup(item, idx, sel, revealResults);
+
+          return (
+            '<article id="qcard-' + idx + '" data-qidx="' + idx + '" class="quiz-q-card bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-sm space-y-3.5">' +
+              '<div class="space-y-1">' +
+                '<div class="flex items-center gap-2 flex-wrap">' +
+                  '<span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">Q' + (idx + 1) + '</span>' +
+                  '<span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500">' + item.chName + '</span>' +
+                '</div>' +
+                '<p class="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug">' + item.q + '</p>' +
+              '</div>' +
+              '<div class="space-y-2" id="qopts-' + idx + '">' + optionsHtml + '</div>' +
+              '<div class="pt-2 border-t border-slate-100 dark:border-slate-800">' +
+                '<button type="button" data-action="toggle-exp" data-qidx="' + idx + '" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1.5 py-1 cursor-pointer">' +
+                  '<span id="qexp-label-' + idx + '">▸ Show Answer &amp; Explanation <span class="cn">/ 顯示答案與解釋</span></span>' +
+                '</button>' +
+                '<div id="qexp-body-' + idx + '" class="quiz-exp-body mt-2 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm space-y-1.5" data-open="false">' +
+                  '<div class="font-extrabold text-emerald-700 dark:text-emerald-400">Correct Answer: ' + LETTERS[item.ans] + '. ' + item.opts[item.ans] + '</div>' +
+                  '<p class="text-slate-700 dark:text-slate-200 leading-relaxed">' + item.en + '</p>' +
+                  '<p class="cn text-slate-500 dark:text-slate-400 text-xs leading-relaxed">' + item.cn + '</p>' +
+                '</div>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join('');
+
+        container.innerHTML = html;
+        renderNavGrid();
+        applyQuizFilter();
+      }
+
+      function selectOption(qIdx, optIdx) {
+        if (currentQuizMode === 'exam' && examSubmitted) return;
+        userSelections[qIdx] = optIdx;
+
+        const item = activeQuestions[qIdx];
+        const revealResults = currentQuizMode === 'practice' || examSubmitted;
+        const optsContainer = $('qopts-' + qIdx);
+        if (optsContainer && item) {
+          optsContainer.innerHTML = buildOptionsMarkup(item, qIdx, optIdx, revealResults);
+        }
+
+        updateQuizStats();
+        renderNavGrid();
+        if (currentFilter !== 'all') applyQuizFilter();
+      }
+
+      function toggleQuestionExplanation(idx) {
+        const body = $('qexp-body-' + idx);
+        const label = $('qexp-label-' + idx);
+        if (!body || !label) return;
+        const isOpen = body.getAttribute('data-open') === 'true';
+        body.setAttribute('data-open', isOpen ? 'false' : 'true');
+        label.innerHTML = isOpen
+          ? '▸ Show Answer &amp; Explanation <span class="cn">/ 顯示答案與解釋</span>'
+          : '▾ Hide Answer &amp; Explanation <span class="cn">/ 摺疊答案與解釋</span>';
+      }
+
+      function toggleAllQuizExplanations(open) {
+        activeQuestions.forEach(function (_, idx) {
+          const body = $('qexp-body-' + idx);
+          const label = $('qexp-label-' + idx);
+          if (!body || !label) return;
+          body.setAttribute('data-open', open ? 'true' : 'false');
+          label.innerHTML = open
+            ? '▾ Hide Answer &amp; Explanation <span class="cn">/ 摺疊答案與解釋</span>'
+            : '▸ Show Answer &amp; Explanation <span class="cn">/ 顯示答案與解釋</span>';
+        });
+      }
+
+      function updateQuizStats() {
+        const total = activeQuestions.length;
+        const answeredKeys = Object.keys(userSelections);
+        const answered = answeredKeys.length;
+        const revealResults = currentQuizMode === 'practice' || examSubmitted;
+
+        let correct = 0;
+        let wrong = 0;
+        if (revealResults) {
+          answeredKeys.forEach(function (k) {
+            const i = parseInt(k, 10);
+            if (userSelections[i] === activeQuestions[i].ans) correct += 1;
+            else wrong += 1;
+          });
+        }
+
+        const statAns = $('statAnswered');
+        const statCor = $('statCorrect');
+        const statWrg = $('statWrong');
+        const statAcc = $('statAccuracy');
+        const progBar = $('quizProgressBar');
+
+        if (statAns) statAns.textContent = answered + ' / ' + total;
+        if (statCor) statCor.textContent = revealResults ? String(correct) : '—';
+        if (statWrg) statWrg.textContent = revealResults ? String(wrong) : '—';
+        const acc = revealResults && answered > 0 ? Math.round((correct / answered) * 100) : 0;
+        if (statAcc) statAcc.textContent = revealResults ? acc + '%' : '—';
+        if (progBar) progBar.style.width = (total > 0 ? (answered / total) * 100 : 0) + '%';
+      }
+
+      function renderNavGrid() {
+        const grid = $('quizNavGrid');
+        if (!grid) return;
+        const revealResults = currentQuizMode === 'practice' || examSubmitted;
+
+        grid.innerHTML = activeQuestions.map(function (item, idx) {
+          const sel = userSelections[idx];
+          let cls = 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700';
+          if (sel !== undefined) {
+            if (revealResults) {
+              cls = sel === item.ans
+                ? 'bg-emerald-600 text-white border-emerald-600'
+                : 'bg-rose-600 text-white border-rose-600';
+            } else {
+              cls = 'bg-indigo-600 text-white border-indigo-600';
+            }
+          }
+          return (
+            '<button type="button" data-action="jump-q" data-qidx="' + idx + '" ' +
+            'class="w-8 h-8 rounded-lg border text-xs font-bold transition hover:scale-105 cursor-pointer ' + cls + '">' +
+            (idx + 1) +
+            '</button>'
+          );
+        }).join('');
+      }
+
+      function jumpToQuestion(idx) {
+        if (currentFilter !== 'all') setQuizFilter('all');
+        const el = $('qcard-' + idx);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function submitExam() {
+        examSubmitted = true;
+        stopExamTimer();
+        updateModeUI();
+        renderQuizQuestions();
+        updateQuizStats();
+
+        const total = activeQuestions.length;
+        let totalCorrect = 0;
+        const byCh = {};
+
+        activeQuestions.forEach(function (item, idx) {
+          if (!byCh[item.ch]) {
+            byCh[item.ch] = { name: item.chName, total: 0, correct: 0 };
+          }
+          byCh[item.ch].total += 1;
+          if (userSelections[idx] === item.ans) {
+            byCh[item.ch].correct += 1;
+            totalCorrect += 1;
+          }
+        });
+
+        const pct = total > 0 ? Math.round((totalCorrect / total) * 100) : 0;
+        const heading = $('examFinalScoreHeading');
+        if (heading) {
+          heading.textContent = 'Final Score: ' + totalCorrect + ' / ' + total + ' (' + pct + '%)';
+        }
+
+        const breakdownEl = $('examChapterBreakdown');
+        if (breakdownEl) {
+          breakdownEl.innerHTML = Object.keys(byCh).sort().map(function (ch) {
+            const d = byCh[ch];
+            const cpct = Math.round((d.correct / d.total) * 100);
+            const colorCls = cpct >= 70 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400';
+            return (
+              '<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">' +
+                '<span class="font-semibold text-slate-700 dark:text-slate-200 truncate">' + d.name + '</span>' +
+                '<span class="font-mono font-extrabold shrink-0 ' + colorCls + '">' + d.correct + '/' + d.total + ' (' + cpct + '%)</span>' +
+              '</div>'
+            );
+          }).join('');
+        }
+
+        const panel = $('examBreakdownPanel');
+        if (panel) {
+          panel.classList.remove('hidden');
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      // =======================================================================
+      // 6. EVENT BINDINGS & RELIABLE INITIALIZATION
+      // =======================================================================
+      let initialized = false;
+
+      function initApp() {
+        if (initialized) return;
+        initialized = true;
+
+        // Global Dark Mode Toggle
+        const themeBtn = $('themeToggleBtn');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', function () {
+            document.documentElement.classList.toggle('dark');
+          });
+        }
+
+        // Global Chinese Translation Toggle
+        const cnBtn = $('toggleCnBtn');
+        const cnLabel = $('toggleCnLabel');
+        if (cnBtn) {
+          cnBtn.addEventListener('click', function () {
+            const hidden = document.body.classList.toggle('hide-cn');
+            if (cnLabel) cnLabel.textContent = hidden ? '顯示中文翻譯' : '隱藏中文翻譯';
+          });
+        }
+
+        // Practice / Exam Mode Buttons
+        const pBtn = $('modePracticeBtn');
+        const eBtn = $('modeExamBtn');
+        if (pBtn) pBtn.addEventListener('click', function () { setQuizMode('practice'); });
+        if (eBtn) eBtn.addEventListener('click', function () { setQuizMode('exam'); });
+
+        // Deck Selector Cards (Event Delegation)
+        const deckArea = $('deckSelectorArea');
+        if (deckArea) {
+          deckArea.addEventListener('click', function (e) {
+            const btn = e.target.closest('[data-deck]');
+            if (!btn) return;
+            startQuizDeck(btn.getAttribute('data-deck'), false);
+          });
+        }
+
+        // Timer & Workspace Action Buttons
+        const tToggle = $('timerToggleBtn');
+        const tReset = $('timerResetBtn');
+        const shuffleBtn = $('newShuffleBtn');
+        const submitBtn = $('submitExamBtn');
+        const expandAllBtn = $('expandAllExpBtn');
+        const collapseAllBtn = $('collapseAllExpBtn');
+        const toggleGridBtn = $('toggleNavGridBtn');
+        const reviewWrongBtn = $('reviewWrongFromBreakdownBtn');
+
+        if (tToggle) tToggle.addEventListener('click', toggleExamTimer);
+        if (tReset) tReset.addEventListener('click', resetExamTimer);
+        if (shuffleBtn) shuffleBtn.addEventListener('click', function () { startQuizDeck(currentDeckKey, true); });
+        if (submitBtn) submitBtn.addEventListener('click', submitExam);
+        if (expandAllBtn) expandAllBtn.addEventListener('click', function () { toggleAllQuizExplanations(true); });
+        if (collapseAllBtn) collapseAllBtn.addEventListener('click', function () { toggleAllQuizExplanations(false); });
+        if (toggleGridBtn) {
+          toggleGridBtn.addEventListener('click', function () {
+            const wrap = $('quizNavGridWrapper');
+            if (wrap) wrap.classList.toggle('hidden');
+          });
+        }
+        if (reviewWrongBtn) {
+          reviewWrongBtn.addEventListener('click', function () { setQuizFilter('wrong'); });
+        }
+
+        // Filter Pills (Event Delegation)
+        const filterGroup = $('filterPillsGroup');
+        if (filterGroup) {
+          filterGroup.addEventListener('click', function (e) {
+            const btn = e.target.closest('[data-filter]');
+            if (!btn) return;
+            setQuizFilter(btn.getAttribute('data-filter'));
+          });
+        }
+
+        // Jump Grid (Event Delegation)
+        const navGrid = $('quizNavGrid');
+        if (navGrid) {
+          navGrid.addEventListener('click', function (e) {
+            const btn = e.target.closest('[data-action="jump-q"]');
+            if (!btn) return;
+            jumpToQuestion(parseInt(btn.getAttribute('data-qidx'), 10));
+          });
+        }
+
+        // Question Cards: Option Click & Explanation Toggle (Event Delegation)
+        const qContainer = $('quizQuestionsContainer');
+        if (qContainer) {
+          qContainer.addEventListener('click', function (e) {
+            const optBtn = e.target.closest('[data-action="select-option"]');
+            if (optBtn) {
+              selectOption(
+                parseInt(optBtn.getAttribute('data-qidx'), 10),
+                parseInt(optBtn.getAttribute('data-oidx'), 10)
+              );
+              return;
+            }
+            const expBtn = e.target.closest('[data-action="toggle-exp"]');
+            if (expBtn) {
+              toggleQuestionExplanation(parseInt(expBtn.getAttribute('data-qidx'), 10));
+            }
+          });
+        }
+
+        // Load Chapter 1 by default
+        startQuizDeck('ch1', false);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
+      window.addEventListener('load', initApp);
+    })();
+  </script>
+</body>
+</html>
