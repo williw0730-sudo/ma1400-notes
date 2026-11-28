@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <title>EAP English Studio · 文章批改、錯題本、生詞與假期 Reading</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="EAP Studio" />
+  <meta name="theme-color" content="#4f46e5" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%234f46e5'/%3E%3Cpath d='M32 36h26c8 0 14 6 14 14v44c0-5-5-10-12-10H32V36zm64 0H70c-8 0-14 6-14 14v44c0-5 5-10 12-10h28V36z' fill='none' stroke='white' stroke-width='8' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%234f46e5'/%3E%3Cpath d='M45 50h36c12 0 20 8 20 20v62c0-7-7-14-17-14H45V50zm90 0H99c-12 0-20 8-20 20v62c0-7 7-14 17-14h39V50z' fill='none' stroke='white' stroke-width='11' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'system-ui', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html, body {
+      font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: none;
+    }
+    .safe-bottom {
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .card-flip-container { perspective: 1000px; }
+    .card-flip-inner {
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .card-flip-inner.is-flipped { transform: rotateY(180deg); }
+    .card-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-face-back { transform: rotateY(180deg); }
+    .mark-transition {
+      background: rgba(99, 102, 241, 0.16);
+      border-bottom: 2px solid #6366f1;
+      border-radius: 3px;
+      padding: 0 3px;
+    }
+    .dark .mark-transition {
+      background: rgba(129, 140, 248, 0.25);
+      border-bottom-color: #818cf8;
+    }
+    .mark-apa {
+      background: rgba(16, 185, 129, 0.16);
+      border-bottom: 2px solid #10b981;
+      border-radius: 3px;
+      padding: 0 3px;
+      font-weight: 500;
+    }
+    .dark .mark-apa {
+      background: rgba(52, 211, 153, 0.22);
+      border-bottom-color: #34d399;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Top Header -->
+  <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-stone-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <i data-lucide="book-open-check" class="w-4 h-4"></i>
+        </div>
+        <div class="truncate">
+          <h1 class="text-sm sm:text-base font-bold tracking-tight truncate">EAP English Studio</h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">文章批改 · 寫作錯題本 · 48生詞 · 假期 Reading</p>
+        </div>
+      </div>
+
+      <!-- Desktop / iPad Navigation -->
+      <nav id="desktop-nav" class="hidden md:flex items-center gap-1 bg-stone-100 dark:bg-slate-800/80 p-1 rounded-xl"></nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button id="btn-import-pack" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-xs font-semibold flex items-center gap-1 transition" title="匯入 Gemini 新作文、錯題或 Reading">
+          <i data-lucide="package-plus" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">匯入新內容</span>
+        </button>
+        <button id="btn-backup" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition" title="備份 / 同步進度">
+          <i data-lucide="download" class="w-4 h-4"></i>
+        </button>
+        <button id="btn-theme" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition" title="切換深淺色">
+          <i data-lucide="moon" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area (Lazy-rendered active tab for smooth iPad/iPhone performance) -->
+  <main id="app-main" class="flex-1 max-w-6xl w-full mx-auto px-3.5 sm:px-6 pt-4 pb-24 md:pb-10"></main>
+
+  <!-- Mobile Bottom Tab Bar -->
+  <nav id="mobile-nav" class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-stone-200 dark:border-slate-800 safe-bottom px-2 pt-1.5 flex justify-around items-center"></nav>
+
+  <!-- Modal Overlay (Add Vocab / Backup) -->
+  <div id="modal-overlay" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div id="modal-card" class="bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-5 shadow-2xl max-h-[85vh] overflow-y-auto"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-opacity duration-200">
+    <div id="toast-msg" class="bg-slate-900 dark:bg-indigo-600 text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-full shadow-lg"></div>
+  </div>
+
+<script>
+// ========================
+// GROUNDED DATA PAYLOADS
+// ========================
+const ESSAYS = [{"id": "e1", "shortTitle": "Essay 1 · LBU 教學法", "title": "Secondary School Second Language Teaching: Learning by Using (LBU)", "estGrade": "B- 至 B", "wordCount": "原稿約 430–460 詞 → 修改版約 610 詞", "summary": "立場清晰、成功融合全部三篇文獻（Krogh, Hu, Banciu & Jireghie），主要扣分在於字數偏少、基礎語法硬傷（主謂一致、詞性誤用、拼寫）、APA 寫入期刊全名及原文照搬（Patchwriting）。", "rubric": [{"name": "Task Fulfillment (25%)", "status": "良好，但字數偏少", "note": "立場明確且含完整五段議論文結構；但原稿約 430–460 詞未達 600 詞目標，需補充具體課堂例子深化闡述。"}, {"name": "Discourse Competencies (25%)", "status": "架構清晰，銜接略弱", "note": "段落分工明確（自信心 → 有效路徑 → 讓步反駁），但 Body 1 結尾重複論點，且段與段之間欠缺學術過渡句。"}, {"name": "Source Integration (15%)", "status": "有引用意識，但有抄襲風險", "note": "把期刊全名 The Public Administration and Social Policies Review 寫進正文；多處照搬 Source B/C 詞組未改寫。"}, {"name": "Language Competencies (35%)", "status": "最大失分項", "note": "主謂一致（city connected, LBU allow）、詞性誤用（are lack of, are not dare, learn successful）、中式英語（solid English）與拼寫（tradictional, responisbility）。"}], "paragraphs": [{"label": "引言段 (Introduction)", "issues": [{"bad": "more and more city connected together", "fix": "cities around the world are becoming increasingly interconnected", "cat": "語法與主謂一致", "why": "city 為可數名詞需用複數 cities，且缺少 be 動詞構成被動語態。"}, {"bad": "build up a bridge to build upon bonds", "fix": "build bonds with people from diverse cultural backgrounds", "cat": "詞彙重複", "why": "兩個 build 連用極其累贅，直接精簡為 build bonds 更具學術感。"}, {"bad": "solid second language", "fix": "rigid grammatical rules / inflexible English", "cat": "詞義誤用", "why": "solid 在英文是「扎實、優秀」的褒義詞；你想表達「死板、僵化」應用 rigid 或 inflexible。"}, {"bad": "argues \"learn by use\"(LBU)", "fix": "the \"learning by using\" (LBU) approach", "cat": "詞性與術語規範", "why": "首次提及術語建議寫出完整名稱，並用動名詞 learning 作名詞片語。"}], "revised": "Nowadays, cities around the world are becoming increasingly interconnected. Thus, it is crucial for secondary school students to master a second language to build bonds with people from diverse cultural backgrounds. However, the traditional \"learn to use\" approach only enables students to acquire rigid grammatical rules without achieving oral fluency. This essay argues that the \"learning by using\" (LBU) approach fosters students' confidence and provides an effective learning pathway, thereby leading to successful second language acquisition."}, {"label": "主體段一：自信心與學習動機 (Body 1)", "issues": [{"bad": "First of all", "fix": "Primarily / First", "cat": "學術語氣", "why": "First of all 偏口語，學術議論文建議改用 Primarily 或 First。"}, {"bad": "According to The Public Administration and Social Policies Review... (Banciu & Jireghie, 2012)", "fix": "According to Banciu and Jireghie (2012)", "cat": "APA 規範", "why": "APA 文內引用只需寫作者姓氏與年份，切勿把冗長的期刊全名放進正文。"}, {"bad": "virtual simulating classes / stranger", "fix": "simulated real-life scenarios / strangers", "cat": "詞性與單複數", "why": "表「模擬出來的」應用過去分詞 simulated；stranger 為可數名詞需加複數 -s。"}, {"bad": "結尾三行 Comparing with boring... 與前文重複", "fix": "合併為精煉對比句並加上承上啟下過渡句", "cat": "語篇連貫", "why": "避免同段重複對比枯燥練習與遊戲，改以具體例子（點餐/問路）拉長深度。"}], "revised": "To understand why this communicative approach is superior to traditional instruction, it is first necessary to examine its psychological impact on learners. Primarily, the LBU approach builds students' confidence in learning a second language. According to Banciu and Jireghie (2012), teaching with this communicative method boosts learners' self-assurance because they take greater responsibility for participating in class. In an LBU classroom, teachers create interactive opportunities—such as role-plays, games, and targeted grammar or pronunciation tasks—that place students in a low-anxiety and enjoyable learning atmosphere (Banciu & Jireghie, 2012). Furthermore, LBU incorporates authentic scenarios where students practice conversing with strangers or seeking assistance. For instance, rather than memorizing isolated vocabulary lists, students might simulate ordering food or asking for directions. Compared to monotonous drills and repetitive exercises, these meaningful simulations effectively motivate students to engage with the target language. However, fostering a positive mindset is only the first step; how teachers structure the actual learning process is equally critical."}, {"label": "主體段二：因材施教與有效路徑 (Body 2)", "issues": [{"bad": "直接引用 Krogh (2010) 談 LBU", "fix": "先鋪墊「優秀教師的專業素養」，再銜接至 LBU 課堂實踐", "cat": "邏輯銜接", "why": "Source A (Krogh, 2010) 討論的是優秀教師的通用素養，並未直接提及 LBU，需用自己的話搭建邏輯橋樑。"}, {"bad": "educators simplified the sourced... have a foundational understanding...", "fix": "enabling them to simplify complex concepts so that students can grasp the fundamentals easily", "cat": "句構與詞性", "why": "原句缺少主語與連接詞導致句構崩壞，且 sourced 詞性錯誤，應改為 resources 或 materials。"}, {"bad": "set in-finitive test", "fix": "administering endless tests", "cat": "拼寫與搭配", "why": "in-finitive 拼寫及詞義有誤（想表達「無止盡的考試」應用 endless tests）。"}], "revised": "Beyond enhancing learner motivation, LBU also allows students to acquire a language through a more effective, personalized pathway. As Krogh (2010) notes, effective educators nurture student development by creating a stimulating environment tailored to learners' individual talents and capabilities. In an LBU setting, teachers act as facilitators who assess students' proficiency levels and select appropriate materials to guide them toward their learning goals. Additionally, expert teachers possess strong pedagogical content knowledge, enabling them to simplify complex concepts so that students can grasp the fundamentals easily (Krogh, 2010). Rather than forcing learners to complete repetitive worksheets and endless examinations, educators adopting LBU empower students with suitable resources, preventing the rigid, textbook-bound English often produced by traditional methods. Despite these clear pedagogical advantages, the shift away from rigid, teacher-centered instruction is not without controversy."}, {"label": "主體段三：讓步與反駁 (Counter-argument & Rebuttal)", "issues": [{"bad": "cause jumble to the lessons", "fix": "lead to classroom disorder / disrupt lesson order", "cat": "中式英語", "why": "cause jumble 不符合英文地道搭配，學術寫作建議用 classroom disorder 或 disrupt lesson order。"}, {"bad": "Someone argues", "fix": "Critics argue / Proponents of traditional teaching contend", "cat": "學術語氣", "why": "學術議論文嚴禁口語化的 Someone，需明確指稱立場群體。"}, {"bad": "students are lack of", "fix": "students lack... / there is a lack of...", "cat": "經典語法錯", "why": "lack 作動詞直接接賓語，絕不可寫成 be lack of。"}, {"bad": "students are not dare to express there idea", "fix": "students do not dare to express their ideas", "cat": "語法與拼寫", "why": "be 動詞後不可直接接動詞原形 dare；their 誤拼為 there；idea 需複數。"}, {"bad": "標註 (Banciu & Jireghie, 2012) 但寫 express their own feelings", "fix": "改寫為 learners naturally have ideas they wish to convey", "cat": "文獻準確度", "why": "原文只說 learners have something they want to say or find out，切忌過度腦補原文沒有的細節。"}], "revised": "Although LBU fosters a positive learning atmosphere, critics argue that it may lead to classroom disorder. Proponents of the traditional \"learn to use\" model contend that teacher-dominated instruction ensures predictability and smooth lesson delivery, providing a sense of security for both instructors and learners (Hu, 2010). While strict classroom control indeed maintains order, this hierarchical dynamic often creates an unequal teacher-student relationship and deprives learners of interactive practice. As Banciu and Jireghie (2012) emphasize, the core purpose of language learning is meaningful communication, as learners naturally have ideas they wish to convey. Under rigid, traditional instruction, students often hesitate to speak up; they may excel at written grammar exercises yet remain unable to converse fluently. Therefore, an overly traditional approach is inadequate for achieving true language proficiency, making a balanced adoption of communicative methods all the more imperative."}, {"label": "結論段 (Conclusion)", "issues": [{"bad": "learn second language successful", "fix": "master a second language successfully", "cat": "詞性誤用", "why": "修飾動詞 learn/master 必須使用副詞 successfully。"}, {"bad": "not so predictative than", "fix": "less predictable than", "cat": "拼寫與比較級", "why": "predictable 拼寫錯誤，且與 than 搭配應使用比較級 less predictable than。"}, {"bad": "maintain lesson rules", "fix": "maintain classroom discipline", "cat": "地道搭配", "why": "維持課堂紀律的標準學術搭配為 maintain classroom discipline。"}], "revised": "In conclusion, weighing both the psychological benefits and pedagogical effectiveness demonstrates that the LBU approach, when implemented by skilled educators, enables secondary students to master a second language successfully by building their confidence and providing authentic communicative practice. Although this method is less predictable than traditional instruction, teachers can still establish clear guidelines to maintain classroom discipline while maximizing student engagement."}], "transitions": ["To understand why this communicative approach is superior to traditional instruction, it is first necessary to examine its psychological impact on learners.", "However, fostering a positive mindset is only the first step; how teachers structure the actual learning process is equally critical.", "Beyond enhancing learner motivation,", "Despite these clear pedagogical advantages, the shift away from rigid, teacher-centered instruction is not without controversy.", "making a balanced adoption of communicative methods all the more imperative.", "weighing both the psychological benefits and pedagogical effectiveness demonstrates that"]}, {"id": "e2", "shortTitle": "Essay 2 · 高校生成式 AI", "title": "Practice Paper 1: Generative AI in University Education", "estGrade": "B", "wordCount": "原稿約 490 詞 → 修改版約 610 詞", "summary": "相比 Essay 1 有顯著進步：成功運用段落過渡句並去掉正文期刊全名，字數提升至約 490 詞。本次主要扣分點為雙作者漏寫第二姓氏、漏標 Miller (2024)、出現第二人稱 you、As/Because 殘缺句，以及將 over-dependence 誤寫成意思相反的 independence。", "rubric": [{"name": "Task Fulfillment (25%)", "status": "進步明顯", "note": "字數增至約 490 詞，論點清楚；引言邏輯主語（大學生 vs 大學）與結尾收束可更精準。"}, {"name": "Discourse Competencies (25%)", "status": "大幅提升", "note": "漂亮運用 Beyond increasing... 與 ...is not without demerit 等過渡句，段落流暢度高出一檔。"}, {"name": "Source Integration (15%)", "status": "三大硬傷待修", "note": "① Patel (2024) 漏寫第二作者 Wong；② 反駁段引用 Miller (2024) 卻漏標出處；③ 兩處原文短語直接照搬。"}, {"name": "Language Competencies (35%)", "status": "新舊問題交錯", "note": "出現禁用的第二人稱 you；兩句 As/Because 殘缺句；independence 詞義寫反；多個高頻學術詞拼錯。"}], "paragraphs": [{"label": "引言段 (Introduction)", "issues": [{"bad": "artificial intelligence (AI) have been", "fix": "artificial intelligence (AI) has been", "cat": "主謂一致", "why": "AI / artificial intelligence 為不可數名詞，動詞必須用單數 has been。"}, {"bad": "whether undergraduate should regulate AI tools", "fix": "whether universities should regulate AI tools", "cat": "邏輯主語錯誤", "why": "制定政策監管 AI 的主體是大學（universities），而不是大學生。"}, {"bad": "may lead to independence", "fix": "may lead to student over-dependence", "cat": "詞義寫反紅燈", "why": "independence 是「獨立」，與你想表達的「過度依賴（over-dependence / reliance）」意思完全相反！"}, {"bad": "cause to serveral merit", "fix": "yields significant benefits", "cat": "搭配與拼寫", "why": "cause 多接負面結果且不加 to；several 拼錯；推薦改用 yield benefits。"}], "revised": "Nowadays, artificial intelligence (AI) has been upgraded on a large scale and has become increasingly useful. Thus, cooperating with AI in the workplace is inevitable. Therefore, there is ongoing debate regarding whether universities should regulate AI tools. While critics warn that integrating generative AI into undergraduate coursework may lead to student over-dependence, this essay argues that the guided use of AI yields significant benefits, including deeper learning and intellectual growth."}, {"label": "主體段一：提升就業力與引導式使用 (Body 1)", "issues": [{"bad": "will be widen", "fix": "will be widened / will widen", "cat": "語態與動詞形態", "why": "被動語態需用過去分詞 widened，或直接用主動 will widen。"}, {"bad": "gap between academic training and industry expectations", "fix": "a widening disconnect emerges between university education and industry demands", "cat": "Patchwriting 防抄襲", "why": "原封不動抄自 Chan (2023) 原文，必須替換名詞與句構改寫。"}, {"bad": "AI acts as catalyst", "fix": "AI serves as a catalyst", "cat": "冠詞缺失", "why": "catalyst 為可數名詞單數，前面必須加上不定冠詞 a。"}], "revised": "First, the proper use of AI allows students to transition into the workplace smoothly, thereby enhancing their employability and competitiveness. According to Chan (2023), a widening disconnect emerges between university education and industry demands when institutions fail to incorporate emerging technologies. Since employers increasingly expect graduates to adapt to AI-driven workflows, providing undergraduates with structured access to these tools strengthens their career readiness. However, unrestricted reliance on AI without supervision may hinder deep learning (Chan, 2023). Consequently, educators should establish clear usage guidelines and introduce compulsory modules focusing on higher-order analysis, problem-solving, and ethical judgment (Chan, 2023). In this way, AI serves as a catalyst that empowers students rather than undermining their core competencies."}, {"label": "主體段二：學習動機與自我效能感 (Body 2)", "issues": [{"bad": "Patel (2024)", "fix": "Patel and Wong (2024) / (Patel & Wong, 2024)", "cat": "APA 雙作者規範", "why": "APA 規定雙作者文獻每次引用都必須寫全兩位姓氏，絕不可省略第二作者。"}, {"bad": "non-threatening, personalized environment", "fix": "low-stress, individualized learning space", "cat": "Patchwriting 防抄襲", "why": "直接照抄 Source C 原文詞組，改為同義表達可避免扣分。"}, {"bad": "AI-chatbox / brainstorm idea", "fix": "AI chatbots / brainstorm ideas", "cat": "拼寫與複數", "why": "聊天機器人是 chatbots（非 chatbox）；idea 為可數名詞需複數 ideas。"}, {"bad": "AI guides you study in detailed and carefully. It also gives you emotional support when you fail...", "fix": "刪除 you，改用 learners / students / them；in detailed 改為 in detail", "cat": "禁用第二人稱", "why": "英文學術議論文嚴禁使用 you / your，必須全程保持客觀第三人稱。"}], "revised": "Beyond increasing competitiveness, AI tools also enhance student motivation and self-efficacy. Due to peer pressure or limited instructor availability during office hours, undergraduates often hesitate to clarify their doubts (Patel & Wong, 2024). AI-powered platforms address this issue by offering a low-stress, individualized learning space. Specifically, AI chatbots function as 24/7 virtual tutors that help learners brainstorm ideas, receive immediate feedback, and grasp complex concepts through accessible explanations. According to Patel and Wong (2024), utilizing AI as a scaffolding tool reduces writing anxiety by accelerating the initial brainstorming process. Simultaneously, learners build greater confidence when tackling challenging assignments, as AI provides step-by-step guidance and constructive encouragement throughout their revision process."}, {"label": "主體段三：反駁段 (Counter-argument & Rebuttal)", "issues": [{"bad": "not without demerit", "fix": "not without drawbacks / risks", "cat": "學術用詞", "why": "學術寫作較少用 demerit，改用 drawbacks 或 risks 更地道。"}, {"bad": "Oponent point out... As AI-generated text is increasingly difficult to distinguish...（未標出處）", "fix": "Opponents contend that..., as AI-generated content... (Miller, 2024).", "cat": "殘缺句＋漏標出處", "why": "① Opponents 拼錯；② As 開頭無主句造成殘缺句；③ 論點來自 Source B，漏加 (Miller, 2024) 會被判抄襲！"}, {"bad": "Because most of students aim to get a better job under the help of University.", "fix": "Since most undergraduates pursue higher education to secure competitive careers, universities must evolve...", "cat": "殘缺句", "why": "Because 子句不可獨立成句，必須合併主句並提升為學術表達。"}], "revised": "However, integrating AI into undergraduate coursework is not without drawbacks. Opponents contend that unguided AI usage fosters academic dishonesty and plagiarism, as AI-generated content is increasingly difficult to distinguish from human writing using conventional detection software (Miller, 2024). While it is true that unrestricted reliance on automation can impair students' independent analytical development (Miller, 2024), completely banning AI tools would widen the skills gap between graduates and modern employers (Chan, 2023). Since most undergraduates pursue higher education to secure competitive careers, universities must evolve alongside technological advancements by regulating AI usage rather than prohibiting it entirely."}, {"label": "結論段 (Conclusion)", "issues": [{"bad": "It is nesscesary for University should integrate", "fix": "it is necessary for universities to integrate", "cat": "句型重複＋拼寫", "why": "It is necessary for sb. to do sth. 結構中不可再塞入 should；necessary 拼錯。"}, {"bad": "pros and cons / AI using course and clear AI using restriction", "fix": "benefits and risks / mandatory AI literacy courses alongside clear ethical guidelines", "cat": "學術語氣升級", "why": "pros and cons 偏口語，改用 benefits and risks 與 AI literacy courses 學術感立刻提升。"}], "revised": "In conclusion, it is necessary for universities to integrate generative AI tools into undergraduate coursework after carefully weighing their benefits and risks. To minimize potential drawbacks, institutions should implement mandatory AI literacy courses alongside clear ethical guidelines. By doing so, universities can safeguard academic integrity while equipping students with the critical thinking and technological skills required for future success."}], "transitions": ["First, the proper use of AI allows students to transition into the workplace smoothly,", "Beyond increasing competitiveness, AI tools also enhance student motivation and self-efficacy.", "However, integrating AI into undergraduate coursework is not without drawbacks.", "In conclusion, it is necessary for universities to integrate generative AI tools"]}, {"id": "e3", "shortTitle": "Essay 3 · 強制社區服務", "title": "Practice Paper 2: Mandatory Community Service in Secondary Schools", "estGrade": "B（衝 B+ 標竿版）", "wordCount": "原稿約 550–560 詞 → B+ 標竿版約 590 詞", "summary": "字數幾乎穩穩達標（550–560 詞），成功落實「目標切入法開頭」、「雙作者 APA 引用（Okafor & Silva, 2021）」和「禁用 you」。附帶公開試實戰估分：IELTS Writing Task 2 約 Band 6.0、HKDSE English Paper 2 約 Level 4（~14/21），結構已達 IELTS 6.5 / DSE Level 5 底子，只要清零語法拼寫與 Patchwriting 即可穩衝 B+！", "benchmark": {"ielts": "Band 6.0（TR 6.0–6.5 · CC 6.5 · LR 6.0 · GRA 5.5–6.0）", "dse": "Level 4 · 約 14 / 21（Content 5/7 · Language 4/7 · Organization 5/7）", "insight": "你的骨架、分段邏輯與具體舉例（安老院帶長者伸展遊戲、公開試壓力）已具備 IELTS 6.5 / DSE Level 5 水準，唯一拉低總分的是 Language 準確度與拼寫。"}, "rubric": [{"name": "Task Fulfillment (25%)", "status": "差最後一哩路", "note": "引言 Thesis 寫了 improve their academic performance，但正文兩段完全沒提學業成績，前後失焦；衝 B+ 須 100% 鎖死 Thesis 與兩大維度。"}, {"name": "Discourse Competencies (25%)", "status": "已具高分底子", "note": "Body 1 與 Body 2 原本皆偏重社交互動，套用「維度切割法（品格同理心 vs 實務職場軟實力）」與 PEEL-C 後立刻拉開層次。"}, {"name": "Source Integration (15%)", "status": "注意 Patchwriting 與姓氏", "note": "成功寫全 Okafor & Silva，但將 Tanaka 兩次拼成 Tanka，且有三處幾乎原句照抄原文。"}, {"name": "Language Competencies (35%)", "status": "消滅肌肉記憶錯字", "note": "Accordings to（多 s）、overcomed、many stress、merely 造成語義反轉、Not only 不完整倒裝。"}], "paragraphs": [{"label": "引言段 (Introduction)", "issues": [{"bad": "pedagogy（指代中學教育）", "fix": "secondary education", "cat": "詞義精準度", "why": "pedagogy 指「教學法／教育學」，切合本題對象應直接用 secondary education。"}, {"bad": "Thesis: ...and even improve their academic performance", "fix": "by nurturing genuine empathy and developing practical interpersonal skills", "cat": "Thesis 跑題紅燈", "why": "正文兩段完全沒有寫學業成績！引言 Thesis 的兩個理由必須與 Body 1、Body 2 主題句 100% 對應。"}], "revised": "A fundamental goal of secondary education is not merely to cultivate academic proficiency, but also to foster social responsibility and ethical awareness. Consequently, many educational institutions have considered making community service a mandatory requirement for graduation. While critics contend that compulsory volunteering intensifies student stress and harms mental well-being, this essay argues that a well-structured mandatory service policy significantly benefits adolescents by nurturing genuine empathy and developing practical interpersonal skills."}, {"label": "主體段一：品格與同理心維度 (Body 1)", "issues": [{"bad": "interaction opportunities with diverse community members... bridge between abstract moral concepts and practical action", "fix": "interact with people outside their immediate social circles, translating theoretical moral principles into tangible civic action (Henderson, 2018)", "cat": "Patchwriting 防抄襲", "why": "幾乎原封不動抄自 Henderson (2018)，需換詞性與動詞結構重新表達。"}, {"bad": "minorities（用來指代安老院長者）", "fix": "senior citizens / vulnerable populations / marginalized groups", "cat": "詞義誤用", "why": "minorities 通常指少數族裔，指代長者或弱勢群體應改用 senior citizens 或 underprivileged / vulnerable groups。"}], "revised": "First, integrating community service into graduation requirements enables secondary students to develop mature social values. Classroom instruction alone cannot adequately cultivate active citizenship; instead, adolescents need structured opportunities to interact with people outside their immediate social circles, translating theoretical moral principles into tangible civic action (Henderson, 2018). For instance, when students visit hospitals or elderly care centers, conversing with senior citizens allows them to hear firsthand life experiences and reflect on their own sense of purpose. Unlike textbook lessons on ethics that often feel distant and abstract, direct contact with vulnerable populations helps teenagers build genuine empathy for marginalized groups (Okafor & Silva, 2021). Consequently, students look beyond their own personal concerns and grow into compassionate individuals of integrity, which ultimately strengthens the cohesion and stability of society."}, {"label": "主體段二：實務軟實力與職場準備維度 (Body 2)", "issues": [{"bad": "Not only building social value... it allows...", "fix": "Beyond cultivating social values, mandatory community service helps students...", "cat": "不完整倒裝句", "why": "考場上不熟的倒裝句容易失分，直接換成零語法風險的 Beyond + V-ing 過渡句更穩妥高級。"}, {"bad": "Accordings to / complete structured school service program show apparently higher rates of civic participation, charitable giving, and community leadership...", "fix": "According to Okafor and Silva (2021), adolescents who complete... are significantly more likely to remain civically engaged, donate to charity, and assume leadership roles...", "cat": "肌肉記憶錯字＋抄襲", "why": "① According to 絕對沒有 s！② 原文長句幾乎照抄，需改寫動詞結構。"}], "revised": "Beyond cultivating social values, mandatory community service helps students uncover personal strengths and acquire practical interpersonal skills. According to Okafor and Silva (2021), adolescents who complete structured school service programs are significantly more likely to remain civically engaged, donate to charity, and assume leadership roles in adulthood than peers without such exposure. During hands-on placements, students frequently coordinate group activities—such as guiding elderly residents through gentle stretching exercises or interactive games—which requires them to organize their instructions clearly and maintain a patient, respectful tone. Receiving warm appreciation from participants in turn strengthens their confidence in public communication. Furthermore, compulsory programs connect students from diverse backgrounds to local community organizations they might otherwise never encounter (Okafor & Silva, 2021). By working alongside experienced mentors in these settings, teenagers expand their social networks and develop practical workplace habits that directly benefit their future careers."}, {"label": "主體段三：反駁段 (Counter-argument & Rebuttal)", "issues": [{"bad": "Tanka / many stress / deploma of secondary examination", "fix": "Tanaka (2020) / immense pressure / high-stakes public examinations", "cat": "作者姓氏＋搭配", "why": "① 兩次把 Tanaka 拼錯成 Tanka；② stress 不可數不可用 many；③ 改用 high-stakes public examinations 更符合國際學術語境。"}, {"bad": "treat service hours as a box-ticking exercise. They seek out the easiest placements rather than engaging deeply with community needs", "fix": "treat volunteering as a superficial chore, opting for the least demanding tasks simply to satisfy the quota rather than addressing genuine community needs (Tanaka, 2020)", "cat": "Patchwriting 防抄襲", "why": "幾乎整句照抄 Tanaka (2020)，改寫成 superficial chore 與 satisfy the quota 意思 100% 精準且完全換新。"}, {"bad": "view community placement merely as meaningful contributions", "fix": "perceive their placements as meaningful contributions rather than mechanical obligations", "cat": "語義反轉紅燈", "why": "忘記刪掉 merely（僅僅），導致意思變成「只視為有意義的貢獻」，把整句反駁邏輯弄反！"}], "revised": "Nevertheless, establishing community service as a compulsory graduation requirement is not without drawbacks. Opponents argue that imposing additional mandates exacerbates the heavy academic workload secondary students already face, particularly those preparing for high-stakes public examinations while managing family expectations (Tanaka, 2020). Under such immense pressure, learners may treat volunteering as a superficial chore, opting for the least demanding tasks simply to satisfy the quota rather than addressing genuine community needs (Tanaka, 2020). However, this outcome reflects poor institutional planning rather than an inherent flaw in mandatory service. As Henderson (2018) highlights, when schools thoughtfully align service hours with educational objectives, provide guided reflection, and keep workloads manageable, students perceive their placements as meaningful contributions rather than mechanical obligations. Moreover, an initial school requirement effectively lowers barriers for hesitant students who lack awareness of volunteering channels, gradually encouraging willing participation (Okafor & Silva, 2021)."}, {"label": "結論段 (Conclusion)", "issues": [{"bad": "allow students to choose the activity that they want to do", "fix": "allow students the autonomy to choose causes aligned with their interests", "cat": "結論收尾升級", "why": "原句偏口語，升級為 autonomy 與 aligned with their interests 後學術氣場立刻穩上 B+。"}, {"bad": "overcomed / allow student to / plain", "fix": "overcome / allows students to / plan", "cat": "零碎語法拼寫", "why": "overcome 過去分詞為 overcome（無 -ed）；第三人稱單數 + 複數名詞；plan 勿拼成 plain。"}], "revised": "In conclusion, secondary schools should adopt community service as a mandatory graduation requirement, as its long-term benefits in fostering empathy and practical competence outweigh its potential drawbacks. To prevent the policy from becoming an academic burden, educators should design well-balanced schedules and allow students the autonomy to choose causes aligned with their interests. Through thoughtful implementation, compulsory service can successfully prepare teenagers to become both capable professionals and responsible citizens."}], "transitions": ["Beyond cultivating social values, mandatory community service helps students", "Nevertheless, establishing community service as a compulsory graduation requirement is not without drawbacks.", "However, this outcome reflects poor institutional planning rather than an inherent flaw in mandatory service.", "In conclusion, secondary schools should adopt community service"]}];
+const MISTAKES = [{"id": "m1", "cat": "語法與主謂一致", "freq": "極高頻", "essay": "Essay 1", "wrong": "more and more city connected together", "right": "cities around the world are becoming increasingly interconnected", "rule": "可數名詞裸奔需變複數（cities），且主語與動作為被動關係須補 be 動詞。"}, {"id": "m2", "cat": "語法與主謂一致", "freq": "極高頻", "essay": "Essay 1 & 3", "wrong": "LBU allow / LBU provide / allow student to", "right": "LBU allows / provides / allows students to", "rule": "單數主語（LBU / policy / method）後動詞務必加 -s；可數名詞 student 無冠詞時加複數 -s。"}, {"id": "m3", "cat": "語法與主謂一致", "freq": "高頻", "essay": "Essay 2", "wrong": "artificial intelligence (AI) have been", "right": "artificial intelligence (AI) has been", "rule": "AI / artificial intelligence 為不可數名詞，必須搭配單數動詞 has been。"}, {"id": "m4", "cat": "語法與主謂一致", "freq": "中頻", "essay": "Essay 2", "wrong": "will be widen", "right": "will be widened / will widen", "rule": "被動語態 be 後面必須接過去分詞（widened），不可接動詞原形。"}, {"id": "m5", "cat": "語法與主謂一致", "freq": "高頻", "essay": "Essay 2", "wrong": "It is nesscesary for University should integrate", "right": "It is necessary for universities to integrate", "rule": "It is + adj. + for sb. + to do sth. 結構不可再重複加入情態動詞 should。"}, {"id": "m6", "cat": "語法與主謂一致", "freq": "中頻", "essay": "Essay 3", "wrong": "overcomed", "right": "overcome", "rule": "不規則動詞：overcome – overcame – overcome，過去分詞絕不加 -ed。"}, {"id": "m7", "cat": "語法與主謂一致", "freq": "高頻", "essay": "Essay 2", "wrong": "AI acts as catalyst / brainstorm idea", "right": "AI serves as a catalyst / brainstorm ideas", "rule": "可數名詞單數前須加冠詞（a catalyst），或直接改複數（ideas）。"}, {"id": "m8", "cat": "詞性與殘缺句", "freq": "極高頻", "essay": "Essay 1", "wrong": "students are lack of ...", "right": "students lack ... / there is a lack of ...", "rule": "be 動詞後不可直接接動詞原形！lack 作及物動詞直接接賓語。"}, {"id": "m9", "cat": "詞性與殘缺句", "freq": "極高頻", "essay": "Essay 1", "wrong": "students are not dare to express there idea", "right": "students do not dare to express their ideas", "rule": "dare 作實義動詞否定用 do not dare to，不可寫 are not dare；their 勿寫成 there。"}, {"id": "m10", "cat": "詞性與殘缺句", "freq": "極高頻", "essay": "Essay 2", "wrong": "As AI-generated text is increasingly difficult to distinguish...（獨立成句）", "right": "Opponents contend that..., as AI-generated content is...", "rule": "As / Because 引導的是原因從句，不可獨立成句（Sentence Fragment），須用逗號連進主句。"}, {"id": "m11", "cat": "詞性與殘缺句", "freq": "高頻", "essay": "Essay 2", "wrong": "Because most of students aim to get a better job...（獨立成句）", "right": "Since most undergraduates pursue higher education..., universities must...", "rule": "看到句號前只有 Because... 開頭，立刻與前後句合併！"}, {"id": "m12", "cat": "詞性與殘缺句", "freq": "高頻", "essay": "Essay 3", "wrong": "Not only building social value... it allows...", "right": "Beyond cultivating social values, mandatory service also allows...", "rule": "考場寧可用 100% 正確的 Beyond + V-ing，也不要冒險寫不完整的倒裝句。"}, {"id": "m13", "cat": "詞性與殘缺句", "freq": "中頻", "essay": "Essay 1 & 2", "wrong": "learn second language successful / in detailed", "right": "master a second language successfully / in detail", "rule": "修飾動詞用副詞 successfully；「詳細地」固定片語為 in detail（無 -ed）。"}, {"id": "m14", "cat": "詞性與殘缺句", "freq": "中頻", "essay": "Essay 2", "wrong": "cause to serveral merit", "right": "yields significant benefits", "rule": "cause 多用於負面後果且不加 to；表帶來正面好處用 yield / bring benefits。"}, {"id": "m15", "cat": "詞義與中式英語", "freq": "致命紅燈", "essay": "Essay 2", "wrong": "integrating AI may lead to independence", "right": "integrating AI may lead to over-dependence / reliance", "rule": "independence 是「獨立」，與你想表達的「過度依賴」意思完全相反！"}, {"id": "m16", "cat": "詞義與中式英語", "freq": "致命紅燈", "essay": "Essay 3", "wrong": "view community placement merely as meaningful contributions", "right": "perceive their placements as meaningful contributions", "rule": "改寫對調詞語時忘記刪掉 merely（僅僅），會讓整句意思反轉。"}, {"id": "m17", "cat": "詞義與中式英語", "freq": "高頻", "essay": "Essay 1", "wrong": "solid second language", "right": "rigid / inflexible grammatical rules", "rule": "solid 是褒義「扎實的」；指死板僵化的英文應用 rigid 或 textbook-bound。"}, {"id": "m18", "cat": "詞義與中式英語", "freq": "高頻", "essay": "Essay 2", "wrong": "AI guides you study... gives you emotional support when you fail", "right": "AI guides learners... provides students with constructive encouragement", "rule": "英文學術議論文嚴禁第二人稱 you / your，一律用 students / learners / adolescents / they。"}, {"id": "m19", "cat": "詞義與中式英語", "freq": "中頻", "essay": "Essay 3", "wrong": "minorities（指長者）／ pedagogy（指中學教育）", "right": "senior citizens / underprivileged groups ／ secondary education", "rule": "minorities 指少數族裔；pedagogy 指教學法／教育學，切勿張冠李戴。"}, {"id": "m20", "cat": "詞義與中式英語", "freq": "中頻", "essay": "Essay 1 & 3", "wrong": "Someone argues / pros and cons / many stress / cause jumble", "right": "Critics argue / benefits and risks / immense stress / lead to classroom disorder", "rule": "戒掉口語（Someone, pros and cons）與中式直譯（many stress 不可數、cause jumble）。"}, {"id": "m21", "cat": "APA與防抄襲", "freq": "極高頻", "essay": "Essay 2", "wrong": "Patel (2024) / According to Patel (2024)", "right": "(Patel & Wong, 2024) / According to Patel and Wong (2024)", "rule": "APA 7th 雙作者文獻每次引用必須寫全兩位姓氏！句中用 and，括號內用 &。"}, {"id": "m22", "cat": "APA與防抄襲", "freq": "致命紅燈", "essay": "Essay 2", "wrong": "反駁段引用 AI-generated text is increasingly difficult to distinguish... 卻未標出處", "right": "...using conventional detection software (Miller, 2024).", "rule": "凡來自閱讀材料的觀點都必須標註作者與年份，漏標會被視為抄襲且漏用文獻。"}, {"id": "m23", "cat": "APA與防抄襲", "freq": "高頻", "essay": "Essay 1", "wrong": "According to The Public Administration and Social Policies Review... (Banciu & Jireghie, 2012)", "right": "According to Banciu and Jireghie (2012)", "rule": "APA 文內引用絕不寫期刊全名或文章標題，只寫作者姓氏 + 年份。"}, {"id": "m24", "cat": "APA與防抄襲", "freq": "極高頻", "essay": "Essay 1–3", "wrong": "treat service hours as a box-ticking exercise. They seek out the easiest placements...", "right": "treat volunteering as a superficial chore, opting for the least demanding tasks simply to satisfy the quota...", "rule": "防 Patchwriting 三步改寫法：① 看完移開視線 3 秒；② 換詞性＋換同義詞；③ 調換句型語序。"}, {"id": "m25", "cat": "APA與防抄襲", "freq": "中頻", "essay": "Essay 3", "wrong": "Tanka (2020)", "right": "Tanaka (2020)", "rule": "抄寫作者姓氏時務必盯著試卷逐字核對，避免拼錯作者名。"}, {"id": "m26", "cat": "高頻拼寫紅榜", "freq": "肌肉記憶", "essay": "Essay 1–3", "wrong": "Accordings to", "right": "According to", "rule": "連續三篇都多加了 s！死記：According to 永遠沒有 s。"}, {"id": "m27", "cat": "高頻拼寫紅榜", "freq": "高頻", "essay": "Essay 1 & 2", "wrong": "nessasary / arguement / recieve / unevitable", "right": "necessary / argument / receive / inevitable", "rule": "考前 5 分鐘重點掃描高頻學術詞拼寫：1 個 c 2 個 s（necessary）、arg-u-ment（無 e）。"}, {"id": "m28", "cat": "高頻拼寫紅榜", "freq": "高頻", "essay": "Essay 2", "wrong": "Oponent / competetiveness / plagirism / rstrition / takle", "right": "Opponents / competitiveness / plagiarism / restriction / tackle", "rule": "反駁段必用詞 Opponents（雙 p）與 plagiarism 務必拼對。"}, {"id": "m29", "cat": "高頻拼寫紅榜", "freq": "高頻", "essay": "Essay 1 & 3", "wrong": "tradictional / responisbility / professioncy / instituations / complusory / plain", "right": "traditional / responsibility / proficiency / institutions / compulsory / plan", "rule": "注意 -tional（無 c）、compulsory（pul 非 plu）、plan（非 plain）。"}, {"id": "m30", "cat": "結構與論證", "freq": "衝 B+ 關鍵", "essay": "Essay 3", "wrong": "引言 Thesis 寫 improve academic performance，但正文完全沒寫", "right": "先決定 Body 1 與 Body 2 的兩個維度，再把這兩個關鍵詞鎖進 Thesis", "rule": "Task Fulfillment 扣分重災區：引言 Thesis 必須與正文主題句 100% 對應。"}, {"id": "m31", "cat": "結構與論證", "freq": "衝 B+ 關鍵", "essay": "Essay 3", "wrong": "Body 1 與 Body 2 都在講「跟人互動獲得正面成長」（論點撞車）", "right": "強制套用「維度切割法」：內在/心理/個人 vs 外在/能力/社會職場", "rule": "列大綱時強行切開兩個不重疊維度，文章立刻更有層次且不易詞窮。"}, {"id": "m32", "cat": "結構與論證", "freq": "衝 B+ 關鍵", "essay": "Essay 1 & 2", "wrong": "只抄文獻結論導致全文字數僅 450–490 詞", "right": "每段套用 PEEL-C 五步擴寫法（每段 140–160 詞 → 穩穩 600 詞）", "rule": "補上 Explain（A→B→C 推演）與 Concrete Example（具體畫面），同時拉高深度與字數。"}];
+const CHECKLIST = [{"id": "c1", "title": "雙作者 APA 必寫全名", "desc": "正文寫 Author A and Author B (Year)，括號寫 (Author A & Author B, Year)；並核對作者姓氏拼寫（如 Tanaka 非 Tanka）。"}, {"id": "c2", "title": "檢查 According to（無 s）", "desc": "逐行掃描全篇，把肌肉記憶寫出的 Accordings to 全部刪掉 s！"}, {"id": "c3", "title": "全篇清零 you / your 與口語詞", "desc": "將 you/your 改為 students / learners / they；Someone 改 Critics；pros and cons 改 benefits and risks。"}, {"id": "c4", "title": "消滅 As / Because 殘缺句", "desc": "看到句號前只有 Because... 或 As... 開頭的子句，立刻用逗號連回主句。"}, {"id": "c5", "title": "專抓第三人稱單數 -s 與可數名詞複數", "desc": "檢查單數主語（LBU / AI / policy）後動詞加 -s；student / city / test 無冠詞時加複數 -s。"}, {"id": "c6", "title": "be 動詞後不直接接動詞原形", "desc": "掃描有沒有寫出 are lack of（改 lack）、are not dare（改 do not dare）、will be widen（改 widened）。"}, {"id": "c7", "title": "核對 Thesis 與 Body 1/2 100% 對應", "desc": "檢查引言最後一句列出的兩個理由，是否精準對應兩個正面主體段的核心維度。"}, {"id": "c8", "title": "掃描高頻拼寫紅榜", "desc": "重點核對 necessary、argument、opponents、competitiveness、plagiarism、restriction、traditional、compulsory、proficiency、their。"}];
+const MISTAKE_QUIZ = [{"q": "選出語法與詞義完全正確的句子：", "context": "（改自 Essay 2 引言段）", "opts": ["Integrating AI may lead to student independence.", "Integrating AI may lead to student over-dependence.", "Integrating AI cause to several merit.", "Artificial intelligence have been upgraded."], "ans": 1, "exp": "independence 是「獨立」，與「過度依賴（over-dependence）」意思相反；AI 不可數應用 has been。"}, {"q": "在 APA 7th 文內引用雙作者文獻 Patel, S., & Wong, T. (2024)，以下哪項正確？", "context": "（改自 Essay 2 Body 2）", "opts": ["According to Patel (2024), ...", "According to Patel & Wong (2024), ...", "According to Patel and Wong (2024), ...", "Accordings to Patel and Wong (2024), ..."], "ans": 2, "exp": "雙作者每次引用都要寫全兩位姓氏；正文句子裡用 and，括號內才用 &，且 According to 沒有 s。"}, {"q": "如何修正這句殘缺句？「Because most of students aim to get a better job.」", "context": "（改自 Essay 2 反駁段）", "opts": ["保留原句，只要刪掉 of 即可。", "Since most undergraduates aim to secure competitive careers, universities must adapt.", "As most students aim to get a better job.", "Because of most students aim to get a better job."], "ans": 1, "exp": "Because / As 子句不可獨立成句，必須與主句用逗號連接。"}, {"q": "修正中式語法：「students are lack of confidence and are not dare to speak」", "context": "（改自 Essay 1 反駁段）", "opts": ["students lack confidence and do not dare to speak", "students are lacking of confidence and not dare to speak", "students lack of confidence and are not daring to speak", "students are lack confidence and do not dare speak"], "ans": 0, "exp": "lack 作及物動詞直接接賓語；dare 作實義動詞否定用 do not dare to。"}, {"q": "哪個句子最符合 EAP 學術語氣（避免第二人稱與口語）？", "context": "（改自 Essay 2 Body 2）", "opts": ["AI guides you to study in detailed and gives you support.", "Someone argues that AI has many pros and cons.", "AI-powered platforms offer learners individualized guidance in detail.", "AI acts as catalyst for student."], "ans": 2, "exp": "學術寫作禁用 you / Someone / pros and cons，且固定片語為 in detail。"}, {"q": "修正拼寫與句構：「It is nesscesary for University should integrate AI.」", "context": "（改自 Essay 2 結論段）", "opts": ["It is necessary for universities should integrate AI.", "It is necessary for universities to integrate AI.", "It is nesscesary that universities to integrate AI.", "It is necessary for university integrating AI."], "ans": 1, "exp": "It is necessary for sb. to do sth. 結構不可再加 should，且拼寫為 necessary。"}, {"q": "如何改寫才不會構成 Patchwriting？原文：treat service hours as a box-ticking exercise", "context": "（改自 Essay 3 反駁段）", "opts": ["treat service hours as a box-ticking exercise (Tanaka, 2020).", "view volunteering as a superficial chore simply to satisfy the quota (Tanaka, 2020).", "treat service hours as a box-ticking exercise (Tanka, 2020).", "view volunteering merely as meaningful contributions (Tanaka, 2020)."], "ans": 1, "exp": "直接照抄原文短語且未加引號屬 Patchwriting；換成 superficial chore + satisfy the quota 才算真改寫，且作者姓氏為 Tanaka。"}, {"q": "哪一組高頻單字拼寫全部正確？", "context": "（高頻拼寫紅榜）", "opts": ["arguement, recieve, tradictional", "opponents, compulsory, proficiency", "competetiveness, plagirism, instituations", "overcomed, Accordings to, rstrition"], "ans": 1, "exp": "opponents、compulsory、proficiency 拼寫完全正確！其餘應為 argument, receive, traditional, competitiveness, plagiarism, institutions, overcome, According to, restriction。"}];
+const BASE_VOCAB = [{"id": "v1", "page": 1, "word": "jumble", "pos": "n.", "zh": "雜亂的一堆；混亂", "def": "an untidy and confused mixture of things, feelings, or ideas", "note": "寫作提醒：指課堂混亂時，用 classroom disorder / chaos 比 cause jumble 更地道。", "ex": "Without clear guidelines, group discussions can turn into a jumble of overlapping voices."}, {"id": "v2", "page": 1, "word": "stealth", "pos": "n.", "zh": "秘密行動；悄悄地", "def": "movement that is quiet and careful in order not to be seen or heard", "note": "常用搭配：by stealth（暗中）、stealth technology。", "ex": "Critics warn that algorithmic tracking collects personal data by stealth."}, {"id": "v3", "page": 1, "word": "manipulate", "pos": "v.", "zh": "操縱；巧妙控制", "def": "to control sth. or someone to your advantage, often unfairly or dishonestly", "note": "學術寫作高頻動詞（反駁科技/媒體議題好用）。", "ex": "Unregulated algorithms may manipulate users' attention for commercial gain."}, {"id": "v4", "page": 1, "word": "gradient", "pos": "n.", "zh": "坡度；梯度", "def": "how steep a slope is", "note": "科學/物理/工程閱讀常見詞（也可指溫度或濃度梯度）。", "ex": "Early railway engineers struggled to design locomotives capable of climbing steep gradients."}, {"id": "v5", "page": 1, "word": "parameter", "pos": "n.", "zh": "參數；界限、規範", "def": "a set of factors or a fixed limit that establishes or limits how sth. can or must happen or be done", "note": "常用搭配：within strict parameters / set clear parameters（設定明確界線）。", "ex": "Universities must establish clear ethical parameters for using generative AI."}, {"id": "v6", "page": 1, "word": "perceive", "pos": "v.", "zh": "看待；察覺、理解", "def": "to come to an opinion about sth., or have a belief about sth.", "note": "寫作升級詞！可替換 think / view：perceive A as B（把 A 視為 B）。", "ex": "Students perceive their placements as meaningful contributions rather than mechanical obligations."}, {"id": "v7", "page": 1, "word": "timbre", "pos": "n.", "zh": "音色；音質", "def": "a quality of sound that makes voices or musical instruments sound different from each other", "note": "與 Reading 專區 Passage 2（音樂廳聲學）高度相關！", "ex": "A concert hall's materials directly shape the warmth and timbre of orchestral music."}, {"id": "v8", "page": 1, "word": "suppress", "pos": "v.", "zh": "壓制；抑制、鎮壓", "def": "to end sth. by force (also: to prevent sth. from being expressed)", "note": "議論文常用：suppress creativity / suppress critical thinking。", "ex": "Overly rigid instruction can suppress students' willingness to communicate."}, {"id": "v9", "page": 1, "word": "apertures", "pos": "n.", "zh": "孔徑；縫隙、光圈", "def": "a small and often narrow opening, especially one that allows light into a camera", "note": "單數為 aperture；科學與光學閱讀常見詞。", "ex": "Adjusting the camera's aperture controls how much light reaches the sensor."}, {"id": "v10", "page": 2, "word": "acquire", "pos": "v.", "zh": "獲得；習得（技能/語言）", "def": "to get or obtain sth.", "note": "EAP 寫作必備！比 get 正式得多：acquire a second language / acquire practical skills。", "ex": "LBU allows students to acquire a language through a more effective, personalized pathway."}, {"id": "v11", "page": 2, "word": "rigid", "pos": "adj.", "zh": "僵化的；死板的、嚴格的", "def": "stiff or fixed; not able to be bent or moved", "note": "替換你在 Essay 1 誤用的 solid！rigid rules / rigid instruction。", "ex": "Traditional methods often produce rigid, textbook-bound English."}, {"id": "v12", "page": 2, "word": "self-assurance", "pos": "n.", "zh": "自信心", "def": "confidence that you have in your own abilities", "note": "confidence 的高分同義替換詞，避免全篇重複 confidence。", "ex": "Interactive role-plays boost learners' self-assurance in real-life conversations."}, {"id": "v13", "page": 2, "word": "authentic", "pos": "adj.", "zh": "真實的；道地的", "def": "real, true", "note": "高頻搭配：authentic scenarios / authentic communicative practice。", "ex": "LBU incorporates authentic scenarios where students practice conversing with strangers."}, {"id": "v14", "page": 2, "word": "tailored", "pos": "adj.", "zh": "量身打造的；因材施教的", "def": "used to describe clothing shaped to fit closely; (in writing) adapted to specific needs", "note": "學術延伸用法超好用：tailored to learners' individual needs（針對學習者需求量身定制）。", "ex": "Effective educators create a stimulating environment tailored to learners' individual talents."}, {"id": "v15", "page": 2, "word": "grasp", "pos": "v.", "zh": "抓緊；徹底理解、掌握", "def": "to quickly take sth. in your hands and hold it firmly; (figurative) to understand fully", "note": "學術延伸用法：grasp complex concepts / grasp the fundamentals（替換 understand）。", "ex": "Expert teachers simplify complex concepts so that students can grasp the fundamentals easily."}, {"id": "v16", "page": 2, "word": "pedagogical", "pos": "adj.", "zh": "教學法的；教育學的", "def": "relating to the method and theory of teaching", "note": "你手寫的例句非常棒！注意 pedagogy 指教學法，不可用來指代「中學教育（secondary education）」。", "ex": "Some educators question the pedagogical value of rote learning."}, {"id": "v17", "page": 2, "word": "inadequate", "pos": "adj.", "zh": "不足的；不夠格的", "def": "not good enough or too low in quality", "note": "反駁段收尾高分詞：inadequate for achieving...（不足以達成……）。", "ex": "An overly traditional approach is inadequate for achieving true language proficiency."}, {"id": "v18", "page": 2, "word": "imperative", "pos": "adj.", "zh": "極其重要／迫切的", "def": "extremely important or urgent", "note": "比 very important 高級得多：making ... all the more imperative。", "ex": "Clear ethical guidelines make AI literacy education all the more imperative."}, {"id": "v19", "page": 3, "word": "ordinary", "pos": "adj.", "zh": "普通的；平常的", "def": "not different or special or unexpected in any way; usual", "note": "常用對比：ordinary citizens / out of the ordinary。", "ex": "Ordinary daily tasks can be streamlined through thoughtful workflow design."}, {"id": "v20", "page": 3, "word": "Pyrex glass", "pos": "n.", "zh": "耐熱玻璃（派熱克斯玻璃）", "def": "type of glass that doesn't break when it is heated, used for making containers for cooking", "note": "科學/化學與生活閱讀常見專有名詞。", "ex": "Laboratory beakers are typically crafted from Pyrex glass to withstand sudden temperature changes."}, {"id": "v21", "page": 3, "word": "strip", "pos": "v.", "zh": "剝除；剝奪", "def": "to remove, pull, or tear the covering or outer layer from sth.", "note": "學術延伸：strip sb. of sth.（剝奪某人的……），如 strip students of autonomy。", "ex": "Excessive automation risks stripping assignments of genuine intellectual challenge."}, {"id": "v22", "page": 3, "word": "evolving", "pos": "adj.", "zh": "不斷演變的；逐步發展的", "def": "developing gradually", "note": "Essay 2 開頭/主體段高分搭配：an evolving workplace / rapidly evolving technologies。", "ex": "Modern higher education equips graduates for an evolving workplace."}, {"id": "v23", "page": 3, "word": "evaluate", "pos": "v.", "zh": "評估；評價", "def": "to judge or calculate the quality, importance, amount, or value of sth.", "note": "EAP 核心學術動詞：critically evaluate digital outputs / evaluate performance。", "ex": "Educators must teach students how to critically evaluate AI-generated outputs."}, {"id": "v24", "page": 3, "word": "cognitive", "pos": "adj.", "zh": "認知的；思維過程的", "def": "connected with thinking or conscious mental processes", "note": "高頻學術搭配：cognitive development / cognitive offloading / cognitive focus。", "ex": "Over-reliance on algorithms may threaten students' cognitive development."}, {"id": "v25", "page": 3, "word": "offload", "pos": "v.", "zh": "卸下；轉嫁（工作/思考負擔）", "def": "to get rid of sth. that you do not want by giving it to someone else", "note": "Practice Paper 1 核心術語：cognitive offloading（認知卸載）。", "ex": "Students should avoid offloading complex analytical tasks entirely to AI."}, {"id": "v26", "page": 3, "word": "delegate", "pos": "v. / n.", "zh": "委派、授權 (v.)；代表 (n.)", "def": "(v.) to give a particular job, duty, or right to someone else; (n.) a person chosen by a group to speak/vote at a meeting", "note": "動詞搭配：delegate tasks to algorithms / delegate responsibility。", "ex": "Learners who delegate critical reasoning to software struggle with unfamiliar problems."}, {"id": "v27", "page": 4, "word": "superficial", "pos": "adj.", "zh": "膚淺的；表面的", "def": "never thinking about things that are serious or important; only on the surface", "note": "超好用負面形容詞：superficial credentials / a superficial chore（改寫 box-ticking exercise 的神詞！）。", "ex": "Under immense pressure, learners may treat volunteering as a superficial chore."}, {"id": "v28", "page": 4, "word": "credentials", "pos": "n.", "zh": "資歷；資格證書、學歷證明", "def": "the abilities and experience that make someone suitable for a particular job or activity, or proof of them", "note": "回應你筆記上的「資歷??」：沒錯！就是指「資歷、學歷證明、專業資格」，常用複數 credentials。", "ex": "Over-reliance on AI may produce graduates with superficial credentials."}, {"id": "v29", "page": 4, "word": "institutions", "pos": "n.", "zh": "機構；院校（如大學、銀行）", "def": "a large and important organization, such as a university or bank", "note": "拼寫注意：in-sti-tu-tions（不要多寫 a 變成 instituations！），可用來替換 universities 避免重複。", "ex": "Educational institutions must establish clear guidelines for academic integrity."}, {"id": "v30", "page": 4, "word": "impair", "pos": "v.", "zh": "損害；削弱", "def": "to spoil sth. or make it weaker so that it is less effective", "note": "替換 harm / damage 的高分詞：impair analytical development / impair judgment。", "ex": "Unrestricted reliance on automation can impair students' independent analytical development."}, {"id": "v31", "page": 4, "word": "mandatory", "pos": "adj.", "zh": "強制的；法定的", "def": "sth. that is mandatory must be done, or is demanded by law", "note": "同義替換：compulsory（注意拼寫是 compulsory 非 complusory）。", "ex": "Schools should consider whether community service should be a mandatory requirement."}, {"id": "v32", "page": 4, "word": "literacy", "pos": "n.", "zh": "素養；讀寫能力、某領域知識", "def": "knowledge of a particular subject, or a particular type of knowledge", "note": "Essay 2 結論升級詞：AI literacy courses / digital literacy。", "ex": "Universities should implement mandatory AI literacy courses alongside ethical guidelines."}, {"id": "v33", "page": 4, "word": "integrity", "pos": "n.", "zh": "誠信；正直", "def": "the quality of being honest and having strong moral principles that you refuse to change", "note": "你手寫的例句：a person of integrity（正直的人）；學術必考搭配：academic integrity（學術誠信）。", "ex": "Clear boundaries help institutions safeguard academic integrity."}, {"id": "v34", "page": 5, "word": "cultivate", "pos": "v.", "zh": "培養、陶冶；耕作", "def": "to prepare land and grow crops; (academic) to nurture or develop a skill, attitude, or quality", "note": "你標記了同義詞 nurture！寫作高頻搭配：cultivate empathy / cultivate active citizenship。", "ex": "Classroom instruction alone cannot adequately cultivate active citizenship."}, {"id": "v35", "page": 5, "word": "framework", "pos": "n.", "zh": "框架；體系結構", "def": "a supportive structure around which sth. can be built", "note": "常用搭配：experiential learning framework / regulatory framework。", "ex": "A clear policy framework helps balance innovation with academic fairness."}, {"id": "v36", "page": 5, "word": "inherently", "pos": "adv.", "zh": "本質上；固有的、天生地", "def": "in a way that exists as a natural or basic part of sth.", "note": "對應你畫的雙向箭頭：inherently (adv.) ↔ intrinsic (adj.)！", "ex": "True volunteering is inherently defined by free choice and intrinsic motivation."}, {"id": "v37", "page": 5, "word": "intrinsic", "pos": "adj.", "zh": "內在的；固有的、本質的", "def": "being an extremely important and basic characteristic of a person or thing", "note": "高頻搭配：intrinsic motivation（內在動機）↔ extrinsic motivation（外在動機）。", "ex": "Critics warn that external mandates may undermine students' intrinsic motivation."}, {"id": "v38", "page": 5, "word": "goodwill", "pos": "n.", "zh": "善意；友善與樂於助人之心", "def": "friendly and helpful feelings", "note": "不可數名詞！常用搭配：an act of goodwill（善舉）。", "ex": "Mandating hours may transform an act of goodwill into an institutional obligation."}, {"id": "v39", "page": 5, "word": "disproportionate", "pos": "adj.", "zh": "不成比例的；過度的", "def": "too large or too small in comparison to sth. else, or not deserving its importance", "note": "反駁段高分詞：place disproportionate pressure on...（施加不成比例的壓力）。", "ex": "Mandatory policies can place disproportionate pressure on students facing public exams."}, {"id": "v40", "page": 5, "word": "introduce", "pos": "v.", "zh": "引入；推行、初次介紹", "def": "to put sth. into use, operation, or a place for the first time", "note": "在政策類文章中表示「推行／引入措施」：introduce compulsory modules / introduce a policy。", "ex": "Educators should introduce compulsory modules focusing on ethical judgment."}, {"id": "v41", "page": 5, "word": "longitudinal research", "pos": "n. phr.", "zh": "縱向研究（長期追蹤研究）", "def": "research done on people or groups over a long period of time", "note": "引用實證研究時超有說服力：Longitudinal surveys reveal that...。", "ex": "Longitudinal research reveals higher civic participation among former student volunteers."}, {"id": "v42", "page": 5, "word": "readiness", "pos": "n.", "zh": "準備就緒；意願", "def": "willingness or a state of being prepared for sth.", "note": "職場/教育主題必備：workplace readiness / career readiness。", "ex": "Hands-on mentoring builds workplace readiness long before graduation."}, {"id": "v43", "page": 6, "word": "chore", "pos": "n.", "zh": "瑣事；乏味的例行苦差事", "def": "a job or piece of work that is often boring or unpleasant but needs to be done regularly", "note": "改寫 box-ticking exercise 的絕佳用詞：a superficial chore！", "ex": "Without reflection, students may treat service hours as a meaningless chore."}, {"id": "v44", "page": 6, "word": "underprivileged", "pos": "adj.", "zh": "弱勢的；貧困缺乏機會的", "def": "without money, possessions, education, opportunities, etc. that the average person has", "note": "替換你在 Essay 3 誤用的 minorities！underprivileged groups / disadvantaged backgrounds。", "ex": "Direct community contact builds empathy for underprivileged groups."}, {"id": "v45", "page": 6, "word": "immense", "pos": "adj.", "zh": "巨大的；極大的", "def": "extremely large in size or degree", "note": "替換錯誤搭配 many stress！stress 不可數，請用 immense stress / immense pressure。", "ex": "Under such immense pressure, students often opt for the least demanding tasks."}, {"id": "v46", "page": 6, "word": "mature", "pos": "adj.", "zh": "成熟的", "def": "behaving like adults in a way that shows being well developed emotionally", "note": "Essay 3 B+ 範文句：develop mature social values。", "ex": "Structured community service enables adolescents to develop mature social values."}, {"id": "v47", "page": 6, "word": "exacerbate", "pos": "v.", "zh": "加劇；使惡化", "def": "to make sth. that is already bad even worse", "note": "反駁段必背高級動詞！替換 make worse：exacerbate the heavy workload / exacerbate inequality。", "ex": "Opponents argue that additional mandates exacerbate students' heavy academic workload."}, {"id": "v48", "page": 6, "word": "align", "pos": "v.", "zh": "對準；使一致、契合", "def": "to put 2 or more things into a straight line; (academic) to match or bring into agreement", "note": "Essay 3 結論升級神詞：align A with B（使 A 與 B 一致）／ causes aligned with their interests。", "ex": "Schools should thoughtfully align service hours with broader educational objectives."}];
+const TOOLKIT = {"intros": [{"name": "1. 目標切入法（最適合教育、政策類）", "formula": "A fundamental goal of [領域] is not merely to [基本目標], but also to [更高層目標]. Yet, whether [核心政策] is the most effective way to achieve this remains a subject of intense debate.", "example": "A fundamental goal of secondary education is not merely to cultivate academic competence, but also to foster a strong sense of civic responsibility. Yet, whether schools should mandate community service as a graduation requirement remains a subject of intense debate."}, {"name": "2. 傳統與現代對比法（升級版趨勢開頭）", "formula": "For decades, traditional [領域/模式] has equated [舊標準] with [成功/效率]. In recent years, however, [新現象/挑戰] has prompted [機構/社會] to reconsider [核心問題].", "example": "For decades, traditional management models have equated long working hours with high productivity. In recent years, however, rising rates of employee burnout have prompted organizations worldwide to reconsider the standard five-day schedule."}, {"name": "3. 直接拋出爭議法（最幹練、考官青睞）", "formula": "The question of whether [核心爭議點] has sparked widespread debate among [相關群體, 如 educators / policymakers]. While some contend that [反方觀點], others emphasize that [正方觀點].", "example": "The question of whether universities should integrate generative artificial intelligence (AI) into undergraduate coursework has sparked widespread debate among educators."}, {"name": "4. 兩難困境切入法（最展現批判思維）", "formula": "As [核心事物] becomes increasingly prevalent, [決策主體] face a growing dilemma: how to [追求的好處 A] without [引發的風險 B].", "example": "As generative AI becomes increasingly embedded in daily life, universities face a growing dilemma: how to prepare students for a technology-driven workforce without undermining independent thinking."}], "theses": [{"type": "讓步轉折型（最推薦，自帶思辨感）", "pattern": "Although [簡述反方擔憂], [你的核心主張] is essential because it [理由 1] and [理由 2]."}, {"type": "對比取捨型（適合二選一題目）", "pattern": "Rather than [反方做法], [主體] should [你的主張], as this approach both [理由 1] and [理由 2]."}, {"type": "學術動詞替換型（戒掉 This essay argues）", "pattern": "This paper contends / maintains that [主張], as it [理由 1] while [理由 2]."}], "transitions": [{"pos": "分論點 1 → 分論點 2（遞進）", "formulas": ["Beyond [概括上一段核心詞], [本段核心主題] also plays a vital role in...", "However, [上一段好處] is only the first step; [下一段核心] is equally critical."]}, {"pos": "正方觀點 → 反駁段（轉折）", "formulas": ["Despite these compelling advantages, the implementation of [主題] is not without criticism.", "Nevertheless, [主題] is not without drawbacks. While [主題] offers clear benefits, critics raise concerns regarding [反方擔憂]."]}, {"pos": "反駁段 → 結論段（收束）", "formulas": ["Therefore, [反方做法] is inadequate for achieving [目標], making a balanced adoption of [正方主張] all the more imperative.", "In conclusion, weighing both [維度 1] and [維度 2] demonstrates that..."]}], "dimensions": [{"topic": "強制社區服務 (Paper 2)", "b1": "品格與心理層面（內在）：同理心、社會責任感、跳出舒適圈", "b2": "實務與職場層面（外在）：組織溝通軟實力、結識導師、職場準備"}, {"topic": "四天工作制 (Paper 3)", "b1": "員工個人層面（內在）：緩解職業倦怠、改善身心健康與家庭關係", "b2": "企業營運層面（外在）：精簡無效會議、提高單位產出、降低離職與招聘成本"}, {"topic": "通用萬能切割公式", "b1": "「改變心態／健康／體驗」（偏內在感受、短期）", "b2": "「提升能力／效率／長遠出路」（偏客觀成果、長期）"}], "peelc": [{"step": "P — Point（主題句，約 20 詞）", "desc": "一句話點明本段唯一維度，與引言 Thesis 100% 對應。"}, {"step": "E — Evidence（文獻改寫，約 30–35 詞）", "desc": "移開視線 3 秒用自己的話轉述 Source 核心依據 + 規範 APA 引用。"}, {"step": "E — Explain Mechanism（因果推演，約 40 詞）", "desc": "最容易拉字數與拿高分！問兩次 How / Why，寫出 A→B→C 因果鏈或與傳統做法對比。"}, {"step": "Example — Concrete Scenario（具體場景，約 35–40 詞）", "desc": "把抽象詞變成畫面（例如安老院帶長者伸展遊戲、課堂點餐角色扮演）。"}, {"step": "L — Link（收束回扣，約 20 詞）", "desc": "一句話點出此好處對學生／企業／社會的長遠意義。"}], "paper3": {"title": "Practice Paper 3: The Four-Day Workweek（考前衝刺模擬題）", "prompt": "In recent years, organizations worldwide have experimented with alternative working schedules to improve workplace efficiency and employee well-being. Read the three source texts and argue for your opinion about whether companies should adopt a four-day workweek without reducing employee pay.", "sources": [{"label": "Source text A", "apa": "Lindqvist, E. (2022). Organizational productivity and human capital management. Nordic Journal of Business Studies, 14(1), 22–37.", "text": "Traditional industrial management models measure employee output primarily by the number of hours spent at the workplace. However, contemporary organizational research demonstrates that in knowledge-based economies, cognitive focus and energy are finite resources. Extending working hours beyond an optimal threshold yields diminishing returns, as fatigue leads to higher error rates and reduced creative problem-solving. Consequently, progressive management theories advocate evaluating performance based on measurable outcomes rather than physical presence. When organizations streamline inefficient workflows—such as unnecessary meetings and redundant administrative procedures—employees can often accomplish the same volume of high-quality work within a shorter timeframe."}, {"label": "Source text B", "apa": "Vance, G. P. (2023). Operational constraints of compressed work schedules. Management & Economics Quarterly, 29(3), 175–190.", "text": "Despite appealing theoretical benefits, implementing a four-day workweek presents substantial operational risks for many businesses. In client-facing sectors such as healthcare, retail, logistics, and financial services, maintaining five- or seven-day coverage is essential. Reducing individual schedules without cutting pay forces companies either to hire additional staff—significantly inflating labor costs—or to risk delayed customer responses and lost competitiveness. Furthermore, compressing a five-day workload into four days can inadvertently intensify daily workplace stress. When expectations remain unchanged while available hours shrink, employees often experience heightened time pressure, fewer social breaks, and increased burnout by the end of each workday, undermining the very well-being the policy aims to protect."}, {"label": "Source text C", "apa": "Gomez, R., & Lee, J. (2023). Work-life balance and employee retention in modern enterprises. Journal of Occupational Psychology, 41(2), 95–112.", "text": "Large-scale pilot trials across multiple countries indicate that a four-day workweek with full pay yields substantial benefits for both workers and employers. Having an extra day off allows employees to recover from work-related stress, attend to personal and family commitments, and pursue leisure activities, resulting in marked improvements in mental and physical health. From an organizational perspective, healthier and more rested employees exhibit higher morale, stronger loyalty, and greater focus during working hours. Participating firms consistently report dramatic reductions in absenteeism and staff turnover, saving considerable recruitment and training expenses while enhancing their attractiveness to top talent in competitive labor markets."}], "modelEssay": ["For decades, traditional management models have equated long working hours with high productivity. In recent years, however, rising rates of employee burnout and shifting workplace expectations have prompted organizations worldwide to reconsider the standard five-day schedule. While critics warn that shorter workweeks may create operational disruptions and inflate labor costs, this essay contends that companies should adopt a four-day workweek without reducing employee pay because it substantially improves employee well-being and strengthens long-term organizational efficiency.", "To understand why a shorter schedule outperforms conventional working arrangements, it is first necessary to examine its impact on employees' physical and psychological health. In modern knowledge-based economies, human cognitive focus and energy are finite resources rather than unlimited commodities; pushing staff beyond an optimal working threshold leads to exhaustion, frequent mistakes, and diminished creativity (Lindqvist, 2022). According to Gomez and Lee (2023), international pilot trials demonstrate that granting workers an extra paid day off enables them to recover from occupational stress, fulfill family responsibilities, and engage in restorative leisure activities. For instance, rather than spending every weekend catching up on domestic chores while remaining mentally fatigued, employees with a three-day weekend can genuinely recharge and return to the office with renewed energy. Consequently, prioritizing adequate rest directly protects mental health and cultivates a more sustainable work-life balance.", "Beyond enhancing individual well-being, transitioning to a four-day workweek also yields measurable operational and financial advantages for employers. As Lindqvist (2022) highlights, progressive management approaches evaluate staff by concrete outcomes rather than hours spent at a desk; when firms eliminate redundant meetings and inefficient administrative routines, teams frequently maintain the same high-quality output within a compressed schedule. In a practical corporate setting, replacing unfocused afternoon check-ins with concise digital updates allows staff to dedicate uninterrupted blocks of time to core tasks. Furthermore, Gomez and Lee (2023) report that well-rested employees display stronger workplace morale, deeper organizational loyalty, and markedly lower rates of absenteeism and turnover. By retaining experienced personnel, companies not only avoid immense recruitment and training expenses but also strengthen their competitiveness when attracting top talent.", "Nevertheless, implementing a four-day workweek with full pay is not without operational drawbacks. Opponents argue that client-facing industries—such as healthcare, retail, logistics, and financial services—require continuous five- or seven-day coverage, meaning reduced schedules could either delay customer responses or force firms to hire additional staff at significant cost (Vance, 2023). Additionally, Vance (2023) cautions that squeezing an unchanged five-day workload into four days may intensify daily time pressure and inadvertently accelerate burnout. However, these challenges stem from rigid scheduling rather than an inherent flaw in the four-day model itself. Instead of closing operations entirely on the same day, service-oriented companies can implement staggered shifts so that full weekly coverage is preserved while each employee still enjoys a three-day weekend. Meanwhile, pairing the transition with workflow streamlining—as recommended by Lindqvist (2022)—ensures that unnecessary tasks are removed rather than compressed, allowing firms to safeguard both service continuity and staff well-being.", "In conclusion, weighing both personal health benefits and corporate performance demonstrates that adopting a four-day workweek without pay cuts is a forward-looking strategy for modern enterprises. Although industries with continuous service demands must plan carefully to prevent workload compression and staffing gaps, flexible shift rotations and outcome-based management can effectively resolve these obstacles. By embracing a smarter, rest-inclusive schedule, organizations can simultaneously foster healthier employees and build more resilient, productive workplaces."], "modelTransitions": ["To understand why a shorter schedule outperforms conventional working arrangements, it is first necessary to examine its impact on employees' physical and psychological health.", "Beyond enhancing individual well-being, transitioning to a four-day workweek also yields measurable operational and financial advantages for employers.", "Nevertheless, implementing a four-day workweek with full pay is not without operational drawbacks.", "However, these challenges stem from rigid scheduling rather than an inherent flaw in the four-day model itself.", "In conclusion, weighing both personal health benefits and corporate performance demonstrates that"]}};
+const READINGS = [{"id": "r1", "tag": "Band 7 · Engineering", "title": "The Development of the London Underground", "source": "GitHub: LuchoBazz/ielts-ai-dataset (CC BY 4.0)", "paragraphs": ["(A) By the mid-19th century, London was experiencing unprecedented demographic growth, making it the largest city in the world. This rapid expansion brought immense wealth, but it also resulted in severe traffic congestion. The streets were choked with horse-drawn omnibuses, carts, and pedestrians, leading to near-paralysis of the city’s transport network. Charles Pearson, a visionary City of London solicitor, recognized that a radical solution was necessary. In 1845, he proposed the construction of an underground railway to link the mainline railway termini and clear the slums. Though initially met with skepticism and mocked by the press, Pearson’s relentless campaigning eventually secured parliamentary approval and the necessary funding from private investors.", "(B) The first underground line, the Metropolitan Railway, opened in January 1863. It was a marvel of Victorian engineering, built using a technique known as \"cut-and-cover.\" This involved digging a massive trench along the route of existing streets, constructing brick walls and a vaulted roof, and then restoring the road surface above. While effective, the cut-and-cover method caused immense disruption. Hundreds of buildings were demolished, and local businesses suffered heavily during the construction phase. Despite these challenges, the railway was an instant success, carrying 38,000 passengers on its opening day in wooden carriages pulled by steam locomotives.", "(C) The use of steam engines underground, however, created significant environmental problems. Despite the installation of ventilation shafts, the tunnels were constantly filled with dense, sulfurous smoke, which blackened the stations and occasionally caused passengers to choke. It was clear that a new approach was needed. The solution arrived in the 1890s with the invention of the Greathead tunneling shield by engineer James Henry Greathead. This cylindrical steel shield allowed workers to excavate deep underground without disturbing the surface, paving the way for the \"deep-level tube\" lines.", "(D) These new tube lines were smaller in diameter and naturally suited to electric traction, which eliminated the smoke problem entirely. The City and South London Railway, opening in 1890, was the first deep-level, electrically operated railway in the world. However, the early tube network was chaotic, operated by several competing private companies. It wasn’t until the early 1900s that American financier Charles Yerkes managed to unify most of the separate lines under a single corporate umbrella, the Underground Electric Railways Company of London (UERL). Yerkes orchestrated the electrification of the older steam lines and funded the rapid expansion of the tube network into the growing suburbs.", "(E) During the Second World War, the London Underground took on an entirely new and unexpected role. As the Blitz devastated the capital, hundreds of thousands of Londoners sought refuge from aerial bombardment by sleeping on the platforms and tracks of the deep-level stations. The government, initially opposed to the idea due to fears of disease and panic, eventually formalized the arrangement, providing bunk beds, chemical toilets, and even library services underground.", "(F) Today, the London Underground remains a vital artery of the city, handling over a billion passenger journeys annually. While modern infrastructure projects like the Elizabeth line have transformed travel times across the capital, the foundational engineering of Pearson, Greathead, and Yerkes continues to underpin one of the most famous transit systems in the world."], "groups": [{"type": "true-false-not-given", "instructions": "Do the following statements agree with the information given in the passage? Write TRUE, FALSE, or NOT GIVEN.", "word_limit": "", "word_bank": [], "questions": [{"num": 1, "text": "Charles Pearson personally provided all the funding for the Metropolitan Railway.", "answer": "FALSE", "accepted": ["FALSE", "False", "false"], "options": []}, {"num": 2, "text": "The cut-and-cover construction method severely disrupted street-level businesses.", "answer": "TRUE", "accepted": ["TRUE", "True", "true"], "options": []}, {"num": 3, "text": "The first deep-level tube line was financially successful in its opening year.", "answer": "NOT GIVEN", "accepted": ["NOT GIVEN", "Not Given", "not given"], "options": []}, {"num": 4, "text": "The British government immediately encouraged citizens to use the Underground as air-raid shelters.", "answer": "FALSE", "accepted": ["FALSE", "False", "false"], "options": []}]}, {"type": "short-answer", "instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.", "word_limit": "3", "word_bank": [], "questions": [{"num": 10, "text": "What source of power was used for the locomotives on the opening day in 1863?", "answer": "steam", "accepted": ["steam", "steam engines"], "options": []}, {"num": 11, "text": "What was installed in the early tunnels in an attempt to alleviate the smoke problem?", "answer": "ventilation shafts", "accepted": ["ventilation shafts"], "options": []}, {"num": 12, "text": "What primary alternative function did underground stations serve during the Blitz?", "answer": "air-raid shelters", "accepted": ["air-raid shelters", "refuge"], "options": []}, {"num": 13, "text": "Which contemporary infrastructure project has notably transformed travel times in London?", "answer": "Elizabeth line", "accepted": ["Elizabeth line", "the Elizabeth line"], "options": []}]}]}, {"id": "r2", "tag": "Band 7 · Acoustics", "title": "The Architecture of Sound: Acoustics in Concert Halls", "source": "GitHub: LuchoBazz/ielts-ai-dataset (CC BY 4.0)", "paragraphs": ["(A) Until the late 19th century, the acoustic success of a concert hall was largely a matter of architectural luck. Builders relied on intuition and imitation of existing successful venues. The scientific study of room acoustics only began in earnest in 1895 when Wallace Clement Sabine, a physics professor at Harvard University, was asked to fix the terrible acoustics of the Fogg Art Museum's lecture hall. Through rigorous experimentation using organ pipes and stopwatches, Sabine discovered that the duration a sound lingers in a room—which he termed \"reverberation time\"—is mathematically related to the room's volume and the sound-absorbing properties of its surfaces.", "(B) Reverberation time (RT) quickly became the foundational metric of acoustic design. The optimal RT depends entirely on the purpose of the space. For spoken word or rapid, intricate chamber music, a short RT (around 1 to 1.5 seconds) is preferred to maintain clarity, ensuring that rapid notes do not bleed into one another. Conversely, large symphonic works, such as those by Wagner or Mahler, benefit from a longer RT (around 2 to 2.2 seconds). This extended decay allows the sounds of dozens of instruments to blend into a rich, immersive sonic wash, giving the music a sense of warmth and grandeur.", "(C) Historically, the most consistently praised concert halls—such as the Musikverein in Vienna and the Concertgebouw in Amsterdam—share a common architectural shape: the \"shoebox.\" Characterized by a rectangular floor plan, high ceilings, and narrow width, the shoebox design naturally creates excellent acoustic conditions. Its secret lies in \"lateral reflections.\" Because the side walls are relatively close together, sound waves reflecting off them reach the listener’s ears from the sides just milliseconds after the direct sound from the stage. These lateral reflections are interpreted by the human brain as a sense of spaciousness and envelopment, making the listener feel surrounded by the music.", "(D) Despite the proven reliability of the shoebox, the mid-20th century saw a shift toward \"vineyard\" style halls, pioneered by Hans Scharoun’s Berlin Philharmonie in 1963. In a vineyard hall, the seating is divided into steep terraces surrounding the stage on all sides. This design was driven primarily by a desire for visual intimacy and democratic seating, bringing the audience closer to the performers. However, the lack of parallel side walls removes the natural lateral reflections found in shoebox halls. To compensate, acousticians must intricately design the terraced walls and suspend reflective panels from the ceiling to artificially direct sound outward to the audience.", "(E) Modern acousticians no longer rely on guesswork. Before a single brick is laid, contemporary concert halls undergo rigorous virtual and physical testing. Engineers use advanced computer software to trace the path of thousands of simulated sound rays, calculating how they bounce, scatter, and decay. Furthermore, highly detailed physical scale models are built (often at a 1:10 scale) and filled with nitrogen gas to correct for sound wave scaling. By recording miniature sound sources inside these models, acousticians can use a process called \"auralization\" to listen to what the finished hall will sound like, allowing them to adjust the angle of a balcony or the material of a wall to optimize the acoustics.", "(F) Yet, despite the sophistication of modern acoustic science, the perception of sound remains inherently subjective. Psychologists have noted that an audience’s visual environment significantly alters their acoustic evaluation. A hall decorated in warm woods and rich reds is often perceived as having a \"warmer\" sound than a visually stark, concrete hall, even if their objective acoustic measurements are identical. Ultimately, the architecture of sound is not just about physics; it is deeply intertwined with human psychology and expectation."], "groups": [{"type": "matching-headings", "instructions": "The reading passage has six paragraphs, A–F. Choose the correct heading for each paragraph from the list of headings below.", "word_limit": "", "word_bank": [{"id": "i. Visual intimacy versus acoustic complexity", "text": "i. Visual intimacy versus acoustic complexity"}, {"id": "ii. Measuring and optimizing sound decay", "text": "ii. Measuring and optimizing sound decay"}, {"id": "iii. The enduring success of a traditional shape", "text": "iii. The enduring success of a traditional shape"}, {"id": "iv. How non-auditory factors affect listening", "text": "iv. How non-auditory factors affect listening"}, {"id": "v. The origins of architectural acoustics", "text": "v. The origins of architectural acoustics"}, {"id": "vi. The failure of computer modeling in modern design", "text": "vi. The failure of computer modeling in modern design"}, {"id": "vii. The role of modern technology in hall design", "text": "vii. The role of modern technology in hall design"}, {"id": "viii. Why symphonies are harder to perform than chamber music", "text": "viii. Why symphonies are harder to perform than chamber music"}], "questions": [{"num": 14, "text": "Paragraph A", "answer": "v", "accepted": ["v"], "options": []}, {"num": 15, "text": "Paragraph B", "answer": "ii", "accepted": ["ii"], "options": []}, {"num": 16, "text": "Paragraph C", "answer": "iii", "accepted": ["iii"], "options": []}, {"num": 17, "text": "Paragraph D", "answer": "i", "accepted": ["i"], "options": []}, {"num": 18, "text": "Paragraph E", "answer": "vii", "accepted": ["vii"], "options": []}, {"num": 19, "text": "Paragraph F", "answer": "iv", "accepted": ["iv"], "options": []}]}, {"type": "matching-information", "instructions": "Which paragraph contains the following information? Write the correct letter, A–F.", "word_limit": "", "word_bank": [], "questions": [{"num": 20, "text": "A reference to the earliest scientific measurements of room acoustics.", "answer": "A", "accepted": ["A"], "options": []}, {"num": 21, "text": "An explanation of why narrow concert halls produce superior sound envelopment.", "answer": "C", "accepted": ["C"], "options": []}, {"num": 22, "text": "Examples of techniques used by acousticians to predict sound before construction.", "answer": "E", "accepted": ["E"], "options": []}, {"num": 23, "text": "The idea that what an audience sees visually can alter their evaluation of sound.", "answer": "F", "accepted": ["F"], "options": []}]}, {"type": "multiple-choice", "instructions": "Choose the correct letter, A, B, C or D.", "word_limit": "", "word_bank": [], "questions": [{"num": 24, "text": "According to the passage, the \"shoebox\" design is acoustically successful primarily because:", "answer": "B", "accepted": ["B"], "options": [{"id": "A", "text": "A. The high ceilings reduce the need for reverberation time."}, {"id": "B", "text": "B. It provides strong lateral sound reflections to the audience."}, {"id": "C", "text": "C. It allows for more democratic and visually intimate seating."}, {"id": "D", "text": "D. It limits the blending of large symphonic instruments."}]}, {"num": 25, "text": "The \"vineyard\" style of concert hall was originally developed to:", "answer": "C", "accepted": ["C"], "options": [{"id": "A", "text": "A. Maximize the natural lateral reflections of sound."}, {"id": "B", "text": "B. Lower the cost of construction by removing parallel walls."}, {"id": "C", "text": "C. Improve the audience’s visual connection to the performers."}, {"id": "D", "text": "D. Create a warmer sound using steep wooden terraces."}]}, {"num": 26, "text": "What does the passage say about reverberation time (RT)?", "answer": "A", "accepted": ["A"], "options": [{"id": "A", "text": "A. Different genres of music require different optimal RTs."}, {"id": "B", "text": "B. A long RT is always preferable to a short RT."}, {"id": "C", "text": "C. RT was primarily used to fix the Fogg Art Museum."}, {"id": "D", "text": "D. A short RT helps blend the sound of large symphonic works."}]}, {"num": 27, "text": "The writer’s overall conclusion about concert hall acoustics is that:", "answer": "D", "accepted": ["D"], "options": [{"id": "A", "text": "A. Computer modeling will eventually make physical testing obsolete."}, {"id": "B", "text": "B. The shoebox design is no longer relevant for modern orchestras."}, {"id": "C", "text": "C. Visual aesthetics are more important than physical acoustics."}, {"id": "D", "text": "D. It remains a complex blend of objective science and subjective perception."}]}]}]}, {"id": "r3", "tag": "Band 7 · Zoology", "title": "The Evolutionary Puzzle of Animal Play", "source": "GitHub: LuchoBazz/ielts-ai-dataset (CC BY 4.0)", "paragraphs": ["(A) Watch a litter of wolf pups wrestling, or a group of juvenile dolphins riding the bow wave of a boat, and the concept of \"play\" seems intuitively obvious. Yet, for decades, evolutionary biologists found animal play deeply perplexing. In the harsh reality of natural selection, behavior is typically highly efficient, optimized for finding food, avoiding predators, and reproducing. Play, by contrast, appears to be a colossal waste of energy. Furthermore, animals engaged in play are often distracted and noisy, making them significantly more vulnerable to predation. Given these high costs, play must confer a substantial evolutionary advantage, or natural selection would have eliminated it long ago.", "(B) Defining play scientifically is notoriously difficult. The widely accepted framework proposed by Gordon Burghardt establishes several criteria: the behavior must not be fully functional in the context in which it is expressed; it must be voluntary and rewarding; it differs from \"serious\" behavior in form or timing; and it must be performed repeatedly when the animal is healthy and free from immediate stress. Having defined play, scientists have spent years formulating and testing hypotheses regarding its evolutionary function.", "(C) The most traditional explanation is the \"Motor Training\" hypothesis. This suggests that play, particularly locomotor play like running and leaping, helps young animals develop the physical strength, coordination, and neurological wiring necessary for adult survival. While logical, empirical support for this theory is surprisingly mixed. A long-term study of wild meerkats revealed that individuals who engaged in high levels of play-fighting as juveniles were not any more successful at winning real fights or hunting prey as adults. The motor benefits of play, it seems, may be overstated or easily acquired through standard, non-playful movement.", "(D) Another prominent theory is the \"Social Cohesion\" hypothesis. Many highly social mammals, such as rats, chimpanzees, and wolves, engage in extensive social play. This behavior is thought to establish social hierarchies, teach social rules, and forge bonds that hold the group together. During play fighting, animals learn to communicate their intentions and differentiate between a playful nip and an aggressive bite. They learn the boundaries of acceptable behavior, which reduces the likelihood of lethal aggression within the group later in life.", "(E) Recently, a compelling new framework has emerged: the \"Cognitive Flexibility\" hypothesis, championed by Marek Spinka and his colleagues. This theory proposes that play serves to train animals for the unexpected. Wild animals exist in unpredictable environments where a sudden loss of balance or an unexpected attack can be fatal. During play, animals deliberately handicap themselves. They put themselves in disadvantageous positions—rolling on their backs, purposefully losing their balance, or allowing a smaller peer to \"win\" a mock fight. Spinka argues that by actively seeking out and experiencing these minor physical and emotional shocks in a safe environment, animals learn to recover quickly. Play, therefore, is essentially a biological rehearsal for emergencies, building resilience and neurological flexibility.", "(F) Ultimately, the motivation for an animal to risk energy and safety for play boils down to neurochemistry. When mammals play, their brains release high levels of dopamine and endogenous opioids—the brain’s natural reward chemicals. Play feels intrinsically good. If the evolutionary benefits of play (whether cognitive flexibility, social bonding, or physical conditioning) were not reinforced by immediate, powerful feelings of pleasure, young animals simply would not take the risk. As research deepens, it becomes clear that play is not a frivolous byproduct of youth, but a deeply embedded, neurologically driven strategy for survival in an unpredictable world."], "groups": [{"type": "yes-no-not-given", "instructions": "Do the following statements agree with the claims of the writer? Write YES, NO, or NOT GIVEN.", "word_limit": "", "word_bank": [], "questions": [{"num": 28, "text": "Engaging in play behavior reduces an animal’s risk of being attacked by predators.", "answer": "NO", "accepted": ["NO", "No", "no"], "options": []}, {"num": 29, "text": "Gordon Burghardt established a widely accepted framework for defining animal play.", "answer": "YES", "accepted": ["YES", "Yes", "yes"], "options": []}, {"num": 30, "text": "Meerkat pups that play more frequently become more successful hunters as adults.", "answer": "NO", "accepted": ["NO", "No", "no"], "options": []}, {"num": 31, "text": "Male animals generally spend a greater proportion of their time playing than female animals.", "answer": "NOT GIVEN", "accepted": ["NOT GIVEN", "Not Given", "not given"], "options": []}]}, {"type": "matching-sentence-endings", "instructions": "Complete each sentence with the correct ending, A–F, from the box below.", "word_limit": "", "word_bank": [], "questions": [{"num": 32, "text": "The 'Motor Training' hypothesis assumes that play helps young animals", "answer": "A", "accepted": ["A"], "options": [{"id": "A", "text": "develop crucial physical skills needed for adulthood."}, {"id": "B", "text": "practice recovering from sudden or stressful situations."}, {"id": "C", "text": "establish and maintain complex social hierarchies."}, {"id": "D", "text": "are motivated to participate despite the survival risks."}, {"id": "E", "text": "consume excess calories in an environment with abundant food."}, {"id": "F", "text": "differentiate between true aggression and harmless interaction."}]}, {"num": 33, "text": "Play fighting in highly social species like wolves helps to", "answer": "C", "accepted": ["C"], "options": [{"id": "A", "text": "develop crucial physical skills needed for adulthood."}, {"id": "B", "text": "practice recovering from sudden or stressful situations."}, {"id": "C", "text": "establish and maintain complex social hierarchies."}, {"id": "D", "text": "are motivated to participate despite the survival risks."}, {"id": "E", "text": "consume excess calories in an environment with abundant food."}, {"id": "F", "text": "differentiate between true aggression and harmless interaction."}]}, {"num": 34, "text": "According to the 'Cognitive Flexibility' hypothesis, animals play in order to", "answer": "B", "accepted": ["B"], "options": [{"id": "A", "text": "develop crucial physical skills needed for adulthood."}, {"id": "B", "text": "practice recovering from sudden or stressful situations."}, {"id": "C", "text": "establish and maintain complex social hierarchies."}, {"id": "D", "text": "are motivated to participate despite the survival risks."}, {"id": "E", "text": "consume excess calories in an environment with abundant food."}, {"id": "F", "text": "differentiate between true aggression and harmless interaction."}]}, {"num": 35, "text": "The release of neurochemicals like dopamine during play ensures that animals", "answer": "D", "accepted": ["D"], "options": [{"id": "A", "text": "develop crucial physical skills needed for adulthood."}, {"id": "B", "text": "practice recovering from sudden or stressful situations."}, {"id": "C", "text": "establish and maintain complex social hierarchies."}, {"id": "D", "text": "are motivated to participate despite the survival risks."}, {"id": "E", "text": "consume excess calories in an environment with abundant food."}, {"id": "F", "text": "differentiate between true aggression and harmless interaction."}]}]}]}, {"id": "r4", "tag": "Band 8 · Science & History", "title": "The Enigma of the Antikythera Mechanism", "source": "GitHub: LuchoBazz/ielts-ai-dataset (CC BY 4.0)", "paragraphs": ["(A) In the spring of 1900, a group of Greek sponge divers sheltering from a violent storm near the diminutive island of Antikythera stumbled upon a Roman shipwreck. Among the exquisite marble statues, amphorae, and glassware retrieved from the seabed was a heavily encrusted, calcified lump of bronze that initially garnered little attention. It was not until 1902 that archaeologist Valerios Stais noticed a gear wheel protruding from the fractured rock. This serendipitous observation would eventually unmask the Antikythera Mechanism, a device so technologically precocious that it would permanently rewrite the annals of ancient engineering.", "(B) For decades, the true nature of the mechanism remained shrouded in conjecture. The corroded state of the bronze fragments defied physical dismantling, and early scholars were deeply skeptical that classical antiquity possessed the metallurgical prowess required to fashion such intricate gearing. The predominant consensus posited that it was an astrolabe, though its internal complexity seemed disproportionately sophisticated. It wasn't until the 1950s that British science historian Derek J. de Solla Price initiated a systematic examination using gamma-ray radiography. Price's pioneering analysis revealed an interlocking network of gear trains, leading him to characterize the artifact as an ancient analogue computer capable of calculating astronomical positions.", "(C) The technological paradigm shift arrived in 2006, when the Antikythera Mechanism Research Project (AMRP) utilized specialized microfocus X-ray computed tomography (CT) and polynomial texture mapping. This non-destructive 3D imaging penetrated the dense calcification, exposing internal gear teeth as small as a millimeter and revealing microscopic instructional inscriptions on the casing. The data confirmed that the mechanism was a highly sophisticated astronomical calculator, utilizing an epicyclic differential gear system—a mechanical arrangement previously thought to have been invented in the 16th century—to model the erratic orbital motion of the Moon.", "(D) The mechanism's front dial tracked the solar year and the zodiac, utilizing a complex system of pointers to indicate the positions of the Sun, the Moon, and likely the five planets known to antiquity. More remarkably, a dual-dial system on the rear calculated the 235-month Metonic cycle, which aligns lunar months with solar years, alongside the 223-month Saros cycle, a remarkably precise period utilized for predicting both solar and lunar eclipses. The inclusion of a smaller dial specifically tracking the four-year cycle of the Panhellenic Games, including the Olympics, underscores the profound intersection of astronomy, civic life, and religion in ancient Hellenistic society.", "(E) Despite these revelations, tantalizing questions endure. The origin of the mechanism remains heavily contested. While the shipwreck dates to circa 70-60 BCE, typographic analysis of the inscriptions suggests the device may have been constructed decades earlier, potentially placing its creation in the intellectual milieu of Rhodes, home to the eminent astronomer Hipparchus, or Syracuse, the domain of Archimedes. Furthermore, the absence of antecedent or immediate descendant devices in the archaeological record poses a profound anomaly. Was this a unique masterpiece, or simply the sole survivor of a widespread, robust mechanical tradition that perished in the ensuing centuries?"], "groups": [{"type": "true-false-not-given", "instructions": "Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.", "word_limit": "", "word_bank": [], "questions": [{"num": 1, "text": "The sponge divers deliberately travelled to the island of Antikythera to search for ancient artifacts.", "answer": "FALSE", "accepted": ["FALSE", "False", "false"], "options": []}, {"num": 2, "text": "Valerios Stais was the first person to realize the bronze lump contained mechanical parts.", "answer": "TRUE", "accepted": ["TRUE", "True", "true"], "options": []}, {"num": 3, "text": "Early scholars believed the mechanism was originally encased in a wooden box.", "answer": "NOT GIVEN", "accepted": ["NOT GIVEN", "Not Given", "not given"], "options": []}, {"num": 4, "text": "Derek J. de Solla Price utilized microfocus X-ray computed tomography for his investigations.", "answer": "FALSE", "accepted": ["FALSE", "False", "false"], "options": []}, {"num": 5, "text": "The artifact was capable of forecasting the dates of the Olympic Games.", "answer": "TRUE", "accepted": ["TRUE", "True", "true"], "options": []}]}, {"type": "short-answer", "instructions": "Answer the questions below. Choose NO MORE THAN THREE WORDS from the passage for each answer.", "word_limit": "3", "word_bank": [], "questions": [{"num": 11, "text": "What phenomenon did the epicyclic gear system help to model?", "answer": "erratic orbital motion", "accepted": ["erratic orbital motion", "orbital motion"], "options": []}, {"num": 12, "text": "Which astronomical cycle was monitored to predict eclipses?", "answer": "Saros cycle", "accepted": ["Saros cycle", "the Saros cycle", "223-month Saros cycle"], "options": []}, {"num": 13, "text": "What field of study is suggested as the basis for the mechanism's typographic analysis?", "answer": "typographic analysis", "accepted": ["typographic analysis", "inscriptions"], "options": []}]}]}];
+
+const STORAGE_KEY = 'eap_english_studio_v1';
+
+const TABS = [
+  { id: 'essays', label: '文章批改', icon: 'file-pen-line' },
+  { id: 'mistakes', label: '錯題本', icon: 'shield-alert' },
+  { id: 'toolkit', label: '寫作模板', icon: 'sparkles' },
+  { id: 'vocab', label: '生詞本', icon: 'layers' },
+  { id: 'reading', label: '假期Reading', icon: 'book-open' }
+];
+
+// ========================
+// STATE & PERSISTENCE
+// ========================
+const defaultState = {
+  activeTab: 'essays',
+  darkMode: false,
+  essayId: 'e1',
+  essayView: 'diff', // 'diff' | 'full' | 'rubric'
+  highlightTransitions: true,
+  mistakeCat: 'all',
+  mistakeSearch: '',
+  mistakeView: 'list', // 'list' | 'checklist' | 'quiz'
+  masteredMistakes: {},
+  checklistDone: {},
+  mQuizIdx: 0,
+  mQuizSelected: null,
+  mQuizScore: 0,
+  toolkitSec: 'intros', // 'intros' | 'transitions' | 'peelc' | 'paper3'
+  vocabMode: 'flashcard', // 'flashcard' | 'list' | 'quiz'
+  vocabPage: 'all',
+  vocabFilter: 'all', // 'all' | 'learning' | 'mastered'
+  vocabSearch: '',
+  vocabMastered: {},
+  vocabStars: {},
+  customVocab: [],
+  customEssays: [],
+  customMistakes: [],
+  customReadings: [],
+  showPaper3Model: false,
+  cardIdx: 0,
+  cardFlipped: false,
+  vQuizQ: null,
+  vQuizSelected: null,
+  vQuizStats: { right: 0, total: 0 },
+  readingId: 'r1',
+  readingFont: 'base', // 'sm' | 'base' | 'lg'
+  readingMobilePane: 'passage', // 'passage' | 'questions'
+  readingAnswers: {},
+  readingSubmitted: {},
+  readingMarks: {}, // { r1: [0, 2] }
+  timerSec: 1200,
+  timerRunning: false
+};
+
+let state = loadState();
+let timerInterval = null;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { ...defaultState };
+    const parsed = JSON.parse(raw);
+    return { ...defaultState, ...parsed, timerRunning: false, mQuizSelected: null, vQuizSelected: null };
+  } catch (e) {
+    return { ...defaultState };
+  }
+}
+
+function saveState() {
+  try {
+    const toSave = {
+      activeTab: state.activeTab,
+      darkMode: state.darkMode,
+      essayId: state.essayId,
+      essayView: state.essayView,
+      highlightTransitions: state.highlightTransitions,
+      masteredMistakes: state.masteredMistakes,
+      checklistDone: state.checklistDone,
+      vocabMastered: state.vocabMastered,
+      vocabStars: state.vocabStars,
+      customVocab: state.customVocab,
+    customEssays: state.customEssays,
+    customMistakes: state.customMistakes,
+    customReadings: state.customReadings,
+      customEssays: state.customEssays,
+      customMistakes: state.customMistakes,
+      customReadings: state.customReadings,
+      readingId: state.readingId,
+      readingFont: state.readingFont,
+      readingAnswers: state.readingAnswers,
+      readingSubmitted: state.readingSubmitted,
+      readingMarks: state.readingMarks
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSave));
+  } catch (e) {}
+}
+
+function esc(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  const txt = document.getElementById('toast-msg');
+  if (!el || !txt) return;
+  txt.textContent = msg;
+  el.classList.remove('opacity-0');
+  el.classList.add('opacity-100');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => {
+    el.classList.remove('opacity-100');
+    el.classList.add('opacity-0');
+  }, 2200);
+}
+
+function speakText(text) {
+  try {
+    if (!('speechSynthesis' in window)) {
+      showToast('此瀏覽器不支援語音朗讀');
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.94;
+    window.speechSynthesis.speak(u);
+  } catch (e) {
+    showToast('語音播放失敗');
+  }
+}
+
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast('已複製到剪貼簿')).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast('已複製到剪貼簿'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function getAllVocab() {
+  return [...BASE_VOCAB, ...state.customVocab];
+}
+function getAllEssays() {
+  return [...ESSAYS, ...(state.customEssays || [])];
+}
+function getAllMistakes() {
+  return [...MISTAKES, ...(state.customMistakes || [])];
+}
+function getAllReadings() {
+  return [...READINGS, ...(state.customReadings || [])];
+}
+
+function applyTheme() {
+  document.documentElement.classList.toggle('dark', !!state.darkMode);
+  const btn = document.getElementById('btn-theme');
+  if (btn) {
+    btn.innerHTML = `<i data-lucide="${state.darkMode ? 'sun' : 'moon'}" class="w-4 h-4"></i>`;
+  }
+}
+
+// ========================
+// NAVIGATION RENDER
+// ========================
+function renderNav() {
+  const dNav = document.getElementById('desktop-nav');
+  const mNav = document.getElementById('mobile-nav');
+  if (dNav) {
+    dNav.innerHTML = TABS.map(t => {
+      const active = state.activeTab === t.id;
+      return `<button data-tab="${t.id}" class="px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition ${active ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-xs' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'}">
+        <i data-lucide="${t.icon}" class="w-3.5 h-3.5"></i><span>${t.label}</span>
+      </button>`;
+    }).join('');
+    dNav.querySelectorAll('button[data-tab]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.activeTab = b.dataset.tab;
+        saveState();
+        renderAll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+  if (mNav) {
+    mNav.innerHTML = TABS.map(t => {
+      const active = state.activeTab === t.id;
+      return `<button data-tab="${t.id}" class="flex-1 py-1 flex flex-col items-center justify-center gap-0.5 transition ${active ? 'text-indigo-600 dark:text-indigo-400 font-semibold' : 'text-slate-500 dark:text-slate-400'}">
+        <i data-lucide="${t.icon}" class="w-5 h-5"></i>
+        <span class="text-[10px]">${t.label}</span>
+      </button>`;
+    }).join('');
+    mNav.querySelectorAll('button[data-tab]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.activeTab = b.dataset.tab;
+        saveState();
+        renderAll();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+}
+
+// ========================
+// TAB 1: ESSAYS
+// ========================
+function highlightEssayHtml(text, transitions) {
+  let html = esc(text);
+  if (state.highlightTransitions) {
+    transitions.forEach(tr => {
+      const safeTr = esc(tr);
+      if (html.includes(safeTr)) {
+        html = html.replace(safeTr, `<span class="mark-transition">${safeTr}</span>`);
+      }
+    });
+    html = html.replace(/(\([A-Z][A-Za-z &amp;]+,\s*\d{4}\))/g, '<span class="mark-apa">$1</span>');
+    html = html.replace(/(According to [A-Z][A-Za-z]+(?: and [A-Z][A-Za-z]+)? \(\d{4}\)|As [A-Z][A-Za-z]+(?: and [A-Z][A-Za-z]+)? \(\d{4}\) [a-z]+)/g, '<span class="mark-apa">$1</span>');
+  }
+  return html;
+}
+
+function renderEssays(container) {
+  const allEssays = getAllEssays();
+  const allMistakes = getAllMistakes();
+  const essay = allEssays.find(e => e.id === state.essayId) || allEssays[0];
+  const masteredCount = Object.values(state.masteredMistakes).filter(Boolean).length;
+  const vocabDone = Object.values(state.vocabMastered).filter(Boolean).length;
+
+  container.innerHTML = `
+    <!-- Quick Overview Banner -->
+    <div class="grid grid-cols-3 gap-2.5 sm:gap-4 mb-4">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 sm:p-4 border border-stone-200 dark:border-slate-800">
+        <div class="text-[11px] text-slate-500 dark:text-slate-400">已批改文章</div>
+        <div class="text-lg sm:text-xl font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">${allEssays.length} 篇</div>
+        <div class="text-[10px] sm:text-xs text-slate-500">支援匯入新作文</div>
+      </div>
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 sm:p-4 border border-stone-200 dark:border-slate-800">
+        <div class="text-[11px] text-slate-500 dark:text-slate-400">錯題克服進度</div>
+        <div class="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">${masteredCount} / ${allMistakes.length}</div>
+        <div class="text-[10px] sm:text-xs text-slate-500">專屬排雷庫</div>
+      </div>
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 sm:p-4 border border-stone-200 dark:border-slate-800">
+        <div class="text-[11px] text-slate-500 dark:text-slate-400">生詞掌握度</div>
+        <div class="text-lg sm:text-xl font-bold text-amber-600 dark:text-amber-400 mt-0.5">${vocabDone} / ${getAllVocab().length}</div>
+        <div class="text-[10px] sm:text-xs text-slate-500">手寫本 + 自訂</div>
+      </div>
+    </div>
+
+    <!-- Essay Selector Pills -->
+    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-3">
+      ${allEssays.map(e => `
+        <button data-essay="${e.id}" class="shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border transition ${e.id === essay.id ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-stone-200 dark:border-slate-800 hover:border-indigo-300'}">
+          ${esc(e.shortTitle)}
+        </button>
+      `).join('')}
+    </div>
+
+    <!-- Essay Header Card -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800 mb-4 shadow-2xs">
+      <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+        <div>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 mb-1.5">預估等級：${esc(essay.estGrade)}</span>
+          <h2 class="text-base sm:text-lg font-bold leading-snug">${esc(essay.title)}</h2>
+        </div>
+        <span class="text-xs text-slate-500 dark:text-slate-400 bg-stone-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">${esc(essay.wordCount)}</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${esc(essay.summary)}</p>
+      ${essay.benchmark ? `
+        <div class="mt-3 p-3 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/50 text-xs space-y-1">
+          <div class="font-semibold text-amber-800 dark:text-amber-300">公開試實戰估分對照：</div>
+          <div class="text-slate-700 dark:text-slate-300">• <b>IELTS Writing Task 2：</b>${esc(essay.benchmark.ielts)}</div>
+          <div class="text-slate-700 dark:text-slate-300">• <b>HKDSE Paper 2：</b>${esc(essay.benchmark.dse)}</div>
+          <div class="text-slate-600 dark:text-slate-400 pt-0.5">${esc(essay.benchmark.insight)}</div>
+        </div>
+      ` : ''}
+
+      <!-- Sub-view Switcher -->
+      <div class="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-stone-100 dark:border-slate-800">
+        <button data-eview="diff" class="px-3 py-1.5 rounded-lg text-xs font-medium transition ${state.essayView === 'diff' ? 'bg-slate-900 dark:bg-indigo-600 text-white' : 'bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">逐段精修批改</button>
+        <button data-eview="full" class="px-3 py-1.5 rounded-lg text-xs font-medium transition ${state.essayView === 'full' ? 'bg-slate-900 dark:bg-indigo-600 text-white' : 'bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">完整高分範文</button>
+        <button data-eview="rubric" class="px-3 py-1.5 rounded-lg text-xs font-medium transition ${state.essayView === 'rubric' ? 'bg-slate-900 dark:bg-indigo-600 text-white' : 'bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">EAP 四維診斷</button>
+      </div>
+    </div>
+
+    <!-- Essay Sub-view Content -->
+    <div id="essay-body"></div>
+  `;
+
+  container.querySelectorAll('button[data-essay]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.essayId = b.dataset.essay;
+      saveState();
+      renderEssays(container);
+    });
+  });
+  container.querySelectorAll('button[data-eview]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.essayView = b.dataset.eview;
+      saveState();
+      renderEssays(container);
+    });
+  });
+
+  const body = container.querySelector('#essay-body');
+  if (state.essayView === 'diff') {
+    body.innerHTML = `<div class="space-y-4">
+      ${essay.paragraphs.map((p, idx) => `
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 overflow-hidden">
+          <div class="px-4 py-3 bg-stone-50 dark:bg-slate-800/60 border-b border-stone-200 dark:border-slate-800 flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100">${esc(p.label)}</h3>
+            <button data-speak-p="${idx}" class="text-xs px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 flex items-center gap-1 hover:text-indigo-600">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 朗讀修改版
+            </button>
+          </div>
+          <div class="p-4 space-y-3.5">
+            <!-- Original Issues -->
+            <div class="space-y-2.5">
+              <div class="text-xs font-semibold text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> 原稿文筆不足與改進點（共 ${p.issues.length} 處）
+              </div>
+              ${p.issues.map(iss => `
+                <div class="p-3 rounded-xl bg-rose-50/60 dark:bg-rose-950/25 border border-rose-200/70 dark:border-rose-900/40 text-xs sm:text-sm space-y-1.5">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300">${esc(iss.cat)}</span>
+                    <span class="line-through text-rose-700 dark:text-rose-300 font-medium">${esc(iss.bad)}</span>
+                  </div>
+                  <div class="flex items-start gap-1.5 text-emerald-700 dark:text-emerald-300 font-medium">
+                    <span class="shrink-0">→</span>
+                    <span>${esc(iss.fix)}</span>
+                  </div>
+                  <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">${esc(iss.why)}</p>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Revised Paragraph -->
+            <div class="p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-900/40">
+              <div class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 mb-1.5 flex items-center gap-1">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> 學術升級修改版
+              </div>
+              <p class="text-sm leading-relaxed text-slate-800 dark:text-slate-200">${highlightEssayHtml(p.revised, essay.transitions)}</p>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+    body.querySelectorAll('button[data-speak-p]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = essay.paragraphs[Number(btn.dataset.speakP)];
+        if (p) speakText(p.revised);
+      });
+    });
+  } else if (state.essayView === 'full') {
+    const fullText = essay.paragraphs.map(p => p.revised).join('\n\n');
+    const wc = fullText.trim().split(/\s+/).length;
+    body.innerHTML = `
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-4 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-stone-100 dark:border-slate-800">
+          <div class="flex items-center gap-3 text-xs">
+            <span class="font-semibold text-slate-700 dark:text-slate-200">全文約 ${wc} 詞</span>
+            <label class="inline-flex items-center gap-1.5 cursor-pointer select-none text-slate-600 dark:text-slate-300">
+              <input id="toggle-hl" type="checkbox" ${state.highlightTransitions ? 'checked' : ''} class="rounded text-indigo-600" />
+              <span>高亮過渡句與 APA 引用</span>
+            </label>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-speak-full" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 flex items-center gap-1">
+              <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 朗讀全文
+            </button>
+            <button id="btn-copy-full" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center gap-1">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> 複製範文
+            </button>
+          </div>
+        </div>
+        ${state.highlightTransitions ? `
+          <div class="flex flex-wrap gap-3 text-[11px] mb-4 text-slate-500 dark:text-slate-400">
+            <span class="inline-flex items-center gap-1.5"><span class="mark-transition px-1.5">紫色底線</span> 段落過渡句 (Transitions)</span>
+            <span class="inline-flex items-center gap-1.5"><span class="mark-apa px-1.5">綠色底線</span> 標準 APA 7th 文內引用</span>
+          </div>
+        ` : ''}
+        <div class="space-y-4 text-sm sm:text-[15px] leading-7 sm:leading-8 text-slate-800 dark:text-slate-200">
+          ${essay.paragraphs.map(p => `<p>${highlightEssayHtml(p.revised, essay.transitions)}</p>`).join('')}
+        </div>
+      </div>
+    `;
+    body.querySelector('#toggle-hl').addEventListener('change', e => {
+      state.highlightTransitions = e.target.checked;
+      saveState();
+      renderEssays(container);
+    });
+    body.querySelector('#btn-speak-full').addEventListener('click', () => speakText(fullText));
+    body.querySelector('#btn-copy-full').addEventListener('click', () => copyText(fullText));
+  } else {
+    body.innerHTML = `
+      <div class="grid sm:grid-cols-2 gap-3.5">
+        ${essay.rubric.map(r => `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-stone-200 dark:border-slate-800">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <h3 class="text-sm font-bold text-indigo-700 dark:text-indigo-400">${esc(r.name)}</h3>
+              <span class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${esc(r.status)}</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${esc(r.note)}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+// ========================
+// TAB 2: MISTAKE NOTEBOOK
+// ========================
+function renderMistakes(container) {
+  const allMistakes = getAllMistakes();
+  const cats = ['all', '語法與主謂一致', '詞性與殘缺句', '詞義與中式英語', 'APA與防抄襲', '高頻拼寫紅榜', '結構與論證'];
+  const masteredCount = Object.values(state.masteredMistakes).filter(Boolean).length;
+  const checkDoneCount = Object.values(state.checklistDone).filter(Boolean).length;
+
+  container.innerHTML = `
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div>
+        <h2 class="text-lg font-bold">個人寫作錯題本</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">彙整你所有作文的高頻扣分點，已克服 ${masteredCount} / ${allMistakes.length} 項</p>
+      </div>
+      <div class="flex gap-1.5 bg-stone-200/70 dark:bg-slate-800 p-1 rounded-xl">
+        <button data-mview="list" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.mistakeView === 'list' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">錯題總覽</button>
+        <button data-mview="checklist" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.mistakeView === 'checklist' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">考前5分鐘清單 (${checkDoneCount}/${CHECKLIST.length})</button>
+        <button data-mview="quiz" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.mistakeView === 'quiz' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">排雷測驗</button>
+      </div>
+    </div>
+    <div id="mistakes-body"></div>
+  `;
+
+  container.querySelectorAll('button[data-mview]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.mistakeView = b.dataset.mview;
+      renderMistakes(container);
+    });
+  });
+
+  const body = container.querySelector('#mistakes-body');
+
+  if (state.mistakeView === 'list') {
+    const q = state.mistakeSearch.trim().toLowerCase();
+    const filtered = allMistakes.filter(m => {
+      if (state.mistakeCat !== 'all' && m.cat !== state.mistakeCat) return false;
+      if (q && !(m.wrong + ' ' + m.right + ' ' + m.rule + ' ' + m.cat).toLowerCase().includes(q)) return false;
+      return true;
+    });
+
+    body.innerHTML = `
+      <div class="space-y-3 mb-4">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input id="m-search" type="text" value="${esc(state.mistakeSearch)}" placeholder="搜尋錯字、語法規則（如 According、you、Patchwriting）..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+        <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+          ${cats.map(c => `
+            <button data-mcat="${c}" class="shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium border transition ${state.mistakeCat === c ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-stone-200 dark:border-slate-800'}">
+              ${c === 'all' ? '全部 (' + allMistakes.length + ')' : c}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3">
+        ${filtered.length ? filtered.map(m => {
+          const done = !!state.masteredMistakes[m.id];
+          return `
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border transition ${done ? 'border-emerald-300 dark:border-emerald-900/60 opacity-75' : 'border-stone-200 dark:border-slate-800'}">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300">${esc(m.cat)}</span>
+                  <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold ${m.freq.includes('致命') || m.freq.includes('極高') ? 'bg-rose-100 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300' : 'bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300'}">${esc(m.freq)}</span>
+                  <span class="text-[10px] text-slate-400">${esc(m.essay)}</span>
+                </div>
+                <button data-toggle-m="${m.id}" class="text-xs px-2.5 py-1 rounded-lg font-medium transition ${done ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300' : 'bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">
+                  ${done ? '✓ 已克服' : '標記已克服'}
+                </button>
+              </div>
+              <div class="space-y-1.5 text-xs sm:text-sm">
+                <div class="p-2 rounded-lg bg-rose-50/70 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 line-through">${esc(m.wrong)}</div>
+                <div class="p-2 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 font-medium">${esc(m.right)}</div>
+                <p class="text-xs text-slate-600 dark:text-slate-400 pt-1 leading-relaxed">${esc(m.rule)}</p>
+              </div>
+            </div>
+          `;
+        }).join('') : `<div class="col-span-full text-center py-10 text-sm text-slate-500">找不到符合條件的錯題。</div>`}
+      </div>
+    `;
+
+    body.querySelector('#m-search').addEventListener('input', e => {
+      state.mistakeSearch = e.target.value;
+      renderMistakes(container);
+      const inp = container.querySelector('#m-search');
+      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+    });
+    body.querySelectorAll('button[data-mcat]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.mistakeCat = b.dataset.mcat;
+        renderMistakes(container);
+      });
+    });
+    body.querySelectorAll('button[data-toggle-m]').forEach(b => {
+      b.addEventListener('click', () => {
+        const id = b.dataset.toggleM;
+        state.masteredMistakes[id] = !state.masteredMistakes[id];
+        saveState();
+        renderMistakes(container);
+      });
+    });
+  } else if (state.mistakeView === 'checklist') {
+    body.innerHTML = `
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold">考場最後 5 分鐘「專屬排雷清單」</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">每次計時寫完作文，逐項打勾掃描即可穩拉半級到一級</p>
+          </div>
+          <button id="btn-reset-check" class="text-xs px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">全部重置</button>
+        </div>
+        <div class="space-y-2.5">
+          ${CHECKLIST.map((item, idx) => {
+            const checked = !!state.checklistDone[item.id];
+            return `
+              <label class="flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition ${checked ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-900/50' : 'bg-stone-50/50 dark:bg-slate-800/40 border-stone-200 dark:border-slate-800'}">
+                <input type="checkbox" data-chk="${item.id}" ${checked ? 'checked' : ''} class="mt-1 w-4 h-4 rounded text-indigo-600 shrink-0" />
+                <div>
+                  <div class="text-sm font-semibold ${checked ? 'line-through text-slate-400' : ''}">${idx + 1}. ${esc(item.title)}</div>
+                  <div class="text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-relaxed">${esc(item.desc)}</div>
+                </div>
+              </label>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+    body.querySelectorAll('input[data-chk]').forEach(inp => {
+      inp.addEventListener('change', () => {
+        state.checklistDone[inp.dataset.chk] = inp.checked;
+        saveState();
+        renderMistakes(container);
+      });
+    });
+    body.querySelector('#btn-reset-check').addEventListener('click', () => {
+      state.checklistDone = {};
+      saveState();
+      renderMistakes(container);
+      showToast('已重置排雷清單');
+    });
+  } else {
+    const q = MISTAKE_QUIZ[state.mQuizIdx];
+    const finished = state.mQuizIdx >= MISTAKE_QUIZ.length;
+    if (finished) {
+      body.innerHTML = `
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-6 text-center max-w-lg mx-auto">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-300 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="award" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold">排雷測驗完成！</h3>
+          <p class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 my-2">${state.mQuizScore} / ${MISTAKE_QUIZ.length}</p>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4">每次考試前刷一輪，確保不再踩相同的語法與 APA 坑。</p>
+          <button id="btn-mquiz-restart" class="px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-medium">再測一次</button>
+        </div>
+      `;
+      body.querySelector('#btn-mquiz-restart').addEventListener('click', () => {
+        state.mQuizIdx = 0; state.mQuizScore = 0; state.mQuizSelected = null;
+        renderMistakes(container);
+      });
+    } else {
+      body.innerHTML = `
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-5 max-w-2xl mx-auto">
+          <div class="flex items-center justify-between text-xs text-slate-500 mb-3">
+            <span>第 ${state.mQuizIdx + 1} / ${MISTAKE_QUIZ.length} 題 · ${esc(q.context)}</span>
+            <span>目前得分：${state.mQuizScore}</span>
+          </div>
+          <h3 class="text-base font-bold mb-4">${esc(q.q)}</h3>
+          <div class="space-y-2.5">
+            ${q.opts.map((opt, idx) => {
+              let cls = 'bg-stone-50 dark:bg-slate-800/70 border-stone-200 dark:border-slate-700 hover:border-indigo-400';
+              if (state.mQuizSelected !== null) {
+                if (idx === q.ans) cls = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-medium';
+                else if (idx === state.mQuizSelected) cls = 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-700 dark:text-rose-300';
+              }
+              return `<button data-mopt="${idx}" ${state.mQuizSelected !== null ? 'disabled' : ''} class="w-full text-left p-3.5 rounded-xl border text-sm transition ${cls}">
+                <span class="font-bold mr-2">${String.fromCharCode(65 + idx)}.</span>${esc(opt)}
+              </button>`;
+            }).join('')}
+          </div>
+          ${state.mQuizSelected !== null ? `
+            <div class="mt-4 p-3.5 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+              <b>解析：</b>${esc(q.exp)}
+            </div>
+            <button id="btn-mquiz-next" class="mt-4 w-full py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold">下一題</button>
+          ` : ''}
+        </div>
+      `;
+      body.querySelectorAll('button[data-mopt]').forEach(b => {
+        b.addEventListener('click', () => {
+          const pick = Number(b.dataset.mopt);
+          state.mQuizSelected = pick;
+          if (pick === q.ans) state.mQuizScore++;
+          renderMistakes(container);
+        });
+      });
+      const nxt = body.querySelector('#btn-mquiz-next');
+      if (nxt) nxt.addEventListener('click', () => {
+        state.mQuizIdx++; state.mQuizSelected = null;
+        renderMistakes(container);
+      });
+    }
+  }
+}
+
+// ========================
+// TAB 3: WRITING TOOLKIT
+// ========================
+function renderToolkit(container) {
+  const secs = [
+    { id: 'intros', label: '4種高分開頭 & Thesis' },
+    { id: 'transitions', label: '萬能過渡句庫' },
+    { id: 'peelc', label: '維度切割 & PEEL-C' },
+    { id: 'paper3', label: 'Paper 3 模擬試卷' }
+  ];
+  container.innerHTML = `
+    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-4">
+      ${secs.map(s => `
+        <button data-tsec="${s.id}" class="shrink-0 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium border transition ${state.toolkitSec === s.id ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-stone-200 dark:border-slate-800'}">
+          ${s.label}
+        </button>
+      `).join('')}
+    </div>
+    <div id="toolkit-body"></div>
+  `;
+  container.querySelectorAll('button[data-tsec]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.toolkitSec = b.dataset.tsec;
+      renderToolkit(container);
+    });
+  });
+
+  const body = container.querySelector('#toolkit-body');
+  if (state.toolkitSec === 'intros') {
+    body.innerHTML = `
+      <div class="grid md:grid-cols-2 gap-3.5 mb-5">
+        ${TOOLKIT.intros.map((item, i) => `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-stone-200 dark:border-slate-800 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-indigo-700 dark:text-indigo-400">${esc(item.name)}</h3>
+              <button data-copy-intro="${i}" class="text-xs px-2 py-1 rounded-lg bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">複製公式</button>
+            </div>
+            <div class="p-2.5 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 text-xs font-mono text-slate-800 dark:text-slate-200 leading-relaxed">${esc(item.formula)}</div>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed"><b>考場示範：</b>${esc(item.example)}</p>
+          </div>
+        `).join('')}
+      </div>
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+        <h3 class="text-sm font-bold mb-3">升級 Thesis Statement（戒掉總是寫 This essay argues）</h3>
+        <div class="space-y-2.5">
+          ${TOOLKIT.theses.map(t => `
+            <div class="p-3 rounded-xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200 dark:border-slate-700">
+              <div class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-1">${esc(t.type)}</div>
+              <div class="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200">${esc(t.pattern)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    body.querySelectorAll('button[data-copy-intro]').forEach(b => {
+      b.addEventListener('click', () => copyText(TOOLKIT.intros[Number(b.dataset.copyIntro)].formula));
+    });
+  } else if (state.toolkitSec === 'transitions') {
+    body.innerHTML = `
+      <div class="space-y-3.5">
+        ${TOOLKIT.transitions.map(t => `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+            <h3 class="text-sm font-bold text-indigo-700 dark:text-indigo-400 mb-3">${esc(t.pos)}</h3>
+            <div class="space-y-2">
+              ${t.formulas.map(f => `
+                <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200 dark:border-slate-700">
+                  <span class="text-xs sm:text-sm text-slate-800 dark:text-slate-200">${esc(f)}</span>
+                  <button data-copy-tr="${esc(f)}" class="shrink-0 text-xs px-2.5 py-1 rounded-lg bg-white dark:bg-slate-700 border border-stone-200 dark:border-slate-600">複製</button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    body.querySelectorAll('button[data-copy-tr]').forEach(b => {
+      b.addEventListener('click', () => copyText(b.dataset.copyTr));
+    });
+  } else if (state.toolkitSec === 'peelc') {
+    body.innerHTML = `
+      <div class="grid lg:grid-cols-2 gap-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+          <h3 class="text-base font-bold mb-1">維度切割法（防止兩個正面論點撞車）</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">列大綱時強制把 Body 1 和 Body 2 切進完全不同的兩個維度</p>
+          <div class="space-y-2.5">
+            ${TOOLKIT.dimensions.map(d => `
+              <div class="p-3 rounded-xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200 dark:border-slate-700 text-xs space-y-1">
+                <div class="font-bold text-indigo-600 dark:text-indigo-400">${esc(d.topic)}</div>
+                <div><b>Body 1：</b>${esc(d.b1)}</div>
+                <div><b>Body 2：</b>${esc(d.b2)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+          <h3 class="text-base font-bold mb-1">PEEL-C 五步擴寫法（每段穩衝 150 詞）</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">引言 80 + 三主體段 450 + 結論 70 = 穩穩 600 詞</p>
+          <div class="space-y-2">
+            ${TOOLKIT.peelc.map(p => `
+              <div class="p-3 rounded-xl bg-indigo-50/40 dark:bg-indigo-950/20 border border-indigo-100 dark:border-indigo-900/40">
+                <div class="text-xs font-bold text-indigo-700 dark:text-indigo-300">${esc(p.step)}</div>
+                <div class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">${esc(p.desc)}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  } else {
+    const p3 = TOOLKIT.paper3;
+    const p3FullText = (p3.modelEssay || []).join('\n\n');
+    const p3Wc = p3FullText ? p3FullText.trim().split(/\s+/).length : 0;
+    body.innerHTML = `
+      <div class="space-y-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">考前實戰題 · 建議計時 1 小時 50 分鐘（目標約 600 詞）</span>
+            <button id="btn-toggle-p3-model" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition ${state.showPaper3Model ? 'bg-slate-800 dark:bg-slate-700 text-white' : 'bg-indigo-600 text-white shadow-xs'}">
+              ${state.showPaper3Model ? '隱藏參考範文' : '查看 Mock 規格完整範文（約 ' + p3Wc + ' 詞）'}
+            </button>
+          </div>
+          <h3 class="text-base sm:text-lg font-bold mt-2">${esc(p3.title)}</h3>
+          <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 mt-2 leading-relaxed"><b>Essay Topic: </b>${esc(p3.prompt)}</p>
+        </div>
+
+        ${state.showPaper3Model ? `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-6 border-2 border-indigo-200 dark:border-indigo-900/70">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-stone-100 dark:border-slate-800">
+              <div>
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">B+ / A- 標竿示範 · 約 ${p3Wc} 詞</span>
+                <h4 class="text-sm sm:text-base font-bold mt-1">Practice Paper 3 完整範文（對標學校 Mock Exam 長度）</h4>
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="btn-p3-speak" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 flex items-center gap-1">
+                  <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 朗讀全文
+                </button>
+                <button id="btn-p3-copy" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center gap-1">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> 複製範文
+                </button>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3 text-[11px] mb-4 text-slate-500 dark:text-slate-400">
+              <span class="inline-flex items-center gap-1.5"><span class="mark-transition px-1.5">紫色底線</span> 段落過渡句</span>
+              <span class="inline-flex items-center gap-1.5"><span class="mark-apa px-1.5">綠色底線</span> APA 7th 文內引用（含雙作者 Gomez &amp; Lee）</span>
+            </div>
+            <div class="space-y-4 text-sm sm:text-[15px] leading-7 sm:leading-8 text-slate-800 dark:text-slate-200">
+              ${(p3.modelEssay || []).map(para => `<p>${highlightEssayHtml(para, p3.modelTransitions || [])}</p>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        ${p3.sources.map(s => `
+          <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-stone-200 dark:border-slate-800">
+            <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">${esc(s.label)}</div>
+            <div class="text-xs italic text-slate-500 dark:text-slate-400 mt-0.5 mb-2.5">${esc(s.apa)}</div>
+            <p class="text-sm leading-7 text-slate-800 dark:text-slate-200">${esc(s.text)}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    body.querySelector('#btn-toggle-p3-model').addEventListener('click', () => {
+      state.showPaper3Model = !state.showPaper3Model;
+      renderToolkit(container);
+    });
+    const spk = body.querySelector('#btn-p3-speak');
+    if (spk) spk.addEventListener('click', () => speakText(p3FullText));
+    const cpy = body.querySelector('#btn-p3-copy');
+    if (cpy) cpy.addEventListener('click', () => copyText(p3FullText));
+  }
+}
+
+// ========================
+// TAB 4: VOCAB BOOK (48 + Custom)
+// ========================
+function getFilteredVocab() {
+  const all = getAllVocab();
+  const q = state.vocabSearch.trim().toLowerCase();
+  return all.filter(v => {
+    if (state.vocabPage !== 'all') {
+      if (state.vocabPage === 'custom' && v.page !== 'custom') return false;
+      if (state.vocabPage !== 'custom' && v.page !== Number(state.vocabPage)) return false;
+    }
+    const isM = !!state.vocabMastered[v.id];
+    const stars = Number(state.vocabStars[v.id] || 0);
+    if (state.vocabFilter === 'mastered' && !isM) return false;
+    if (state.vocabFilter === 'learning' && isM) return false;
+    if (state.vocabFilter === 'starred' && stars <= 0) return false;
+    if (q && !(v.word + ' ' + v.zh + ' ' + v.def + ' ' + (v.note || '')).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function generateVocabQuiz() {
+  const all = getAllVocab();
+  const target = all[Math.floor(Math.random() * all.length)];
+  const distractors = all.filter(v => v.id !== target.id).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [target, ...distractors].sort(() => Math.random() - 0.5);
+  state.vQuizQ = { target, options };
+  state.vQuizSelected = null;
+}
+
+function renderVocab(container) {
+  const all = getAllVocab();
+  const list = getFilteredVocab();
+  const masteredTotal = all.filter(v => state.vocabMastered[v.id]).length;
+
+  container.innerHTML = `
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <div>
+        <h2 class="text-lg font-bold">個人生詞本（共 ${all.length} 詞）</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">已記熟 ${masteredTotal} / ${all.length} · 完整收錄手寫本 P.1–P.6 與 Reading 收藏</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-photo-vocab" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center gap-1 shadow-xs transition">
+          <i data-lucide="camera" class="w-3.5 h-3.5"></i> 拍照錄入
+        </button>
+        <button id="btn-add-vocab" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-medium flex items-center gap-1 shadow-xs">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i> 手動新增
+        </button>
+      </div>
+    </div>
+
+    <!-- Mode & Page Filters -->
+    <div class="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+      <div class="flex gap-1 bg-stone-200/70 dark:bg-slate-800 p-1 rounded-xl">
+        <button data-vmode="flashcard" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.vocabMode === 'flashcard' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">閃卡複習</button>
+        <button data-vmode="list" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.vocabMode === 'list' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">列表速查</button>
+        <button data-vmode="quiz" class="px-3 py-1.5 rounded-lg text-xs font-medium ${state.vocabMode === 'quiz' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300 shadow-2xs' : 'text-slate-600 dark:text-slate-300'}">詞義自測</button>
+      </div>
+      ${state.vocabMode !== 'quiz' ? `
+        <div class="flex gap-1.5 overflow-x-auto no-scrollbar">
+          <select id="sel-vpage" class="px-2.5 py-1.5 rounded-lg text-xs bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800">
+            <option value="all" ${state.vocabPage === 'all' ? 'selected' : ''}>全部頁碼 (${all.length})</option>
+            ${[1,2,3,4,5,6].map(p => `<option value="${p}" ${String(state.vocabPage) === String(p) ? 'selected' : ''}>手寫本 P.${p}</option>`).join('')}
+            <option value="custom" ${state.vocabPage === 'custom' ? 'selected' : ''}>自訂／Reading (${state.customVocab.length})</option>
+          </select>
+          <select id="sel-vfilter" class="px-2.5 py-1.5 rounded-lg text-xs bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800">
+            <option value="all" ${state.vocabFilter === 'all' ? 'selected' : ''}>全部狀態</option>
+            <option value="starred" ${state.vocabFilter === 'starred' ? 'selected' : ''}>★ 重複星標 (${all.filter(v => (state.vocabStars[v.id] || 0) > 0).length})</option>
+            <option value="learning" ${state.vocabFilter === 'learning' ? 'selected' : ''}>需再練</option>
+            <option value="mastered" ${state.vocabFilter === 'mastered' ? 'selected' : ''}>已記熟</option>
+          </select>
+        </div>
+      ` : ''}
+    </div>
+
+    <div id="vocab-body"></div>
+  `;
+
+  container.querySelector('#btn-add-vocab').addEventListener('click', () => openAddVocabModal(''));
+  container.querySelector('#btn-photo-vocab').addEventListener('click', () => openPhotoVocabModal());
+  container.querySelectorAll('button[data-vmode]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.vocabMode = b.dataset.vmode;
+      if (state.vocabMode === 'quiz' && !state.vQuizQ) generateVocabQuiz();
+      renderVocab(container);
+    });
+  });
+  const selP = container.querySelector('#sel-vpage');
+  if (selP) selP.addEventListener('change', e => { state.vocabPage = e.target.value; state.cardIdx = 0; state.cardFlipped = false; renderVocab(container); });
+  const selF = container.querySelector('#sel-vfilter');
+  if (selF) selF.addEventListener('change', e => { state.vocabFilter = e.target.value; state.cardIdx = 0; state.cardFlipped = false; renderVocab(container); });
+
+  const body = container.querySelector('#vocab-body');
+
+  if (state.vocabMode === 'flashcard') {
+    if (!list.length) {
+      body.innerHTML = `<div class="bg-white dark:bg-slate-900 rounded-2xl p-10 text-center border border-stone-200 dark:border-slate-800 text-sm text-slate-500">這個篩選條件下沒有生詞，換個頁碼或狀態看看吧！</div>`;
+      return;
+    }
+    if (state.cardIdx >= list.length) state.cardIdx = 0;
+    const item = list[state.cardIdx];
+    const isM = !!state.vocabMastered[item.id];
+
+    body.innerHTML = `
+      <div class="max-w-xl mx-auto">
+        <div class="flex items-center justify-between text-xs text-slate-500 mb-2 px-1">
+          <span>第 ${state.cardIdx + 1} / ${list.length} 張 · ${item.page === 'custom' ? '自訂生詞' : '手寫本 P.' + item.page}</span>
+          <span>點擊卡片翻面</span>
+        </div>
+
+        <div id="flashcard-click" class="card-flip-container cursor-pointer select-none min-h-[270px] sm:min-h-[300px]">
+          <div class="card-flip-inner w-full min-h-[270px] sm:min-h-[300px] ${state.cardFlipped ? 'is-flipped' : ''}">
+            <!-- Front -->
+            <div class="card-face absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border border-stone-200 dark:border-slate-800 shadow-sm p-6 flex flex-col items-center justify-center text-center">
+              ${(state.vocabStars[item.id] || 0) > 0 ? `<div class="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center gap-1">★ ×${state.vocabStars[item.id]}</div>` : ''}
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-300 mb-3">${esc(item.pos)}</span>
+              <div class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">${esc(item.word)}</div>
+              <button id="btn-card-speak" class="px-4 py-2 rounded-full bg-stone-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-medium flex items-center gap-1.5 hover:bg-indigo-50 dark:hover:bg-indigo-950/50">
+                <i data-lucide="volume-2" class="w-4 h-4"></i> 聆聽發音
+              </button>
+              <div class="mt-6 text-[11px] text-slate-400">輕點卡片查看釋義與寫作例句</div>
+            </div>
+
+            <!-- Back -->
+            <div class="card-face card-face-back absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl border-2 border-indigo-200 dark:border-indigo-900 shadow-sm p-5 sm:p-6 flex flex-col justify-between overflow-y-auto">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <div class="text-lg font-bold text-indigo-600 dark:text-indigo-400">${esc(item.word)} <span class="text-xs font-normal text-slate-400">${esc(item.pos)}</span></div>
+                  <span class="text-sm font-bold text-slate-800 dark:text-slate-100">${esc(item.zh)}</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-2.5"><b>English Def: </b>${esc(item.def)}</p>
+                ${item.ex ? `<p class="text-xs sm:text-sm italic text-slate-600 dark:text-slate-400 bg-stone-50 dark:bg-slate-800/60 p-2.5 rounded-xl mb-2.5">“${esc(item.ex)}”</p>` : ''}
+                ${item.note ? `<p class="text-xs text-amber-800 dark:text-amber-300 bg-amber-50/80 dark:bg-amber-950/30 p-2.5 rounded-xl leading-relaxed">${esc(item.note)}</p>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Controls -->
+        <div class="grid grid-cols-4 gap-2 mt-4">
+          <button id="btn-prev-card" class="py-3 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm font-medium flex items-center justify-center gap-1">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i> 上一個
+          </button>
+          <button id="btn-mark-card" class="col-span-2 py-3 rounded-2xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 transition ${isM ? 'bg-emerald-600 text-white' : 'bg-indigo-600 text-white'}">
+            <i data-lucide="${isM ? 'check-circle' : 'bookmark-check'}" class="w-4 h-4"></i> ${isM ? '已記熟（點此取消）' : '標記已記熟'}
+          </button>
+          <button id="btn-next-card" class="py-3 rounded-2xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-xs sm:text-sm font-medium flex items-center justify-center gap-1">
+            下一個 <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+    body.querySelector('#flashcard-click').addEventListener('click', e => {
+      if (e.target.closest('#btn-card-speak')) return;
+      state.cardFlipped = !state.cardFlipped;
+      renderVocab(container);
+    });
+    body.querySelector('#btn-card-speak').addEventListener('click', e => {
+      e.stopPropagation();
+      speakText(item.word);
+    });
+    body.querySelector('#btn-prev-card').addEventListener('click', () => {
+      state.cardIdx = (state.cardIdx - 1 + list.length) % list.length;
+      state.cardFlipped = false;
+      renderVocab(container);
+    });
+    body.querySelector('#btn-next-card').addEventListener('click', () => {
+      state.cardIdx = (state.cardIdx + 1) % list.length;
+      state.cardFlipped = false;
+      renderVocab(container);
+    });
+    body.querySelector('#btn-mark-card').addEventListener('click', () => {
+      state.vocabMastered[item.id] = !state.vocabMastered[item.id];
+      saveState();
+      renderVocab(container);
+    });
+  } else if (state.vocabMode === 'list') {
+    body.innerHTML = `
+      <div class="relative mb-3.5">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input id="v-search" type="text" value="${esc(state.vocabSearch)}" placeholder="搜尋英文單字或中文釋義..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-stone-200 dark:border-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        ${list.map(v => {
+          const isM = !!state.vocabMastered[v.id];
+          return `
+            <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border ${isM ? 'border-emerald-300 dark:border-emerald-900/60' : 'border-stone-200 dark:border-slate-800'} flex flex-col justify-between gap-2.5">
+              <div>
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center flex-wrap gap-1">
+                    <span class="text-base font-bold text-slate-900 dark:text-white">${esc(v.word)}</span>
+                    <span class="text-xs text-indigo-600 dark:text-indigo-400">${esc(v.pos)}</span>
+                    ${(state.vocabStars[v.id] || 0) > 0 ? `<span class="px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 text-[10px] font-bold">★${state.vocabStars[v.id] > 1 ? '×' + state.vocabStars[v.id] : ''}</span>` : ''}
+                  </div>
+                  <div class="flex items-center gap-1 shrink-0">
+                    <button data-vstar="${v.id}" title="加星星標記重點" class="p-1.5 rounded-lg ${(state.vocabStars[v.id] || 0) > 0 ? 'bg-amber-100 dark:bg-amber-950/60 text-amber-600' : 'bg-stone-100 dark:bg-slate-800 text-slate-400 hover:text-amber-500'}">
+                      <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button data-vspeak="${esc(v.word)}" class="p-1.5 rounded-lg bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-indigo-600">
+                      <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="text-xs font-semibold text-indigo-700 dark:text-indigo-300 mt-0.5">${esc(v.zh)}</div>
+                <p class="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">${esc(v.def)}</p>
+                ${v.note ? `<p class="text-[11px] text-amber-800 dark:text-amber-300 bg-amber-50/70 dark:bg-amber-950/30 p-2 rounded-lg mt-2">${esc(v.note)}</p>` : ''}
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-stone-100 dark:border-slate-800">
+                <span class="text-[10px] text-slate-400">${v.page === 'custom' ? '自訂生詞' : 'P.' + v.page}</span>
+                <button data-vtoggle="${v.id}" class="text-xs font-medium px-2.5 py-1 rounded-lg ${isM ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300' : 'bg-stone-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">
+                  ${isM ? '✓ 已記熟' : '需再練'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+    body.querySelector('#v-search').addEventListener('input', e => {
+      state.vocabSearch = e.target.value;
+      renderVocab(container);
+      const inp = container.querySelector('#v-search');
+      if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+    });
+    body.querySelectorAll('button[data-vspeak]').forEach(b => b.addEventListener('click', () => speakText(b.dataset.vspeak)));
+    body.querySelectorAll('button[data-vstar]').forEach(b => b.addEventListener('click', () => {
+      const id = b.dataset.vstar;
+      state.vocabStars[id] = (state.vocabStars[id] || 0) + 1;
+      saveState();
+      renderVocab(container);
+      showToast('已為該詞加上一顆 ★ 重點星標');
+    }));
+    body.querySelectorAll('button[data-vtoggle]').forEach(b => {
+      b.addEventListener('click', () => {
+        const id = b.dataset.vtoggle;
+        state.vocabMastered[id] = !state.vocabMastered[id];
+        saveState();
+        renderVocab(container);
+      });
+    });
+  } else {
+    if (!state.vQuizQ) generateVocabQuiz();
+    const { target, options } = state.vQuizQ;
+    body.innerHTML = `
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-5 max-w-xl mx-auto">
+        <div class="flex items-center justify-between text-xs text-slate-500 mb-3">
+          <span>生詞 4 選 1 快速自測</span>
+          <span>答對率：${state.vQuizStats.right} / ${state.vQuizStats.total}</span>
+        </div>
+        <div class="text-center py-4 mb-4 bg-stone-50 dark:bg-slate-800/50 rounded-2xl">
+          <div class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">${esc(target.pos)}</div>
+          <div class="text-2xl sm:text-3xl font-bold mt-1 mb-2">${esc(target.word)}</div>
+          <button id="btn-vq-speak" class="text-xs px-3 py-1 rounded-full bg-white dark:bg-slate-800 border border-stone-200 dark:border-slate-700 inline-flex items-center gap-1">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5"></i> 聽發音
+          </button>
+        </div>
+        <div class="space-y-2.5">
+          ${options.map(opt => {
+            let cls = 'bg-stone-50 dark:bg-slate-800/70 border-stone-200 dark:border-slate-700 hover:border-indigo-400';
+            if (state.vQuizSelected !== null) {
+              if (opt.id === target.id) cls = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-medium';
+              else if (opt.id === state.vQuizSelected) cls = 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-700 dark:text-rose-300';
+            }
+            return `<button data-vqopt="${opt.id}" ${state.vQuizSelected !== null ? 'disabled' : ''} class="w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition ${cls}">
+              <div class="font-semibold">${esc(opt.zh)}</div>
+              <div class="text-xs opacity-80 mt-0.5">${esc(opt.def)}</div>
+            </button>`;
+          }).join('')}
+        </div>
+        ${state.vQuizSelected !== null ? `
+          <button id="btn-vq-next" class="mt-4 w-full py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold">下一題</button>
+        ` : ''}
+      </div>
+    `;
+    body.querySelector('#btn-vq-speak').addEventListener('click', () => speakText(target.word));
+    body.querySelectorAll('button[data-vqopt]').forEach(b => {
+      b.addEventListener('click', () => {
+        state.vQuizSelected = b.dataset.vqopt;
+        state.vQuizStats.total++;
+        if (b.dataset.vqopt === target.id) state.vQuizStats.right++;
+        renderVocab(container);
+      });
+    });
+    const nxt = body.querySelector('#btn-vq-next');
+    if (nxt) nxt.addEventListener('click', () => { generateVocabQuiz(); renderVocab(container); });
+  }
+}
+
+// ========================
+// TAB 5: HOLIDAY READING (GITHUB IELTS ACADEMIC)
+// ========================
+function normalizeAns(s) {
+  return String(s || '').trim().toLowerCase().replace(/[.,!?;:'"()]/g, '').replace(/\s+/g, ' ');
+}
+
+function isCorrectReadingQ(q, userVal) {
+  const u = normalizeAns(userVal);
+  if (!u) return false;
+  const accepted = (q.accepted && q.accepted.length ? q.accepted : [q.answer]).map(normalizeAns);
+  if (accepted.includes(u)) return true;
+  // For matching-headings where option text starts with roman numeral e.g. "v. ..."
+  const ansNorm = normalizeAns(q.answer);
+  if (u.startsWith(ansNorm + ' ') || u === ansNorm) return true;
+  return false;
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function renderReading(container) {
+  const allReadings = getAllReadings();
+  const r = allReadings.find(x => x.id === state.readingId) || allReadings[0];
+  const ansMap = state.readingAnswers[r.id] || {};
+  const submitted = !!state.readingSubmitted[r.id];
+  const marks = state.readingMarks[r.id] || [];
+  const allQs = r.groups.flatMap(g => g.questions);
+  let score = 0;
+  if (submitted) {
+    allQs.forEach(q => { if (isCorrectReadingQ(q, ansMap[q.num])) score++; });
+  }
+
+  const fontCls = state.readingFont === 'sm' ? 'text-xs sm:text-sm leading-6' : state.readingFont === 'lg' ? 'text-base sm:text-lg leading-8' : 'text-sm sm:text-[15px] leading-7';
+
+  container.innerHTML = `
+    <!-- Passage Selector -->
+    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 mb-3">
+      ${allReadings.map(p => `
+        <button data-rid="${p.id}" class="shrink-0 px-3.5 py-2 rounded-xl text-xs font-medium border text-left transition ${p.id === r.id ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-stone-200 dark:border-slate-800'}">
+          <div class="text-[10px] opacity-80">${esc(p.tag)}</div>
+          <div class="font-semibold">${esc(p.title.length > 26 ? p.title.slice(0, 26) + '…' : p.title)}</div>
+        </button>
+      `).join('')}
+    </div>
+
+    <!-- Reading Toolbar -->
+    <div class="bg-white dark:bg-slate-900 rounded-2xl p-3 sm:p-4 border border-stone-200 dark:border-slate-800 mb-4 flex flex-wrap items-center justify-between gap-2.5">
+      <div class="min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">${esc(r.tag)}</span>
+          <span class="text-[11px] text-slate-400">來源：GitHub (LuchoBazz/ielts-ai-dataset · CC BY 4.0)</span>
+        </div>
+        <h2 class="text-sm sm:text-base font-bold mt-1">${esc(r.title)}</h2>
+      </div>
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <div class="flex items-center bg-stone-100 dark:bg-slate-800 rounded-lg px-2 py-1 text-xs font-mono gap-1.5">
+          <span id="timer-display">${formatTime(state.timerSec)}</span>
+          <button id="btn-timer-toggle" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-700 text-[11px] font-sans">${state.timerRunning ? '暫停' : '計時'}</button>
+          <button id="btn-timer-reset" class="text-slate-400 hover:text-slate-600" title="重設 20 分鐘"><i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i></button>
+        </div>
+        <div class="flex bg-stone-100 dark:bg-slate-800 rounded-lg p-0.5 text-xs">
+          ${['sm','base','lg'].map((sz, i) => `<button data-rfont="${sz}" class="px-2 py-1 rounded-md ${state.readingFont === sz ? 'bg-white dark:bg-slate-700 font-bold' : 'text-slate-500'}">${['A-','A','A+'][i]}</button>`).join('')}
+        </div>
+        <button id="btn-reading-addword" class="px-2.5 py-1.5 rounded-lg bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs font-medium flex items-center gap-1">
+          <i data-lucide="bookmark-plus" class="w-3.5 h-3.5"></i> 收錄生詞
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Pane Toggle (Hidden on iPad/Desktop where split-pane is shown) -->
+    <div class="flex md:hidden gap-1.5 bg-stone-200/70 dark:bg-slate-800 p-1 rounded-xl mb-3">
+      <button data-mpane="passage" class="flex-1 py-2 rounded-lg text-xs font-semibold ${state.readingMobilePane === 'passage' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}">閱讀文章 (${r.paragraphs.length}段)</button>
+      <button data-mpane="questions" class="flex-1 py-2 rounded-lg text-xs font-semibold ${state.readingMobilePane === 'questions' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-300'}">互動答題 (${allQs.length}題)</button>
+    </div>
+
+    <!-- Split Pane (iPad / Desktop) or Single Active Pane (Mobile) -->
+    <div class="grid md:grid-cols-12 gap-4 items-start">
+      <!-- Passage Pane -->
+      <div class="md:col-span-7 bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-4 sm:p-5 md:max-h-[72vh] md:overflow-y-auto ${state.readingMobilePane === 'questions' ? 'hidden md:block' : ''}">
+        <div class="flex items-center justify-between text-[11px] text-slate-400 mb-3">
+          <span>輕點任意段落可標記重點底色</span>
+          <span>共 ${r.paragraphs.length} 段</span>
+        </div>
+        <div class="space-y-4 ${fontCls} text-slate-800 dark:text-slate-200">
+          ${r.paragraphs.map((para, idx) => {
+            const marked = marks.includes(idx);
+            return `<p data-mark-p="${idx}" class="p-2.5 -mx-2.5 rounded-xl cursor-pointer transition ${marked ? 'bg-amber-100/70 dark:bg-amber-900/30 border-l-4 border-amber-400' : 'hover:bg-stone-50 dark:hover:bg-slate-800/40'}">${esc(para)}</p>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Questions Pane -->
+      <div class="md:col-span-5 bg-white dark:bg-slate-900 rounded-2xl border border-stone-200 dark:border-slate-800 p-4 sm:p-5 md:max-h-[72vh] md:overflow-y-auto ${state.readingMobilePane === 'passage' ? 'hidden md:block' : ''}">
+        ${submitted ? `
+          <div class="mb-4 p-3.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900 flex items-center justify-between">
+            <div>
+              <div class="text-xs text-indigo-600 dark:text-indigo-300 font-semibold">本篇答題結果</div>
+              <div class="text-xl font-bold text-indigo-700 dark:text-indigo-200">${score} / ${allQs.length} 正確（${Math.round((score / Math.max(1, allQs.length)) * 100)}%）</div>
+            </div>
+            <button id="btn-r-retry" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 text-xs font-medium border border-indigo-200 dark:border-indigo-800">重新作答</button>
+          </div>
+        ` : ''}
+
+        <div class="space-y-5">
+          ${r.groups.map((g, gIdx) => `
+            <div class="space-y-3 ${gIdx > 0 ? 'pt-4 border-t border-stone-100 dark:border-slate-800' : ''}">
+              <div class="text-xs font-semibold text-indigo-700 dark:text-indigo-400 bg-indigo-50/70 dark:bg-indigo-950/30 p-2.5 rounded-xl leading-relaxed">
+                ${esc(g.instructions || g.type)}
+              </div>
+              ${g.word_bank && g.word_bank.length ? `
+                <div class="p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200 dark:border-slate-700 text-xs space-y-1">
+                  <div class="font-bold text-slate-600 dark:text-slate-300 mb-1">List of Headings:</div>
+                  ${g.word_bank.map(w => `<div>${esc(w.text)}</div>`).join('')}
+                </div>
+              ` : ''}
+              ${g.questions.map(q => renderReadingQuestion(r.id, g, q, ansMap[q.num] || '', submitted)).join('')}
+            </div>
+          `).join('')}
+        </div>
+
+        ${!submitted ? `
+          <button id="btn-r-submit" class="mt-5 w-full py-3 rounded-xl bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-700 transition">交卷並對答案</button>
+        ` : ''}
+      </div>
+    </div>
+  `;
+
+  container.querySelectorAll('button[data-rid]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.readingId = b.dataset.rid;
+      saveState();
+      renderReading(container);
+    });
+  });
+  container.querySelectorAll('button[data-rfont]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.readingFont = b.dataset.rfont;
+      saveState();
+      renderReading(container);
+    });
+  });
+  container.querySelectorAll('button[data-mpane]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.readingMobilePane = b.dataset.mpane;
+      renderReading(container);
+    });
+  });
+  container.querySelectorAll('p[data-mark-p]').forEach(p => {
+    p.addEventListener('click', () => {
+      const idx = Number(p.dataset.markP);
+      const arr = state.readingMarks[r.id] ? [...state.readingMarks[r.id]] : [];
+      const pos = arr.indexOf(idx);
+      if (pos >= 0) arr.splice(pos, 1); else arr.push(idx);
+      state.readingMarks[r.id] = arr;
+      saveState();
+      renderReading(container);
+    });
+  });
+
+  // Timer controls
+  container.querySelector('#btn-timer-toggle').addEventListener('click', () => {
+    state.timerRunning = !state.timerRunning;
+    if (state.timerRunning) {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (state.timerSec > 0) {
+          state.timerSec--;
+          const td = document.getElementById('timer-display');
+          if (td) td.textContent = formatTime(state.timerSec);
+        } else {
+          clearInterval(timerInterval);
+          state.timerRunning = false;
+          showToast('20 分鐘時間到！');
+          renderReading(container);
+        }
+      }, 1000);
+    } else {
+      clearInterval(timerInterval);
+    }
+    renderReading(container);
+  });
+  container.querySelector('#btn-timer-reset').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    state.timerRunning = false;
+    state.timerSec = 1200;
+    renderReading(container);
+  });
+  container.querySelector('#btn-reading-addword').addEventListener('click', () => {
+    const sel = (window.getSelection ? window.getSelection().toString() : '').trim();
+    openAddVocabModal(sel.length <= 40 ? sel : '');
+  });
+
+  // Question inputs
+  container.querySelectorAll('[data-rq-input]').forEach(el => {
+    const handler = () => {
+      const qnum = el.dataset.rqInput;
+      if (!state.readingAnswers[r.id]) state.readingAnswers[r.id] = {};
+      state.readingAnswers[r.id][qnum] = el.value;
+      saveState();
+    };
+    el.addEventListener('input', handler);
+    el.addEventListener('change', handler);
+  });
+  container.querySelectorAll('button[data-rq-choice]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (submitted) return;
+      const qnum = btn.dataset.rqNum;
+      if (!state.readingAnswers[r.id]) state.readingAnswers[r.id] = {};
+      state.readingAnswers[r.id][qnum] = btn.dataset.rqChoice;
+      saveState();
+      renderReading(container);
+    });
+  });
+
+  const subBtn = container.querySelector('#btn-r-submit');
+  if (subBtn) subBtn.addEventListener('click', () => {
+    state.readingSubmitted[r.id] = true;
+    clearInterval(timerInterval);
+    state.timerRunning = false;
+    saveState();
+    renderReading(container);
+    showToast('已交卷批改！');
+  });
+  const retryBtn = container.querySelector('#btn-r-retry');
+  if (retryBtn) retryBtn.addEventListener('click', () => {
+    state.readingSubmitted[r.id] = false;
+    state.readingAnswers[r.id] = {};
+    saveState();
+    renderReading(container);
+  });
+}
+
+function renderReadingQuestion(rid, group, q, val, submitted) {
+  const ok = submitted && isCorrectReadingQ(q, val);
+  const statusBadge = submitted
+    ? (ok ? `<span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">✓ 正確</span>`
+          : `<span class="text-[11px] font-bold text-rose-600 dark:text-rose-400">✗ 正解：${esc(q.answer)}</span>`)
+    : '';
+
+  let control = '';
+  if (group.type === 'true-false-not-given' || group.type === 'yes-no-not-given') {
+    const choices = group.type === 'true-false-not-given' ? ['TRUE', 'FALSE', 'NOT GIVEN'] : ['YES', 'NO', 'NOT GIVEN'];
+    control = `<div class="grid grid-cols-3 gap-1.5 mt-2">
+      ${choices.map(c => {
+        const picked = normalizeAns(val) === normalizeAns(c);
+        let cls = picked ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-stone-50 dark:bg-slate-800 border-stone-200 dark:border-slate-700 text-slate-700 dark:text-slate-300';
+        if (submitted && normalizeAns(c) === normalizeAns(q.answer)) cls = 'bg-emerald-600 text-white border-emerald-600';
+        else if (submitted && picked && !ok) cls = 'bg-rose-600 text-white border-rose-600';
+        return `<button type="button" data-rq-num="${q.num}" data-rq-choice="${c}" class="py-1.5 rounded-lg border text-[11px] font-semibold transition ${cls}">${c}</button>`;
+      }).join('')}
+    </div>`;
+  } else if (group.type === 'multiple-choice' || group.type === 'matching-sentence-endings') {
+    control = `<div class="space-y-1.5 mt-2">
+      ${q.options.map(o => {
+        const picked = normalizeAns(val) === normalizeAns(o.id);
+        let cls = picked ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-500 text-indigo-800 dark:text-indigo-200 font-medium' : 'bg-stone-50 dark:bg-slate-800/70 border-stone-200 dark:border-slate-700';
+        if (submitted && normalizeAns(o.id) === normalizeAns(q.answer)) cls = 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-800 dark:text-emerald-200 font-medium';
+        else if (submitted && picked && !ok) cls = 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-700 dark:text-rose-300';
+        return `<button type="button" data-rq-num="${q.num}" data-rq-choice="${esc(o.id)}" class="w-full text-left px-3 py-2 rounded-lg border text-xs transition ${cls}">${esc(o.text.startsWith(o.id + '.') ? o.text : o.id + '. ' + o.text)}</button>`;
+      }).join('')}
+    </div>`;
+  } else if (group.type === 'matching-headings') {
+    const romans = ['i','ii','iii','iv','v','vi','vii','viii'];
+    control = `<select data-rq-input="${q.num}" ${submitted ? 'disabled' : ''} class="mt-2 w-full px-3 py-2 rounded-lg bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-xs">
+      <option value="">-- 選擇段落標題 --</option>
+      ${romans.map(rm => `<option value="${rm}" ${normalizeAns(val) === rm ? 'selected' : ''}>${rm}</option>`).join('')}
+    </select>`;
+  } else if (group.type === 'matching-information') {
+    const letters = ['A','B','C','D','E','F'];
+    control = `<div class="grid grid-cols-6 gap-1.5 mt-2">
+      ${letters.map(lt => {
+        const picked = normalizeAns(val) === normalizeAns(lt);
+        let cls = picked ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-stone-50 dark:bg-slate-800 border-stone-200 dark:border-slate-700';
+        if (submitted && normalizeAns(lt) === normalizeAns(q.answer)) cls = 'bg-emerald-600 text-white border-emerald-600';
+        return `<button type="button" data-rq-num="${q.num}" data-rq-choice="${lt}" class="py-1.5 rounded-lg border text-xs font-semibold ${cls}">${lt}</button>`;
+      }).join('')}
+    </div>`;
+  } else {
+    control = `<input type="text" data-rq-input="${q.num}" value="${esc(val)}" ${submitted ? 'disabled' : ''} placeholder="輸入英文答案..." class="mt-2 w-full px-3 py-2 rounded-lg bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500" />`;
+  }
+
+  return `
+    <div class="p-3 rounded-xl border ${submitted ? (ok ? 'border-emerald-300 dark:border-emerald-900/60 bg-emerald-50/20' : 'border-rose-300 dark:border-rose-900/60 bg-rose-50/20') : 'border-stone-200 dark:border-slate-800'}">
+      <div class="flex items-start justify-between gap-2 text-xs sm:text-sm">
+        <span><b class="text-indigo-600 dark:text-indigo-400">Q${q.num}.</b> ${esc(q.text)}</span>
+        <span class="shrink-0">${statusBadge}</span>
+      </div>
+      ${control}
+    </div>
+  `;
+}
+
+// ========================
+// MODALS (ADD VOCAB & BACKUP)
+// ========================
+function closeModal() {
+  const ov = document.getElementById('modal-overlay');
+  ov.classList.add('hidden');
+  ov.classList.remove('flex');
+}
+
+function openModal(html) {
+  const ov = document.getElementById('modal-overlay');
+  const card = document.getElementById('modal-card');
+  card.innerHTML = html;
+  ov.classList.remove('hidden');
+  ov.classList.add('flex');
+  if (window.lucide) lucide.createIcons();
+}
+
+function openAddVocabModal(prefillWord) {
+  openModal(`
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-bold">新增生詞到生詞本</h3>
+      <button id="m-close" class="p-1 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <form id="form-add-vocab" class="space-y-3 text-sm">
+      <div>
+        <label class="block text-xs font-medium mb-1">英文單字 / 片語 *</label>
+        <input id="fv-word" required value="${esc(prefillWord)}" placeholder="e.g. unprecedented" class="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700" />
+      </div>
+      <div class="grid grid-cols-3 gap-2">
+        <div>
+          <label class="block text-xs font-medium mb-1">詞性</label>
+          <input id="fv-pos" value="adj." class="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700" />
+        </div>
+        <div class="col-span-2">
+          <label class="block text-xs font-medium mb-1">繁體中文釋義 *</label>
+          <input id="fv-zh" required placeholder="例如：史無前例的" class="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium mb-1">英文解釋 / 例句</label>
+        <textarea id="fv-def" rows="2" placeholder="never having happened or existed in the past" class="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700"></textarea>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" id="m-cancel" class="px-4 py-2 rounded-xl bg-stone-100 dark:bg-slate-800 text-xs font-medium">取消</button>
+        <button type="submit" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold">儲存生詞</button>
+      </div>
+    </form>
+  `);
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  document.getElementById('m-cancel').addEventListener('click', closeModal);
+  document.getElementById('form-add-vocab').addEventListener('submit', e => {
+    e.preventDefault();
+    const w = document.getElementById('fv-word').value.trim();
+    const pos = document.getElementById('fv-pos').value.trim() || 'n.';
+    const zh = document.getElementById('fv-zh').value.trim();
+    const def = document.getElementById('fv-def').value.trim() || zh;
+    if (!w || !zh) return;
+    const res = upsertVocabEntry({ word: w, pos, zh, def, note: '自訂／Reading 收錄' });
+    saveState();
+    closeModal();
+    if (res.duplicate) {
+      showToast(`「${res.matchedWord}」已在生詞本中，已自動加上 ★（共 ${res.stars} 顆星）！`);
+    } else {
+      showToast(`已收錄新詞「${w}」到生詞本`);
+    }
+    if (state.activeTab === 'vocab') renderAll();
+  });
+}
+
+function normalizeWordKey(w) {
+  return String(w || '').trim().toLowerCase().replace(/[^a-z\s-]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function upsertVocabEntry({ word, pos, zh, def, note }) {
+  const key = normalizeWordKey(word);
+  const existing = getAllVocab().find(v => normalizeWordKey(v.word) === key);
+  if (existing) {
+    state.vocabStars[existing.id] = (state.vocabStars[existing.id] || 0) + 1;
+    return { duplicate: true, matchedWord: existing.word, stars: state.vocabStars[existing.id] };
+  }
+  state.customVocab.unshift({
+    id: 'cv_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+    page: 'custom',
+    word: word.trim(),
+    pos: (pos || 'n./v.').trim(),
+    zh: (zh || '拍照收錄（可點擊補充中文）').trim(),
+    def: (def || zh || 'Captured from vocab notebook photo').trim(),
+    note: note || '拍照辨識收錄',
+    ex: ''
+  });
+  return { duplicate: false };
+}
+
+function parseVocabLines(rawText) {
+  const lines = String(rawText || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const entries = [];
+  for (const line of lines) {
+    // Match "word (pos) : definition" or "word : definition" or "word - definition"
+    const m = line.match(/^([A-Za-z][A-Za-z\s-]{1,34}?)(?:\s*\(([^)]+)\))?\s*[:：\-–]\s*(.+)$/);
+    if (m) {
+      const w = m[1].trim();
+      const pos = (m[2] || '').trim() || 'n./v.';
+      const rest = m[3].trim();
+      entries.push({ word: w, pos, zh: rest, def: rest });
+    } else if (/^[A-Za-z][A-Za-z\s-]{1,28}$/.test(line)) {
+      entries.push({ word: line.trim(), pos: 'n./v.', zh: '拍照收錄', def: 'Captured from vocab notebook' });
+    }
+  }
+  return entries;
+}
+
+function openPhotoVocabModal() {
+  openModal(`
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-bold flex items-center gap-1.5"><i data-lucide="camera" class="w-4 h-4 text-amber-500"></i> 拍照／圖片錄入生詞</h3>
+      <button id="m-close" class="p-1 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
+      拍下你的手寫或印刷生詞本，系統會自動辨識英文單字與釋義；如果拍到<b>生詞本裡已有的重複詞語</b>，不會重複建卡，而是自動為該詞加上一顆 <b class="text-amber-600">★ 星標</b> 提醒你重點複習！
+    </p>
+    <div class="grid grid-cols-2 gap-2 mb-3">
+      <label class="cursor-pointer py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 text-center transition">
+        <i data-lucide="camera" class="w-4 h-4"></i> 直接拍照
+        <input id="ocr-cam" type="file" accept="image/*" capture="environment" class="hidden" />
+      </label>
+      <label class="cursor-pointer py-2.5 px-3 rounded-xl bg-stone-100 dark:bg-slate-800 hover:bg-stone-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 text-center transition">
+        <i data-lucide="image" class="w-4 h-4"></i> 從相簿選取
+        <input id="ocr-gallery" type="file" accept="image/*" class="hidden" />
+      </label>
+    </div>
+    <div id="ocr-preview-wrap" class="hidden mb-3">
+      <img id="ocr-preview-img" alt="預覽照片" class="max-h-40 w-full object-contain rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800" />
+    </div>
+    <div id="ocr-status" class="hidden mb-3 p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-xs text-indigo-700 dark:text-indigo-300 font-medium"></div>
+    <div class="mb-3">
+      <label class="block text-xs font-semibold mb-1">辨識結果／批次編輯（每行一詞，格式：<code class="text-[11px]">word (pos): 釋義</code>）</label>
+      <textarea id="ocr-textarea" rows="6" placeholder="拍照後會自動填入辨識文字，你也可以直接微調手寫辨識錯字或手動貼上多行單字，例如：&#10;rigid (adj.): 僵化的&#10;mitigate (v.): 減緩、緩和" class="w-full p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-xs font-mono leading-relaxed"></textarea>
+    </div>
+    <div id="ocr-dup-hint" class="text-[11px] text-slate-500 dark:text-slate-400 mb-3"></div>
+    <div class="flex justify-end gap-2">
+      <button type="button" id="m-cancel" class="px-4 py-2 rounded-xl bg-stone-100 dark:bg-slate-800 text-xs font-medium">取消</button>
+      <button type="button" id="btn-ocr-import" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold">一鍵匯入並檢查重複 ★</button>
+    </div>
+  `);
+
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  document.getElementById('m-cancel').addEventListener('click', closeModal);
+
+  const ta = document.getElementById('ocr-textarea');
+  const dupHint = document.getElementById('ocr-dup-hint');
+
+  function updateDupPreview() {
+    const parsed = parseVocabLines(ta.value);
+    if (!parsed.length) { dupHint.textContent = ''; return; }
+    let dupCount = 0;
+    const existingKeys = new Set(getAllVocab().map(v => normalizeWordKey(v.word)));
+    parsed.forEach(p => { if (existingKeys.has(normalizeWordKey(p.word))) dupCount++; });
+    dupHint.innerHTML = `偵測到 <b>${parsed.length}</b> 個詞條：將新增 <b class="text-emerald-600">${parsed.length - dupCount}</b> 個新詞，為 <b class="text-amber-600">${dupCount}</b> 個重複詞加上 ★ 星標。`;
+  }
+  ta.addEventListener('input', updateDupPreview);
+
+  async function handleFile(file) {
+    if (!file) return;
+    const prevWrap = document.getElementById('ocr-preview-wrap');
+    const prevImg = document.getElementById('ocr-preview-img');
+    const statusEl = document.getElementById('ocr-status');
+    prevWrap.classList.remove('hidden');
+    prevImg.src = URL.createObjectURL(file);
+    statusEl.classList.remove('hidden');
+    statusEl.textContent = '正在載入 OCR 辨識引擎並掃描圖片文字...';
+
+    try {
+      if (!window.Tesseract) {
+        statusEl.textContent = 'OCR 引擎尚未載入完成，請稍候或直接在下方輸入詞條。';
+        return;
+      }
+      const result = await window.Tesseract.recognize(file, 'eng', {
+        logger: m => {
+          if (m.status === 'recognizing text' && typeof m.progress === 'number') {
+            statusEl.textContent = `正在辨識英文生詞... ${Math.round(m.progress * 100)}%`;
+          }
+        }
+      });
+      const text = (result && result.data && result.data.text ? result.data.text : '').trim();
+      if (text) {
+        ta.value = (ta.value ? ta.value + '\n' : '') + text;
+        statusEl.textContent = '辨識完成！請快速核對下方手寫辨識文字，確認無誤後點擊「一鍵匯入」。';
+        updateDupPreview();
+      } else {
+        statusEl.textContent = '未能從圖片辨識出清晰英文文字，請嘗試更近距離清晰拍攝或直接手動編輯。';
+      }
+    } catch (err) {
+      statusEl.textContent = '圖片辨識失敗（可能因網路或手寫光線影響），你可以直接在下方輸入或貼上詞條匯入。';
+    }
+  }
+
+  document.getElementById('ocr-cam').addEventListener('change', e => handleFile(e.target.files[0]));
+  document.getElementById('ocr-gallery').addEventListener('change', e => handleFile(e.target.files[0]));
+
+  document.getElementById('btn-ocr-import').addEventListener('click', () => {
+    const parsed = parseVocabLines(ta.value);
+    if (!parsed.length) {
+      showToast('請先拍照辨識或輸入至少一行「單字: 釋義」');
+      return;
+    }
+    let added = 0;
+    let starred = [];
+    parsed.forEach(entry => {
+      const res = upsertVocabEntry({ ...entry, note: '拍照辨識收錄' });
+      if (res.duplicate) starred.push(res.matchedWord);
+      else added++;
+    });
+    saveState();
+    closeModal();
+    renderAll();
+    if (starred.length && added) {
+      showToast(`已新增 ${added} 詞，並為 ${starred.length} 個重複詞加上 ★ 星標！`);
+    } else if (starred.length) {
+      showToast(`偵測到 ${starred.length} 個重複詞（${starred.slice(0, 3).join(', ')}），已自動加上 ★！`);
+    } else {
+      showToast(`已成功新增 ${added} 個生詞！`);
+    }
+  });
+}
+
+function applyContentPack(pack) {
+  let eCount = 0, mCount = 0, rCount = 0, vNew = 0, vStar = 0;
+  if (Array.isArray(pack.essays)) {
+    pack.essays.forEach(e => {
+      if (e && e.title && Array.isArray(e.paragraphs)) {
+        const id = e.id || ('ce_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+        state.customEssays = (state.customEssays || []).filter(x => x.id !== id);
+        state.customEssays.push({ ...e, id, transitions: e.transitions || [], rubric: e.rubric || [] });
+        state.essayId = id;
+        eCount++;
+      }
+    });
+  }
+  if (Array.isArray(pack.mistakes)) {
+    pack.mistakes.forEach(m => {
+      if (m && m.wrong && m.right) {
+        const id = m.id || ('cm_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+        state.customMistakes = (state.customMistakes || []).filter(x => x.id !== id);
+        state.customMistakes.push({ ...m, id, cat: m.cat || '語法與主謂一致', freq: m.freq || '新增', essay: m.essay || '新作文' });
+        mCount++;
+      }
+    });
+  }
+  if (Array.isArray(pack.readings)) {
+    pack.readings.forEach(r => {
+      if (r && r.title && Array.isArray(r.paragraphs)) {
+        const id = r.id || ('cr_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+        state.customReadings = (state.customReadings || []).filter(x => x.id !== id);
+        state.customReadings.push({ ...r, id, tag: r.tag || '新增閱讀', groups: r.groups || [] });
+        state.readingId = id;
+        rCount++;
+      }
+    });
+  }
+  if (Array.isArray(pack.vocab)) {
+    pack.vocab.forEach(v => {
+      if (v && v.word) {
+        const res = upsertVocabEntry({ word: v.word, pos: v.pos, zh: v.zh, def: v.def, note: v.note || '更新包匯入' });
+        if (res.duplicate) vStar++; else vNew++;
+      }
+    });
+  }
+  saveState();
+  return { eCount, mCount, rCount, vNew, vStar };
+}
+
+function decodeBase64Utf8(b64) {
+  const bin = atob(b64.replace(/-/g, '+').replace(/_/g, '/'));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function openImportPackModal() {
+  const ce = state.customEssays || [];
+  const cr = state.customReadings || [];
+  openModal(`
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-bold flex items-center gap-1.5"><i data-lucide="package-plus" class="w-4 h-4 text-indigo-600"></i> 匯入 Gemini 新作文／題目</h3>
+      <button id="m-close" class="p-1 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
+      每次在 Gemini 批改完新作文或生成新 Reading 題目後，把 Gemini 給你的<b>「更新連結」</b>或<b>「匯入資料碼」</b>貼到下方，按一鍵匯入就能直接更新 App，完全不用重新架站！
+    </p>
+    <textarea id="pack-input" rows="6" placeholder="貼上 Gemini 給你的更新連結（含 #import=...）或 JSON 更新碼..." class="w-full p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-xs font-mono mb-3"></textarea>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-[11px] text-slate-400">已匯入：${ce.length} 篇新作文 · ${cr.length} 篇新閱讀</span>
+      <div class="flex gap-2">
+        <button type="button" id="m-cancel" class="px-3.5 py-2 rounded-xl bg-stone-100 dark:bg-slate-800 text-xs font-medium">取消</button>
+        <button type="button" id="btn-do-import" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold">一鍵匯入</button>
+      </div>
+    </div>
+  `);
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  document.getElementById('m-cancel').addEventListener('click', closeModal);
+  document.getElementById('btn-do-import').addEventListener('click', () => {
+    const raw = document.getElementById('pack-input').value.trim();
+    if (!raw) { showToast('請先貼上更新連結或資料碼'); return; }
+    try {
+      let jsonStr = raw;
+      if (raw.includes('#import=')) {
+        jsonStr = decodeBase64Utf8(raw.split('#import=')[1].trim());
+      } else if (!raw.startsWith('{') && !raw.startsWith('[')) {
+        jsonStr = decodeBase64Utf8(raw);
+      }
+      const pack = JSON.parse(jsonStr);
+      const r = applyContentPack(pack);
+      const total = r.eCount + r.mCount + r.rCount + r.vNew + r.vStar;
+      if (!total) { showToast('資料碼內沒有偵測到可匯入的作文、錯題或閱讀內容'); return; }
+      closeModal();
+      if (r.eCount) state.activeTab = 'essays';
+      else if (r.rCount) state.activeTab = 'reading';
+      renderAll();
+      const parts = [];
+      if (r.eCount) parts.push(`${r.eCount} 篇新作文`);
+      if (r.mCount) parts.push(`${r.mCount} 條新錯題`);
+      if (r.rCount) parts.push(`${r.rCount} 篇新閱讀`);
+      if (r.vNew) parts.push(`${r.vNew} 個新生詞`);
+      if (r.vStar) parts.push(`${r.vStar} 個重複詞加★`);
+      showToast('已成功匯入：' + parts.join('、'));
+    } catch (e) {
+      showToast('格式不正確，請完整複製 Gemini 提供的連結或資料碼');
+    }
+  });
+}
+
+function checkUrlImport() {
+  try {
+    const hash = window.location.hash || '';
+    if (hash.startsWith('#import=')) {
+      const payload = hash.slice('#import='.length);
+      const pack = JSON.parse(decodeBase64Utf8(payload));
+      const r = applyContentPack(pack);
+      if (r.eCount + r.mCount + r.rCount + r.vNew + r.vStar > 0) {
+        if (r.eCount) state.activeTab = 'essays';
+        else if (r.rCount) state.activeTab = 'reading';
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        showToast('已從更新連結自動匯入新內容！');
+      }
+    }
+  } catch (e) {}
+}
+
+function openBackupModal() {
+  const jsonStr = JSON.stringify({
+    masteredMistakes: state.masteredMistakes,
+    checklistDone: state.checklistDone,
+    vocabMastered: state.vocabMastered,
+    vocabStars: state.vocabStars,
+    customVocab: state.customVocab,
+    readingAnswers: state.readingAnswers,
+    readingSubmitted: state.readingSubmitted,
+    readingMarks: state.readingMarks
+  }, null, 2);
+  openModal(`
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-base font-bold">學習進度備份 / 跨裝置同步</h3>
+      <button id="m-close" class="p-1 text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">在 iPhone 與 iPad 之間切換時，可複製下方 JSON 貼到另一台裝置匯入，同步生詞進度與錯題紀錄。</p>
+    <textarea id="bk-area" rows="6" class="w-full p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-[11px] font-mono mb-3">${esc(jsonStr)}</textarea>
+    <div class="flex gap-2 justify-end">
+      <button id="bk-copy" class="px-3.5 py-2 rounded-xl bg-stone-100 dark:bg-slate-800 text-xs font-medium">複製備份碼</button>
+      <button id="bk-import" class="px-3.5 py-2 rounded-xl bg-indigo-600 text-white text-xs font-semibold">匯入覆蓋進度</button>
+    </div>
+  `);
+  document.getElementById('m-close').addEventListener('click', closeModal);
+  document.getElementById('bk-copy').addEventListener('click', () => copyText(document.getElementById('bk-area').value));
+  document.getElementById('bk-import').addEventListener('click', () => {
+    try {
+      const obj = JSON.parse(document.getElementById('bk-area').value);
+      state = { ...state, ...obj };
+      saveState();
+      closeModal();
+      renderAll();
+      showToast('已成功匯入學習進度！');
+    } catch (e) {
+      showToast('JSON 格式不正確，請重新確認');
+    }
+  });
+}
+
+// ========================
+// MAIN RENDER LOOP
+// ========================
+function renderAll() {
+  applyTheme();
+  renderNav();
+  const main = document.getElementById('app-main');
+  if (!main) return;
+  if (state.activeTab === 'essays') renderEssays(main);
+  else if (state.activeTab === 'mistakes') renderMistakes(main);
+  else if (state.activeTab === 'toolkit') renderToolkit(main);
+  else if (state.activeTab === 'vocab') renderVocab(main);
+  else if (state.activeTab === 'reading') renderReading(main);
+  if (window.lucide) lucide.createIcons();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-theme').addEventListener('click', () => {
+    state.darkMode = !state.darkMode;
+    saveState();
+    applyTheme();
+    if (window.lucide) lucide.createIcons();
+  });
+  document.getElementById('btn-import-pack').addEventListener('click', openImportPackModal);
+  document.getElementById('btn-backup').addEventListener('click', openBackupModal);
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target.id === 'modal-overlay') closeModal();
+  });
+  checkUrlImport();
+  renderAll();
+});
+</script>
+</body>
+</html>
